@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ResponsiveImage from "../components/ResponsiveImage.astro";
-import { projects } from "../lib/content";
+import { projects, pages } from "../lib/content";
 
+const page = pages.projects;
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -12,20 +13,20 @@ const structuredData = {
 ---
 
 <BaseLayout
-  title="Projects by Hize | Exhibitions, Murals & Collaborations"
-  description="Explore selected projects, exhibitions, murals and collaborations by Spanish urban artist Hize."
-  image="/assets/images/projects/streetxo.jpg"
+  title={page.seoTitle}
+  description={page.seoDescription}
+  image={page.seoImage}
   structuredData={structuredData}
 >
   <section class="project-hero">
     <ResponsiveImage
-      src="/assets/images/projects/streetxo.jpg"
-      alt="Selected Hize project with contemporary abstract graffiti intervention"
+      src={page.heroImage}
+      alt={page.heroAlt}
       loading="eager"
       sizes="100vw"
     />
     <div class="project-hero__content">
-      <h1>Selected Projects & Case Studies</h1>
+      <h1>{page.heroTitle}</h1>
       <div class="project-hero__rule"></div>
     </div>
   </section>
@@ -53,9 +54,9 @@ const structuredData = {
   </section>
 
   <section class="feature-band" style="text-align: center;">
-    <h2>Elevate your space with a bespoke intervention.</h2>
+    <h2>{page.ctaTitle}</h2>
     <div class="button-row" style="justify-content: center;">
-      <a class="button" href="/contact/?type=brand-collaboration">Commission a similar project</a>
+      <a class="button" href={page.ctaButtonHref}>{page.ctaButtonLabel}</a>
     </div>
   </section>
 </BaseLayout>

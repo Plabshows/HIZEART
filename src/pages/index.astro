@@ -5,8 +5,9 @@ import ResponsiveImage from "../components/ResponsiveImage.astro";
 import FeaturedWorks from "../components/FeaturedWorks.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import CTASection from "../components/CTASection.astro";
-import { works, projects, collaborations } from "../lib/content";
+import { works, projects, collaborations, pages } from "../lib/content";
 
+const page = pages.home;
 const featuredWorks = works.filter((work) => work.featured);
 const featuredProjects = projects.slice(0, 3);
 const structuredData = [
@@ -33,101 +34,90 @@ const structuredData = [
 ---
 
 <BaseLayout
-  title="Hize Art | Spanish Abstract Graffiti Artist"
-  description="Discover Hize, a Spanish visual artist transforming traditional graffiti into abstract paintings, murals and immersive VR art experiences."
-  image="/assets/images/canvas/wildsss.jpg"
+  title={page.seoTitle}
+  description={page.seoDescription}
+  image={page.seoImage}
   structuredData={structuredData}
 >
   <Hero
-    title="HIZE"
-    subtitle="Abstract graffiti born from movement, rhythm and urban memory."
-    image="/assets/images/canvas/wildsss.jpg"
-    alt="Hize abstract graffiti artwork with sweeping movement and urban rhythm"
+    title={page.hero.title}
+    subtitle={page.hero.subtitle}
+    image={page.hero.image}
+    alt={page.hero.alt}
     buttons={[
-      { href: "/works/", label: "View Works" },
-      { href: "/contact/", label: "Commission a Project", variant: "secondary" }
+      { href: page.hero.primaryButtonHref, label: page.hero.primaryButtonLabel },
+      { href: page.hero.secondaryButtonHref, label: page.hero.secondaryButtonLabel, variant: "secondary" }
     ]}
   />
 
   <section class="section split-section">
     <ResponsiveImage
-      src="/assets/images/about/hize-art3-portrait.jpg"
-      alt="Manuel Forner Hize photographed with abstract graffiti artwork"
+      src={page.artistStatement.image}
+      alt={page.artistStatement.alt}
     />
     <div>
-      <p class="eyebrow">Artist Statement</p>
-      <h2>From the street to the studio</h2>
-      <p class="lead">
-        After more than 25 years painting graffiti, Hize translates the structure of letters,
-        movement and urban energy into contemporary abstract compositions.
-      </p>
-      <p>
-        Manuel Forner "Hize" is a Spanish visual artist transforming the language of graffiti
-        into abstract paintings, murals and immersive visual experiences.
-      </p>
-      <a class="text-link" href="/about/">Read the artist profile</a>
+      <p class="eyebrow">{page.artistStatement.eyebrow}</p>
+      <h2>{page.artistStatement.title}</h2>
+      <p class="lead">{page.artistStatement.lead}</p>
+      <p>{page.artistStatement.text}</p>
+      <a class="text-link" href={page.artistStatement.linkHref}>{page.artistStatement.linkLabel}</a>
     </div>
   </section>
 
   <section class="section">
-    <FeaturedWorks works={featuredWorks} />
+    <FeaturedWorks
+      works={featuredWorks}
+      eyebrow={page.selectedWorks.eyebrow}
+      title={page.selectedWorks.title}
+      linkLabel={page.selectedWorks.linkLabel}
+      linkHref={page.selectedWorks.linkHref}
+    />
   </section>
 
   <section class="feature-band">
     <div class="page-shell">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Murals & Commissions</p>
-          <h2>Custom artworks and large-scale visual interventions.</h2>
+          <p class="eyebrow">{page.commissions.eyebrow}</p>
+          <h2>{page.commissions.title}</h2>
         </div>
-        <a class="text-link" href="/murals/">View murals</a>
+        <a class="text-link" href={page.commissions.linkHref}>{page.commissions.linkLabel}</a>
       </div>
-      <p class="lead">
-        Custom artworks and large-scale visual interventions for private collections,
-        hospitality spaces, brands and cultural projects.
-      </p>
+      <p class="lead">{page.commissions.lead}</p>
       <div class="commission-blocks">
-        <article>
-          <h3>Private Collectors</h3>
-          <p>Original paintings and commissioned works for private collections and interiors.</p>
-        </article>
-        <article>
-          <h3>Brands & Collaborations</h3>
-          <p>Visual projects for brands, events and cultural activations with a contemporary art language.</p>
-        </article>
-        <article>
-          <h3>Hospitality & Public Spaces</h3>
-          <p>Murals and visual interventions for hotels, restaurants and architectural spaces.</p>
-        </article>
+        {page.commissions.items.map((item: { title: string; text: string }) => (
+          <article>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
       </div>
       <div class="button-row">
-        <a class="button button--primary" href="/contact/">Commission a Project</a>
+        <a class="button button--primary" href={page.commissions.buttonHref}>{page.commissions.buttonLabel}</a>
       </div>
     </div>
   </section>
 
   <section class="section split-section">
     <ResponsiveImage
-      src="/assets/images/vr-art/hize-vr-5.jpg"
-      alt="Hize VR art performance creating digital graffiti in real time"
+      src={page.vrArt.image}
+      alt={page.vrArt.alt}
     />
     <div>
-      <p class="eyebrow">VR Art & Digital Graffiti</p>
-      <h2>A digital extension of graffiti.</h2>
-      <p class="lead">
-        A digital extension of graffiti, where movement, gesture and technology become live visual expression.
-      </p>
-      <a class="text-link" href="/vr-art/">Explore VR Art</a>
+      <p class="eyebrow">{page.vrArt.eyebrow}</p>
+      <h2>{page.vrArt.title}</h2>
+      <p class="lead">{page.vrArt.lead}</p>
+      <a class="text-link" href={page.vrArt.linkHref}>{page.vrArt.linkLabel}</a>
     </div>
   </section>
 
   <section class="section--dark">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">Exhibitions & Collaborations</p>
-        <h2>International contexts, cultural projects and premium collaborations.</h2>
+        <p class="eyebrow">{page.collaborations.eyebrow}</p>
+        <h2>{page.collaborations.title}</h2>
       </div>
-      <a class="text-link" href="/exhibitions/">View timeline</a>
+      <a class="text-link" href={page.collaborations.linkHref}>{page.collaborations.linkLabel}</a>
     </div>
     <div class="logo-strip">
       {collaborations.map((item) => <span>{item.name}</span>)}
@@ -137,10 +127,10 @@ const structuredData = [
   <section class="section">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">Latest Projects</p>
-        <h2>Selected projects, murals and collaborations.</h2>
+        <p class="eyebrow">{page.latestProjects.eyebrow}</p>
+        <h2>{page.latestProjects.title}</h2>
       </div>
-      <a class="text-link" href="/projects/">View all projects</a>
+      <a class="text-link" href={page.latestProjects.linkHref}>{page.latestProjects.linkLabel}</a>
     </div>
     <div class="project-grid">
       {featuredProjects.map((project) => <ProjectCard project={project} />)}
@@ -148,11 +138,11 @@ const structuredData = [
   </section>
 
   <CTASection
-    title="For artworks, murals, commissions and collaborations."
-    text="Request available works, discuss a mural or start a brand, hospitality or cultural project with Hize."
+    title={page.cta.title}
+    text={page.cta.text}
     buttons={[
-      { href: "/available-works/", label: "Request Available Works" },
-      { href: "/contact/", label: "Contact the Artist", variant: "secondary" }
+      { href: page.cta.primaryButtonHref, label: page.cta.primaryButtonLabel },
+      { href: page.cta.secondaryButtonHref, label: page.cta.secondaryButtonLabel, variant: "secondary" }
     ]}
   />
 </BaseLayout>

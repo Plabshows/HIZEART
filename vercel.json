@@ -5,6 +5,11 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "trailingSlash": true,
+  "functions": {
+    "api/admin/*.js": {
+      "maxDuration": 30
+    }
+  },
   "redirects": [
     { "source": "/bio", "destination": "/about", "permanent": true },
     { "source": "/bio/", "destination": "/about/", "permanent": true },
@@ -41,6 +46,23 @@
         {
           "key": "X-Robots-Tag",
           "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/api/admin/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
         }
       ]
     },

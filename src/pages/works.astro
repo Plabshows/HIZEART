@@ -2,8 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import WorkCard from "../components/WorkCard.astro";
 import FilterBar from "../components/FilterBar.astro";
-import { works } from "../lib/content";
+import { works, pages } from "../lib/content";
 
+const page = pages.works;
 const filters = [
   { label: "All", value: "all" },
   { label: "Canvas", value: "canvas" },
@@ -23,18 +24,15 @@ const structuredData = {
 ---
 
 <BaseLayout
-  title="Abstract Graffiti Paintings by Hize"
-  description="Explore original canvas works by Hize, combining graffiti structure, movement, colour and abstract contemporary composition."
-  image="/assets/images/canvas/wildsss.jpg"
+  title={page.seoTitle}
+  description={page.seoDescription}
+  image={page.seoImage}
   structuredData={structuredData}
 >
   <section class="page-shell page-intro page-intro--center page-intro--display">
-    <p class="eyebrow">Works</p>
-    <h1>Selected Works</h1>
-    <p>
-      Explore original artworks by Hize, where graffiti structures, movement and urban rhythm
-      are transformed into abstract contemporary compositions.
-    </p>
+    <p class="eyebrow">{page.eyebrow}</p>
+    <h1>{page.title}</h1>
+    <p>{page.intro}</p>
     <FilterBar filters={filters} />
   </section>
 

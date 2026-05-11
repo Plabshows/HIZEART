@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import puppeteer from "puppeteer-core";
 
-const baseUrl = "http://127.0.0.1:4321";
+const baseUrl = process.env.BASE_URL || "http://127.0.0.1:4321";
 const chromePath = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const screenshotDir = path.resolve("artifacts/screenshots");
 const pages = ["/", "/works/", "/available-works/", "/murals/", "/projects/", "/vr-art/", "/exhibitions/", "/about/", "/contact/"];

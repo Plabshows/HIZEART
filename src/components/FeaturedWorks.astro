@@ -15,15 +15,25 @@ interface Work {
 
 interface Props {
   works: Work[];
+  eyebrow?: string;
+  title?: string;
+  linkLabel?: string;
+  linkHref?: string;
 }
 
-const { works } = Astro.props;
+const {
+  works,
+  eyebrow = "Selected Works",
+  title = "Abstract graffiti transformed into contemporary visual language.",
+  linkLabel = "View all works",
+  linkHref = "/works/"
+} = Astro.props;
 ---
 
 <div class="section-heading">
-  <p class="eyebrow">Selected Works</p>
-  <h2>Abstract graffiti transformed into contemporary visual language.</h2>
-  <a class="text-link" href="/works/">View all works</a>
+  <p class="eyebrow">{eyebrow}</p>
+  <h2>{title}</h2>
+  <a class="text-link" href={linkHref}>{linkLabel}</a>
 </div>
 <div class="work-grid">
   {works.slice(0, 8).map((work) => <WorkCard work={work} ctaLabel="View Work" />)}

@@ -5,18 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
     <title>HIZE ART Admin</title>
-    <meta name="description" content="Private content management area for HIZE ART." />
+    <meta name="description" content="Private content management panel for HIZE ART on Vercel." />
     <link rel="icon" type="image/png" href="/assets/icons/hize-favicon.png" />
     <link rel="canonical" href="https://hizeart.vercel.app/admin/" />
     <meta property="og:title" content="HIZE ART Admin" />
-    <meta property="og:description" content="Private content management area for HIZE ART." />
+    <meta property="og:description" content="Private content management panel for HIZE ART on Vercel." />
     <meta property="og:image" content="https://hizeart.vercel.app/assets/images/featured/hero-visitacastellon.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="HIZE ART Admin" />
-    <meta name="twitter:description" content="Private content management area for HIZE ART." />
+    <meta name="twitter:description" content="Private content management panel for HIZE ART on Vercel." />
     <meta name="twitter:image" content="https://hizeart.vercel.app/assets/images/featured/hero-visitacastellon.jpg" />
+    <link rel="stylesheet" href="/admin/admin.css" />
   </head>
   <body>
-    <script src="https://unpkg.com/decap-cms@^3.8.3/dist/decap-cms.js"></script>
+    <main class="admin-shell">
+      <section class="login-panel" data-login-view hidden>
+        <div>
+          <p class="eyebrow">Private Admin</p>
+          <h1>HIZE ART</h1>
+          <p>Sign in to edit pages, works, projects, murals, exhibitions and uploaded images for the Vercel site.</p>
+        </div>
+        <form class="login-form" data-login-form>
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="username" required value="info@hizeart.com" />
+          </label>
+          <label>
+            <span>Password</span>
+            <input name="password" type="password" autocomplete="current-password" required />
+          </label>
+          <button type="submit">Enter Admin</button>
+          <p class="status" data-login-status></p>
+        </form>
+      </section>
+
+      <section class="dashboard" data-dashboard-view hidden>
+        <aside class="sidebar">
+          <a class="brand" href="/">HIZE <span>ART</span></a>
+          <nav data-section-nav></nav>
+          <button class="secondary" type="button" data-logout>Sign out</button>
+        </aside>
+
+        <section class="workspace">
+          <header class="workspace-header">
+            <div>
+              <p class="eyebrow" data-current-kicker>Content</p>
+              <h1 data-current-title>Dashboard</h1>
+              <p data-current-help>Edit content, upload images and save to GitHub. Vercel redeploys automatically after each save.</p>
+            </div>
+            <div class="header-actions">
+              <a class="secondary link-button" href="/" target="_blank" rel="noreferrer">View site</a>
+              <button type="button" data-save>Save changes</button>
+            </div>
+          </header>
+          <p class="notice" data-global-status></p>
+          <div class="editor-grid" data-editor></div>
+        </section>
+      </section>
+    </main>
+
+    <template data-empty-card>
+      <article class="empty-card">
+        <h2>Select a section</h2>
+        <p>Choose a page or collection from the left menu.</p>
+      </article>
+    </template>
+
+    <script type="module" src="/admin/admin.js"></script>
   </body>
 </html>

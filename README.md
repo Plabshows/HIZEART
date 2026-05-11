@@ -54,15 +54,17 @@ More detail is in `DEPLOY_VERCEL.md`.
 
 The admin is available at `/admin/` after deployment.
 
-It uses Decap CMS with the GitHub backend:
+It is a custom password-protected panel for the Vercel site:
 
-- edits JSON files in `data/`
+- edits page content in `data/pages.json`
+- edits works, projects, murals, exhibitions, collaborations and asset lists in `data/`
 - uploads new images to `public/assets/images/uploads/`
-- commits CMS changes to `main`
+- commits admin changes to `main`
 - Vercel deploys automatically after each GitHub commit
 
 Editable areas:
 
+- Page content
 - Works
 - Projects
 - Murals
@@ -70,17 +72,4 @@ Editable areas:
 - Home collaborations strip
 - Image catalogue
 
-For local CMS testing, run Astro and the local Decap proxy in separate terminals:
-
-```bash
-npm run dev
-npm run cms:local
-```
-
-Then open:
-
-```text
-http://localhost:4321/admin/
-```
-
-For production login on Vercel, Decap CMS needs GitHub OAuth because it writes to GitHub. See `DEPLOY_VERCEL.md`.
+Production setup requires admin and GitHub token environment variables in Vercel. See `ADMIN_SETUP.md`.

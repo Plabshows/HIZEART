@@ -1,4 +1,7 @@
 ---
+import fs from "node:fs";
+import path from "node:path";
+
 interface Props {
   src: string;
   alt: string;
@@ -16,9 +19,11 @@ const {
 } = Astro.props;
 
 const webp = src.replace(/\.(jpe?g|png)$/i, ".webp");
+const webpPath = path.join(process.cwd(), "public", webp.replace(/^\//, ""));
+const hasWebp = /\.(jpe?g|png)$/i.test(src) && fs.existsSync(webpPath);
 ---
 
 <picture>
-  <source srcset={webp} type="image/webp" sizes={sizes} />
+  {hasWebp && <source srcset={webp} type="image/webp" sizes={sizes} />}
   <img class={className} src={src} alt={alt} loading={loading} decoding="async" sizes={sizes} />
 </picture>

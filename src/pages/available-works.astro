@@ -2,8 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import WorkCard from "../components/WorkCard.astro";
 import CTASection from "../components/CTASection.astro";
-import { works } from "../lib/content";
+import { works, pages } from "../lib/content";
 
+const page = pages.availableWorks;
 const availableWorks = works.filter((work) => work.availability === "Available");
 const structuredData = {
   "@context": "https://schema.org",
@@ -14,21 +15,18 @@ const structuredData = {
 ---
 
 <BaseLayout
-  title="Available Artworks by Hize"
-  description="Browse available original artworks by Hize and request details for paintings, commissions and collector enquiries."
-  image="/assets/images/canvas/canvas.jpg"
+  title={page.seoTitle}
+  description={page.seoDescription}
+  image={page.seoImage}
   structuredData={structuredData}
 >
   <section class="page-shell page-intro">
-    <p class="eyebrow">Available Works</p>
-    <h1>Available Original Artworks</h1>
-    <p>
-      Explore available original artworks by Hize. Each piece is created from the structure,
-      rhythm and energy of graffiti, transformed into abstract contemporary compositions.
-    </p>
+    <p class="eyebrow">{page.eyebrow}</p>
+    <h1>{page.title}</h1>
+    <p>{page.intro}</p>
     <div class="note-bar">
-      <span>Certificate of authenticity included</span>
-      <span>International shipping available upon request</span>
+      <span>{page.noteOne}</span>
+      <span>{page.noteTwo}</span>
     </div>
   </section>
 
@@ -37,27 +35,21 @@ const structuredData = {
       {availableWorks.map((work) => <WorkCard work={work} showDetails ctaLabel="Enquire about this work" />)}
     </div>
     <div class="stats-grid" style="margin-top: 2rem;">
-      <article class="info-card">
-        <h3>Certificate included</h3>
-        <p>Certificate of authenticity included with available original artworks.</p>
-      </article>
-      <article class="info-card">
-        <h3>International enquiries</h3>
-        <p>International shipping available upon request.</p>
-      </article>
-      <article class="info-card">
-        <h3>Catalogue request</h3>
-        <p>Request the current catalogue for details, prices and availability confirmation.</p>
-      </article>
+      {page.infoCards.map((card: { title: string; text: string }) => (
+        <article class="info-card">
+          <h3>{card.title}</h3>
+          <p>{card.text}</p>
+        </article>
+      ))}
     </div>
   </section>
 
   <CTASection
-    title="Request Full Catalogue"
-    text="Receive available works, prices on request and collector details directly from the studio."
+    title={page.cta.title}
+    text={page.cta.text}
     buttons={[
-      { href: "/contact/?type=available-artwork", label: "Request Catalogue" },
-      { href: "/works/", label: "View Works", variant: "secondary" }
+      { href: page.cta.primaryButtonHref, label: page.cta.primaryButtonLabel },
+      { href: page.cta.secondaryButtonHref, label: page.cta.secondaryButtonLabel, variant: "secondary" }
     ]}
   />
 </BaseLayout>

@@ -1,0 +1,301 @@
+{
+  "pages": {
+    "home": {
+      "seoTitle": "Hize Art | Spanish Abstract Graffiti Artist",
+      "seoDescription": "Discover Hize, a Spanish visual artist transforming traditional graffiti into abstract paintings, murals and immersive VR art experiences.",
+      "seoImage": "/assets/images/canvas/wildsss.jpg",
+      "hero": {
+        "title": "HIZE",
+        "subtitle": "Abstract graffiti born from movement, rhythm and urban memory.",
+        "image": "/assets/images/canvas/wildsss.jpg",
+        "alt": "Hize abstract graffiti artwork with sweeping movement and urban rhythm",
+        "primaryButtonLabel": "View Works",
+        "primaryButtonHref": "/works/",
+        "secondaryButtonLabel": "Commission a Project",
+        "secondaryButtonHref": "/contact/"
+      },
+      "artistStatement": {
+        "eyebrow": "Artist Statement",
+        "title": "From the street to the studio",
+        "lead": "After more than 25 years painting graffiti, Hize translates the structure of letters, movement and urban energy into contemporary abstract compositions.",
+        "text": "Manuel Forner \"Hize\" is a Spanish visual artist transforming the language of graffiti into abstract paintings, murals and immersive visual experiences.",
+        "image": "/assets/images/about/hize-art3-portrait.jpg",
+        "alt": "Manuel Forner Hize photographed with abstract graffiti artwork",
+        "linkLabel": "Read the artist profile",
+        "linkHref": "/about/"
+      },
+      "selectedWorks": {
+        "eyebrow": "Selected Works",
+        "title": "Abstract graffiti transformed into contemporary visual language.",
+        "linkLabel": "View all works",
+        "linkHref": "/works/"
+      },
+      "commissions": {
+        "eyebrow": "Murals & Commissions",
+        "title": "Custom artworks and large-scale visual interventions.",
+        "lead": "Custom artworks and large-scale visual interventions for private collections, hospitality spaces, brands and cultural projects.",
+        "linkLabel": "View murals",
+        "linkHref": "/murals/",
+        "buttonLabel": "Commission a Project",
+        "buttonHref": "/contact/",
+        "items": [
+          {
+            "title": "Private Collectors",
+            "text": "Original paintings and commissioned works for private collections and interiors."
+          },
+          {
+            "title": "Brands & Collaborations",
+            "text": "Visual projects for brands, events and cultural activations with a contemporary art language."
+          },
+          {
+            "title": "Hospitality & Public Spaces",
+            "text": "Murals and visual interventions for hotels, restaurants and architectural spaces."
+          }
+        ]
+      },
+      "vrArt": {
+        "eyebrow": "VR Art & Digital Graffiti",
+        "title": "A digital extension of graffiti.",
+        "lead": "A digital extension of graffiti, where movement, gesture and technology become live visual expression.",
+        "image": "/assets/images/vr-art/hize-vr-5.jpg",
+        "alt": "Hize VR art performance creating digital graffiti in real time",
+        "linkLabel": "Explore VR Art",
+        "linkHref": "/vr-art/"
+      },
+      "collaborations": {
+        "eyebrow": "Exhibitions & Collaborations",
+        "title": "International contexts, cultural projects and premium collaborations.",
+        "linkLabel": "View timeline",
+        "linkHref": "/exhibitions/"
+      },
+      "latestProjects": {
+        "eyebrow": "Latest Projects",
+        "title": "Selected projects, murals and collaborations.",
+        "linkLabel": "View all projects",
+        "linkHref": "/projects/"
+      },
+      "cta": {
+        "title": "For artworks, murals, commissions and collaborations.",
+        "text": "Request available works, discuss a mural or start a brand, hospitality or cultural project with Hize.",
+        "primaryButtonLabel": "Request Available Works",
+        "primaryButtonHref": "/available-works/",
+        "secondaryButtonLabel": "Contact the Artist",
+        "secondaryButtonHref": "/contact/"
+      }
+    },
+    "works": {
+      "seoTitle": "Abstract Graffiti Paintings by Hize",
+      "seoDescription": "Explore original canvas works by Hize, combining graffiti structure, movement, colour and abstract contemporary composition.",
+      "seoImage": "/assets/images/canvas/wildsss.jpg",
+      "eyebrow": "Works",
+      "title": "Selected Works",
+      "intro": "Explore original artworks by Hize, where graffiti structures, movement and urban rhythm are transformed into abstract contemporary compositions."
+    },
+    "availableWorks": {
+      "seoTitle": "Available Artworks by Hize",
+      "seoDescription": "Browse available original artworks by Hize and request details for paintings, commissions and collector enquiries.",
+      "seoImage": "/assets/images/canvas/canvas.jpg",
+      "eyebrow": "Available Works",
+      "title": "Available Original Artworks",
+      "intro": "Explore available original artworks by Hize. Each piece is created from the structure, rhythm and energy of graffiti, transformed into abstract contemporary compositions.",
+      "noteOne": "Certificate of authenticity included",
+      "noteTwo": "International shipping available upon request",
+      "infoCards": [
+        {
+          "title": "Certificate included",
+          "text": "Certificate of authenticity included with available original artworks."
+        },
+        {
+          "title": "International enquiries",
+          "text": "International shipping available upon request."
+        },
+        {
+          "title": "Catalogue request",
+          "text": "Request the current catalogue for details, prices and availability confirmation."
+        }
+      ],
+      "cta": {
+        "title": "Request Full Catalogue",
+        "text": "Receive available works, prices on request and collector details directly from the studio.",
+        "primaryButtonLabel": "Request Catalogue",
+        "primaryButtonHref": "/contact/?type=available-artwork",
+        "secondaryButtonLabel": "View Works",
+        "secondaryButtonHref": "/works/"
+      }
+    },
+    "murals": {
+      "seoTitle": "Murals by Hize | Abstract Graffiti & Urban Art",
+      "seoDescription": "Large-scale murals and custom wall artworks by Hize for brands, hospitality spaces, private clients and cultural projects.",
+      "seoImage": "/assets/images/murals/mural-torreblanca.jpg",
+      "heroTitle": "Large-scale abstract graffiti murals for brands, interiors, hospitality spaces and cultural projects.",
+      "heroImage": "/assets/images/murals/mural-torreblanca.jpg",
+      "heroAlt": "Large scale abstract graffiti mural by Hize in Spain",
+      "selectedEyebrow": "Selected Murals",
+      "process": {
+        "eyebrow": "Process & Execution",
+        "title": "The authority of the avant-garde applied to structural space.",
+        "lead": "Each mural is developed from the identity of the space, combining Hize's graffiti roots with abstract composition, colour and movement. The execution balances street-level kinetic energy with the disciplined restraint of a gallery installation.",
+        "image": "/assets/images/murals/img-2752-mural.jpeg",
+        "alt": "Spanish urban artist Hize painting large scale mural",
+        "steps": [
+          "01. Site Analysis",
+          "02. Conceptual Development",
+          "03. Execution & Integration"
+        ]
+      },
+      "cta": {
+        "title": "Commission a Mural",
+        "text": "Hotels, restaurants, private villas, brands and cultural spaces.",
+        "primaryButtonLabel": "Start a Conversation",
+        "primaryButtonHref": "/contact/?type=mural-commission"
+      }
+    },
+    "projects": {
+      "seoTitle": "Projects by Hize | Exhibitions, Murals & Collaborations",
+      "seoDescription": "Explore selected projects, exhibitions, murals and collaborations by Spanish urban artist Hize.",
+      "seoImage": "/assets/images/projects/streetxo.jpg",
+      "heroTitle": "Selected Projects & Case Studies",
+      "heroImage": "/assets/images/projects/streetxo.jpg",
+      "heroAlt": "Selected Hize project with contemporary abstract graffiti intervention",
+      "ctaTitle": "Elevate your space with a bespoke intervention.",
+      "ctaButtonLabel": "Commission a similar project",
+      "ctaButtonHref": "/contact/?type=brand-collaboration"
+    },
+    "vrArt": {
+      "seoTitle": "VR Art by Hize | Digital Graffiti Experiences",
+      "seoDescription": "Immersive VR art and digital graffiti performances by Hize, blending urban culture, movement and contemporary visual technology.",
+      "seoImage": "/assets/images/vr-art/hize-vr-5.jpg",
+      "heroTitle": "VR Art is the digital extension of Hize's graffiti language - transforming gesture, movement and rhythm into immersive visual experiences.",
+      "heroImage": "/assets/images/vr-art/hize-vr-5.jpg",
+      "heroAlt": "Hize VR art performance creating digital graffiti in real time",
+      "introEyebrow": "What is VR Art?",
+      "introLead": "It is not merely a translation of physical paint to a digital canvas. It is the liberation of the mark from gravity and surface, using movement, gesture and spatial drawing as live visual expression.",
+      "introText": "This practice bridges the visceral, kinetic energy of street art with immersive digital tools, resulting in environments that are simultaneously raw and meticulously engineered.",
+      "disciplinesTitle": "Core Disciplines",
+      "disciplines": [
+        {
+          "eyebrow": "Live Digital Graffiti",
+          "title": "Real-time spatial art.",
+          "text": "Audiences witness the genesis of form and colour in motion, projected or experienced through immersive formats."
+        },
+        {
+          "eyebrow": "Events & Performances",
+          "title": "Temporal zones between physical and digital.",
+          "text": "Curated performances for galleries, festivals, cultural institutions and private events."
+        },
+        {
+          "eyebrow": "Brand Experiences",
+          "title": "Bespoke virtual environments.",
+          "text": "Brand identity translated into an avant-garde language of digital spatial design."
+        }
+      ],
+      "visualsTitle": "Selected Visuals",
+      "visualsCounter": "01 - 06",
+      "visuals": [
+        {
+          "src": "/assets/images/vr-art/hize-vr-5.jpg",
+          "alt": "Hize VR art performance creating digital graffiti in real time"
+        },
+        {
+          "src": "/assets/images/vr-art/hize-vr4.jpg",
+          "alt": "Hize immersive VR graffiti visual performance"
+        },
+        {
+          "src": "/assets/images/vr-art/hize-vr-2.jpg",
+          "alt": "Hize digital graffiti gesture in a VR art environment"
+        },
+        {
+          "src": "/assets/images/vr-art/hize-vr-3.jpg",
+          "alt": "Hize VR art performance with colorful digital graffiti forms"
+        },
+        {
+          "src": "/assets/images/vr-art/hize-tragek-web.jpg",
+          "alt": "Hize digital graffiti collaboration in immersive visual format"
+        },
+        {
+          "src": "/assets/images/vr-art/sin-titulo-189.jpg",
+          "alt": "Hize VR art visual composition with abstract graffiti movement"
+        }
+      ],
+      "cta": {
+        "title": "Commission the Infinite",
+        "text": "Contact for VR Art projects, immersive performances and brand experiences.",
+        "primaryButtonLabel": "Contact for VR Art Projects",
+        "primaryButtonHref": "/contact/?type=vr-art-project",
+        "secondaryButtonLabel": "Request Performance Details",
+        "secondaryButtonHref": "/projects/vr-art-performance/"
+      }
+    },
+    "exhibitions": {
+      "seoTitle": "Exhibitions by Hize | International Projects & Collaborations",
+      "seoDescription": "Explore selected exhibitions, international projects, murals and collaborations by Spanish contemporary urban artist Hize.",
+      "seoImage": "/assets/images/graffiti/osaka-web.jpg",
+      "eyebrow": "Exhibitions & Collaborations",
+      "title": "International projects, exhibitions and collaborations.",
+      "intro": "A timeline of selected cultural contexts, brand collaborations, mural projects and VR Art performances."
+    },
+    "about": {
+      "seoTitle": "About Hize | Manuel Forner, Spanish Urban Artist",
+      "seoDescription": "Manuel Forner Hize is a Spanish artist with over 25 years in graffiti, creating abstract works, murals and visual projects worldwide.",
+      "seoImage": "/assets/images/about/hize-bio.jpg",
+      "portraitImage": "/assets/images/about/hize-bio.jpg",
+      "portraitAlt": "Portrait of Spanish urban artist Manuel Forner Hize",
+      "metaOne": "Manuel Forner \"Hize\"",
+      "metaTwo": "Spain / International",
+      "eyebrow": "About",
+      "title": "Translating the kinetic energy of the street into disciplined contemplation.",
+      "paragraphs": [
+        "Manuel Forner \"Hize\" is a Spanish visual artist whose work transforms the language of traditional graffiti into abstract contemporary compositions. With a trajectory spanning over 25 years, his evolution reflects a continuous refinement of raw urban energy into sophisticated, gallery-ready forms.",
+        "Born from more than 25 years of painting in the streets, his practice explores the hidden structures between letters, the rhythm of movement, and the visual energy of urban culture.",
+        "Before fully developing his studio practice, Hize built a parallel career in dance and entertainment, working internationally as a breakdancer, performer and creative director. This connection between body, rhythm and gesture became a central part of his artistic language."
+      ],
+      "quote": "From the street to the studio, Hize reinterprets the foundations of graffiti beyond the wall, stripping away noise to reveal movement, rhythm and urban memory.",
+      "exhibitionsEyebrow": "Selected Exhibitions",
+      "exhibitionsTitle": "Exhibitions, collaborations and international projects.",
+      "exhibitionsLinkLabel": "Full timeline",
+      "collaborationsEyebrow": "Selected Collaborations",
+      "collaborationsTitle": "Instagram\nBvlgari\nValentino",
+      "portfolioText": "For complete curriculum vitae, press materials, private acquisitions or gallery representation.",
+      "portfolioButtonLabel": "Download Portfolio",
+      "portfolioButtonHref": "/contact/?type=portfolio",
+      "contactButtonLabel": "Contact Studio",
+      "contactButtonHref": "/contact/",
+      "cta": {
+        "title": "Request portfolio, press kit or collaboration details.",
+        "text": "For galleries, press, brands, collectors and cultural projects.",
+        "primaryButtonLabel": "Contact the Artist",
+        "primaryButtonHref": "/contact/?type=press-gallery"
+      }
+    },
+    "contact": {
+      "seoTitle": "Contact Hize | Artworks, Murals & Commissions",
+      "seoDescription": "Contact Hize for original artworks, mural commissions, brand collaborations, exhibitions and immersive art projects.",
+      "seoImage": "/assets/images/murals/webnew-mural.jpg",
+      "eyebrow": "Contact & Commissions",
+      "title": "Artworks, murals, commissions and collaborations.",
+      "intro": "Please direct all enquiries via the form below or contact the studio directly. We aim to respond within 48 hours.",
+      "paths": [
+        {
+          "eyebrow": "Collectors",
+          "title": "Request available works catalogue.",
+          "text": "Ask for current available works, measurements, prices on request and shipping details."
+        },
+        {
+          "eyebrow": "Commissions",
+          "title": "Commission a painting, mural or custom visual project.",
+          "text": "Share the location, scale, timeline and project context."
+        },
+        {
+          "eyebrow": "Galleries / Press / Brands",
+          "title": "Request portfolio, press kit or collaboration details.",
+          "text": "For exhibitions, editorials, cultural projects, brand activations and VR Art."
+        },
+        {
+          "eyebrow": "Email",
+          "title": "info@hizeart.com",
+          "text": "Spain / International"
+        }
+      ]
+    }
+  }
+}

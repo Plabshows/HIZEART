@@ -12,16 +12,17 @@ This Astro site is prepared for Vercel as a static deployment.
 
 The same settings are defined in `vercel.json`.
 
-## Admin CMS
+## Admin Panel
 
-The project includes a Decap CMS admin at:
+The project includes a custom password-protected admin at:
 
 ```text
 /admin/
 ```
 
-The CMS edits the GitHub repository directly:
+The admin edits the GitHub repository directly through Vercel serverless API routes:
 
+- `data/pages.json`
 - `data/works.json`
 - `data/projects.json`
 - `data/murals.json`
@@ -30,42 +31,24 @@ The CMS edits the GitHub repository directly:
 - `data/assets.json`
 - uploaded media in `public/assets/images/uploads/`
 
-When content is saved in the admin, Decap commits to GitHub. Vercel then deploys the new version automatically.
+When content is saved in the admin, the API commits to GitHub. Vercel then deploys the new version automatically.
 
-### Production CMS Authentication
+### Production Admin Authentication
 
-Decap CMS uses the GitHub backend in `public/admin/config.yml`:
+Set these environment variables in Vercel Project Settings:
 
-```yaml
-backend:
-  name: github
-  repo: Plabshows/HIZEART
-  branch: main
+```txt
+ADMIN_EMAIL=info@hizeart.com
+ADMIN_PASSWORD=your-private-admin-password
+SESSION_SECRET=a-long-random-secret
+GITHUB_REPO=Plabshows/HIZEART
+GITHUB_BRANCH=main
+GITHUB_TOKEN=github-token-with-repo-contents-read-write-access
 ```
 
-GitHub users must have push access to the repository.
+For stronger security, use `ADMIN_PASSWORD_HASH` instead of `ADMIN_PASSWORD`. Full details are in `ADMIN_SETUP.md`.
 
-For production on Vercel, configure one OAuth option before relying on `/admin/`:
-
-1. Use a GitHub OAuth proxy compatible with Vercel/serverless and set `backend.base_url` in `public/admin/config.yml`.
-2. Or use Netlify's GitHub authentication service for Decap.
-
-Decap's official docs note that GitHub authentication requires a server/proxy, so the admin page is included and configured, but production login needs that OAuth step.
-
-### Local CMS Testing
-
-Run these in two terminals:
-
-```bash
-npm run dev
-npm run cms:local
-```
-
-Then open:
-
-```text
-http://localhost:4321/admin/
-```
+The GitHub token should be a fine-grained Personal Access Token with Contents read/write access only for `Plabshows/HIZEART`.
 
 ## Pre-Deploy Check
 
@@ -128,4 +111,4 @@ If anything fails after DNS cutover:
 
 - `vercel.json` includes redirects for old URLs.
 - `_redirects` is kept for Netlify compatibility, but Vercel uses `vercel.json`.
-- The site is static; no Vercel adapter is required unless SSR/API routes are added later.
+- The public site is static; only `/api/admin/*` uses Vercel serverless functions for the private admin.

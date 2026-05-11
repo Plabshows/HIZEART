@@ -4,6 +4,7 @@ import muralsData from "../../data/murals.json";
 import exhibitionsData from "../../data/exhibitions.json";
 import collaborationsData from "../../data/collaborations.json";
 import assetsData from "../../data/assets.json";
+import pagesData from "../../data/pages.json";
 
 export type Work = {
   id: string;
@@ -65,6 +66,8 @@ export type AssetFolder = {
   files: string[];
 };
 
+export type PageContent = Record<string, any>;
+
 function collection<T>(data: unknown, key: string): T[] {
   if (Array.isArray(data)) return data as T[];
   if (data && typeof data === "object" && Array.isArray((data as Record<string, unknown>)[key])) {
@@ -79,3 +82,4 @@ export const murals = collection<Mural>(muralsData, "murals");
 export const exhibitions = collection<Exhibition>(exhibitionsData, "exhibitions");
 export const collaborations = collection<Collaboration>(collaborationsData, "collaborations");
 export const assets = collection<AssetFolder>(assetsData, "assets");
+export const pages = ((pagesData as { pages?: PageContent }).pages || {}) as PageContent;

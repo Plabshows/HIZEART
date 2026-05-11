@@ -2,8 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ResponsiveImage from "../components/ResponsiveImage.astro";
 import CTASection from "../components/CTASection.astro";
-import { murals } from "../lib/content";
+import { murals, pages } from "../lib/content";
 
+const page = pages.murals;
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -13,26 +14,26 @@ const structuredData = {
 ---
 
 <BaseLayout
-  title="Murals by Hize | Abstract Graffiti & Urban Art"
-  description="Large-scale murals and custom wall artworks by Hize for brands, hospitality spaces, private clients and cultural projects."
-  image="/assets/images/murals/mural-torreblanca.jpg"
+  title={page.seoTitle}
+  description={page.seoDescription}
+  image={page.seoImage}
   structuredData={structuredData}
 >
   <section class="editorial-hero">
     <div class="editorial-hero__media">
       <ResponsiveImage
-        src="/assets/images/murals/mural-torreblanca.jpg"
-        alt="Large scale abstract graffiti mural by Hize in Spain"
+        src={page.heroImage}
+        alt={page.heroAlt}
         loading="eager"
         sizes="100vw"
       />
     </div>
-    <h1>Large-scale abstract graffiti murals for brands, interiors, hospitality spaces and cultural projects.</h1>
+    <h1>{page.heroTitle}</h1>
   </section>
 
   <section class="section">
     <div class="section-heading">
-      <p class="eyebrow">Selected Murals</p>
+      <p class="eyebrow">{page.selectedEyebrow}</p>
     </div>
     <div class="editorial-grid">
       {murals.map((mural) => (
@@ -60,26 +61,20 @@ const structuredData = {
   <section class="feature-band">
     <div class="page-shell split-section split-section--reverse">
       <div>
-        <p class="eyebrow">Process & Execution</p>
-        <h2>The authority of the avant-garde applied to structural space.</h2>
-        <p class="lead">
-          Each mural is developed from the identity of the space, combining Hize's graffiti roots with abstract
-          composition, colour and movement. The execution balances street-level kinetic energy with the
-          disciplined restraint of a gallery installation.
-        </p>
+        <p class="eyebrow">{page.process.eyebrow}</p>
+        <h2>{page.process.title}</h2>
+        <p class="lead">{page.process.lead}</p>
         <div class="process-list">
-          <span>01. Site Analysis</span>
-          <span>02. Conceptual Development</span>
-          <span>03. Execution & Integration</span>
+          {page.process.steps.map((step: string) => <span>{step}</span>)}
         </div>
       </div>
-      <ResponsiveImage src="/assets/images/murals/img-2752-mural.jpeg" alt="Spanish urban artist Hize painting large scale mural" />
+      <ResponsiveImage src={page.process.image} alt={page.process.alt} />
     </div>
   </section>
 
   <CTASection
-    title="Commission a Mural"
-    text="Hotels, restaurants, private villas, brands and cultural spaces."
-    buttons={[{ href: "/contact/?type=mural-commission", label: "Start a Conversation" }]}
+    title={page.cta.title}
+    text={page.cta.text}
+    buttons={[{ href: page.cta.primaryButtonHref, label: page.cta.primaryButtonLabel }]}
   />
 </BaseLayout>
