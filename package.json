@@ -8,13 +8,15 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "rm -rf dist",
     "build": "astro build",
     "preview": "astro preview",
     "lint": "astro check",
     "qa:html": "node scripts/qa-html.mjs",
     "browser:test": "node scripts/browser-check.mjs",
     "test": "node scripts/validate-site.mjs",
-    "predeploy": "npm run lint && npm run build && npm run qa:html && npm test"
+    "predeploy": "npm run lint && npm run build && npm run qa:html && npm test",
+    "cms:local": "npx decap-server"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",

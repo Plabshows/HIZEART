@@ -12,6 +12,61 @@ This Astro site is prepared for Vercel as a static deployment.
 
 The same settings are defined in `vercel.json`.
 
+## Admin CMS
+
+The project includes a Decap CMS admin at:
+
+```text
+/admin/
+```
+
+The CMS edits the GitHub repository directly:
+
+- `data/works.json`
+- `data/projects.json`
+- `data/murals.json`
+- `data/exhibitions.json`
+- `data/collaborations.json`
+- `data/assets.json`
+- uploaded media in `public/assets/images/uploads/`
+
+When content is saved in the admin, Decap commits to GitHub. Vercel then deploys the new version automatically.
+
+### Production CMS Authentication
+
+Decap CMS uses the GitHub backend in `public/admin/config.yml`:
+
+```yaml
+backend:
+  name: github
+  repo: Plabshows/HIZEART
+  branch: main
+```
+
+GitHub users must have push access to the repository.
+
+For production on Vercel, configure one OAuth option before relying on `/admin/`:
+
+1. Use a GitHub OAuth proxy compatible with Vercel/serverless and set `backend.base_url` in `public/admin/config.yml`.
+2. Or use Netlify's GitHub authentication service for Decap.
+
+Decap's official docs note that GitHub authentication requires a server/proxy, so the admin page is included and configured, but production login needs that OAuth step.
+
+### Local CMS Testing
+
+Run these in two terminals:
+
+```bash
+npm run dev
+npm run cms:local
+```
+
+Then open:
+
+```text
+http://localhost:4321/admin/
+```
+
 ## Pre-Deploy Check
 
 Run this before connecting or promoting the production domain:

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ArtworkDetail from "../../components/ArtworkDetail.astro";
-import works from "../../../data/works.json";
+import { works } from "../../lib/content";
 
 export function getStaticPaths() {
   return works.map((work) => ({

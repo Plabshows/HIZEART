@@ -1,6 +1,4 @@
-import works from "../../data/works.json";
-import projects from "../../data/projects.json";
-import murals from "../../data/murals.json";
+import { works, projects, murals } from "./content";
 
 const site = "https://hizeart.com";
 

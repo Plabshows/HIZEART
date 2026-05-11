@@ -1,42 +1,100 @@
-[
-  {
-    "category": "Canvas",
-    "path": "/assets/images/canvas",
-    "files": ["canvas.jpg", "wildsss.jpg", "hize-art.jpg", "hize-art2.jpg", "hize-art3.jpg", "hizeart5.jpg", "get-high.jpg", "hize-conexion.jpg", "hize-conexion-3.jpg", "expo-blanco.jpg", "expo-bohemia-negro.jpg"]
-  },
-  {
-    "category": "Murals",
-    "path": "/assets/images/murals",
-    "files": ["mural-torreblanca.jpg", "webnew-mural.jpg", "img-2639-mural.jpeg", "img-2752-mural.jpeg", "img-4009-mural.jpeg", "futursat.jpg", "retocadapuerto.png", "torreblanca-salto.jpg"]
-  },
-  {
-    "category": "Graffiti",
-    "path": "/assets/images/graffiti",
-    "files": ["osaka-web.jpg", "hize-sharjah.jpg", "hize-pinar.jpg", "hize-pinar-2.jpg", "hize-london.jpg", "hize-ibiza.jpg", "hize-barcelona.jpg", "bronx-hize.jpg", "abu-dhabi.jpg", "hize-mislata.jpg"]
-  },
-  {
-    "category": "VR Art",
-    "path": "/assets/images/vr-art",
-    "files": ["hize-vr-5.jpg", "hize-vr4.jpg", "valentino-web.jpg", "hize-tragek-web.jpg", "hize-vr-2.jpg", "hize-vr-3.jpg", "sin-titulo-189.jpg"]
-  },
-  {
-    "category": "Projects",
-    "path": "/assets/images/projects",
-    "files": ["streetxo.jpg", "streetxo-2.jpg", "golf-2.png", "golf3.png", "golf-4.png", "golf5.png", "golf6.png", "golf7.png", "golf8.png", "golf9.png"]
-  },
-  {
-    "category": "About / Artist process",
-    "path": "/assets/images/about",
-    "files": ["hize-bio.jpg", "hize-art3-portrait.jpg"]
-  },
-  {
-    "category": "Featured works",
-    "path": "/assets/images/featured",
-    "files": ["hero-visitacastellon.jpg"]
-  },
-  {
-    "category": "Uncategorized / To Review",
-    "path": "/assets/images/uncategorized",
-    "files": []
-  }
-]
+{
+  "assets": [
+    {
+      "category": "Canvas",
+      "path": "/assets/images/canvas",
+      "files": [
+        "canvas.jpg",
+        "wildsss.jpg",
+        "hize-art.jpg",
+        "hize-art2.jpg",
+        "hize-art3.jpg",
+        "hizeart5.jpg",
+        "get-high.jpg",
+        "hize-conexion.jpg",
+        "hize-conexion-3.jpg",
+        "expo-blanco.jpg",
+        "expo-bohemia-negro.jpg"
+      ]
+    },
+    {
+      "category": "Murals",
+      "path": "/assets/images/murals",
+      "files": [
+        "mural-torreblanca.jpg",
+        "webnew-mural.jpg",
+        "img-2639-mural.jpeg",
+        "img-2752-mural.jpeg",
+        "img-4009-mural.jpeg",
+        "futursat.jpg",
+        "retocadapuerto.png",
+        "torreblanca-salto.jpg"
+      ]
+    },
+    {
+      "category": "Graffiti",
+      "path": "/assets/images/graffiti",
+      "files": [
+        "osaka-web.jpg",
+        "hize-sharjah.jpg",
+        "hize-pinar.jpg",
+        "hize-pinar-2.jpg",
+        "hize-london.jpg",
+        "hize-ibiza.jpg",
+        "hize-barcelona.jpg",
+        "bronx-hize.jpg",
+        "abu-dhabi.jpg",
+        "hize-mislata.jpg"
+      ]
+    },
+    {
+      "category": "VR Art",
+      "path": "/assets/images/vr-art",
+      "files": [
+        "hize-vr-5.jpg",
+        "hize-vr4.jpg",
+        "valentino-web.jpg",
+        "hize-tragek-web.jpg",
+        "hize-vr-2.jpg",
+        "hize-vr-3.jpg",
+        "sin-titulo-189.jpg"
+      ]
+    },
+    {
+      "category": "Projects",
+      "path": "/assets/images/projects",
+      "files": [
+        "streetxo.jpg",
+        "streetxo-2.jpg",
+        "golf-2.png",
+        "golf3.png",
+        "golf-4.png",
+        "golf5.png",
+        "golf6.png",
+        "golf7.png",
+        "golf8.png",
+        "golf9.png"
+      ]
+    },
+    {
+      "category": "About / Artist process",
+      "path": "/assets/images/about",
+      "files": [
+        "hize-bio.jpg",
+        "hize-art3-portrait.jpg"
+      ]
+    },
+    {
+      "category": "Featured works",
+      "path": "/assets/images/featured",
+      "files": [
+        "hero-visitacastellon.jpg"
+      ]
+    },
+    {
+      "category": "Uncategorized / To Review",
+      "path": "/assets/images/uncategorized",
+      "files": []
+    }
+  ]
+}

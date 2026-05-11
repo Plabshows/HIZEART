@@ -49,3 +49,38 @@ Use:
 - Output Directory: `dist`
 
 More detail is in `DEPLOY_VERCEL.md`.
+
+## Admin CMS
+
+The admin is available at `/admin/` after deployment.
+
+It uses Decap CMS with the GitHub backend:
+
+- edits JSON files in `data/`
+- uploads new images to `public/assets/images/uploads/`
+- commits CMS changes to `main`
+- Vercel deploys automatically after each GitHub commit
+
+Editable areas:
+
+- Works
+- Projects
+- Murals
+- Exhibitions & collaborations
+- Home collaborations strip
+- Image catalogue
+
+For local CMS testing, run Astro and the local Decap proxy in separate terminals:
+
+```bash
+npm run dev
+npm run cms:local
+```
+
+Then open:
+
+```text
+http://localhost:4321/admin/
+```
+
+For production login on Vercel, Decap CMS needs GitHub OAuth because it writes to GitHub. See `DEPLOY_VERCEL.md`.

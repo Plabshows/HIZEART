@@ -5,9 +5,7 @@ import ResponsiveImage from "../components/ResponsiveImage.astro";
 import FeaturedWorks from "../components/FeaturedWorks.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import CTASection from "../components/CTASection.astro";
-import works from "../../data/works.json";
-import projects from "../../data/projects.json";
-import collaborations from "../../data/collaborations.json";
+import { works, projects, collaborations } from "../lib/content";
 
 const featuredWorks = works.filter((work) => work.featured);
 const featuredProjects = projects.slice(0, 3);

@@ -1,74 +1,96 @@
-[
-  {
-    "id": "expo-2020-dubai",
-    "title": "Expo 2020 Dubai",
-    "year": "2020",
-    "location": "Dubai, UAE",
-    "type": "International Project",
-    "client": "Expo 2020 Dubai",
-    "description": "A visual art project connecting graffiti, movement and contemporary abstraction in an international cultural context.",
-    "mainImage": "/assets/images/graffiti/hize-sharjah.jpg",
-    "gallery": ["/assets/images/graffiti/abu-dhabi.jpg", "/assets/images/graffiti/hize-sharjah.jpg"],
-    "alt": "Hize art project at Expo 2020 Dubai"
-  },
-  {
-    "id": "osaka-contemporary-art-museum",
-    "title": "Osaka Contemporary Art Museum",
-    "year": "2023",
-    "location": "Osaka, Japan",
-    "type": "Exhibition",
-    "client": "Osaka Contemporary Art Museum",
-    "description": "An exhibition context presenting Hize's graffiti-based visual language to an international audience.",
-    "mainImage": "/assets/images/graffiti/osaka-web.jpg",
-    "gallery": ["/assets/images/graffiti/osaka-web.jpg"],
-    "alt": "Hize graffiti artwork presented in Osaka Japan"
-  },
-  {
-    "id": "streetxo-project",
-    "title": "StreetXO Project",
-    "year": "2024",
-    "location": "Spain",
-    "type": "Hospitality Project",
-    "client": "StreetXO",
-    "description": "A visual project for a hospitality environment, connecting Hize's abstract graffiti language with a high-energy spatial experience.",
-    "mainImage": "/assets/images/projects/streetxo.jpg",
-    "gallery": ["/assets/images/projects/streetxo.jpg", "/assets/images/projects/streetxo-2.jpg"],
-    "alt": "Hize StreetXO visual project with abstract graffiti energy"
-  },
-  {
-    "id": "vr-art-performance",
-    "title": "VR Art Performance",
-    "year": "2022",
-    "location": "International",
-    "type": "Digital Performance",
-    "client": "Project on request",
-    "description": "Live digital graffiti performances where gesture, rhythm and immersive tools become visual expression.",
-    "mainImage": "/assets/images/vr-art/hize-vr-5.jpg",
-    "gallery": ["/assets/images/vr-art/hize-vr4.jpg", "/assets/images/vr-art/hize-vr-2.jpg", "/assets/images/vr-art/hize-vr-3.jpg"],
-    "alt": "Hize VR art performance creating digital graffiti in real time"
-  },
-  {
-    "id": "brand-collaborations",
-    "title": "Brand Collaborations",
-    "year": "Archive",
-    "location": "International",
-    "type": "Collaboration",
-    "client": "Instagram, Bvlgari, Valentino",
-    "description": "A selected archive of collaborations bringing Hize's abstract urban language into fashion, culture and brand experience contexts.",
-    "mainImage": "/assets/images/vr-art/valentino-web.jpg",
-    "gallery": ["/assets/images/vr-art/valentino-web.jpg", "/assets/images/projects/golf8.png", "/assets/images/projects/golf7.png"],
-    "alt": "Hize brand collaboration with contemporary visual artwork"
-  },
-  {
-    "id": "large-scale-murals",
-    "title": "Large Scale Murals",
-    "year": "Ongoing",
-    "location": "Spain and international",
-    "type": "Murals",
-    "client": "Private and public commissions",
-    "description": "Large-scale wall works for private, hospitality, cultural and public spaces.",
-    "mainImage": "/assets/images/murals/mural-torreblanca.jpg",
-    "gallery": ["/assets/images/murals/webnew-mural.jpg", "/assets/images/murals/img-2752-mural.jpeg", "/assets/images/murals/futursat.jpg"],
-    "alt": "Spanish urban artist Hize painting large scale mural"
-  }
-]
+{
+  "projects": [
+    {
+      "id": "expo-2020-dubai",
+      "title": "Expo 2020 Dubai",
+      "year": "2020",
+      "location": "Dubai, UAE",
+      "type": "International Project",
+      "client": "Expo 2020 Dubai",
+      "description": "A visual art project connecting graffiti, movement and contemporary abstraction in an international cultural context.",
+      "mainImage": "/assets/images/graffiti/hize-sharjah.jpg",
+      "gallery": [
+        "/assets/images/graffiti/abu-dhabi.jpg",
+        "/assets/images/graffiti/hize-sharjah.jpg"
+      ],
+      "alt": "Hize art project at Expo 2020 Dubai"
+    },
+    {
+      "id": "osaka-contemporary-art-museum",
+      "title": "Osaka Contemporary Art Museum",
+      "year": "2023",
+      "location": "Osaka, Japan",
+      "type": "Exhibition",
+      "client": "Osaka Contemporary Art Museum",
+      "description": "An exhibition context presenting Hize's graffiti-based visual language to an international audience.",
+      "mainImage": "/assets/images/graffiti/osaka-web.jpg",
+      "gallery": [
+        "/assets/images/graffiti/osaka-web.jpg"
+      ],
+      "alt": "Hize graffiti artwork presented in Osaka Japan"
+    },
+    {
+      "id": "streetxo-project",
+      "title": "StreetXO Project",
+      "year": "2024",
+      "location": "Spain",
+      "type": "Hospitality Project",
+      "client": "StreetXO",
+      "description": "A visual project for a hospitality environment, connecting Hize's abstract graffiti language with a high-energy spatial experience.",
+      "mainImage": "/assets/images/projects/streetxo.jpg",
+      "gallery": [
+        "/assets/images/projects/streetxo.jpg",
+        "/assets/images/projects/streetxo-2.jpg"
+      ],
+      "alt": "Hize StreetXO visual project with abstract graffiti energy"
+    },
+    {
+      "id": "vr-art-performance",
+      "title": "VR Art Performance",
+      "year": "2022",
+      "location": "International",
+      "type": "Digital Performance",
+      "client": "Project on request",
+      "description": "Live digital graffiti performances where gesture, rhythm and immersive tools become visual expression.",
+      "mainImage": "/assets/images/vr-art/hize-vr-5.jpg",
+      "gallery": [
+        "/assets/images/vr-art/hize-vr4.jpg",
+        "/assets/images/vr-art/hize-vr-2.jpg",
+        "/assets/images/vr-art/hize-vr-3.jpg"
+      ],
+      "alt": "Hize VR art performance creating digital graffiti in real time"
+    },
+    {
+      "id": "brand-collaborations",
+      "title": "Brand Collaborations",
+      "year": "Archive",
+      "location": "International",
+      "type": "Collaboration",
+      "client": "Instagram, Bvlgari, Valentino",
+      "description": "A selected archive of collaborations bringing Hize's abstract urban language into fashion, culture and brand experience contexts.",
+      "mainImage": "/assets/images/vr-art/valentino-web.jpg",
+      "gallery": [
+        "/assets/images/vr-art/valentino-web.jpg",
+        "/assets/images/projects/golf8.png",
+        "/assets/images/projects/golf7.png"
+      ],
+      "alt": "Hize brand collaboration with contemporary visual artwork"
+    },
+    {
+      "id": "large-scale-murals",
+      "title": "Large Scale Murals",
+      "year": "Ongoing",
+      "location": "Spain and international",
+      "type": "Murals",
+      "client": "Private and public commissions",
+      "description": "Large-scale wall works for private, hospitality, cultural and public spaces.",
+      "mainImage": "/assets/images/murals/mural-torreblanca.jpg",
+      "gallery": [
+        "/assets/images/murals/webnew-mural.jpg",
+        "/assets/images/murals/img-2752-mural.jpeg",
+        "/assets/images/murals/futursat.jpg"
+      ],
+      "alt": "Spanish urban artist Hize painting large scale mural"
+    }
+  ]
+}

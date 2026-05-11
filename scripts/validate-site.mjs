@@ -25,6 +25,12 @@ function readJson(file) {
   return JSON.parse(fs.readFileSync(path.join(root, "data", file), "utf8"));
 }
 
+function getItems(file, data) {
+  if (Array.isArray(data)) return data;
+  const key = file.replace(/\.json$/, "");
+  return Array.isArray(data?.[key]) ? data[key] : [];
+}
+
 function assertImageExists(url, context) {
   if (!url || !url.startsWith("/assets/")) return;
   const file = path.join(publicDir, url);
@@ -34,7 +40,7 @@ function assertImageExists(url, context) {
 }
 
 for (const file of dataFiles) {
-  const items = readJson(file);
+  const items = getItems(file, readJson(file));
   for (const item of items) {
     assertImageExists(item.image || item.mainImage, `${file}:${item.id || item.title}`);
     for (const image of item.gallery || []) {
