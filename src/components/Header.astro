@@ -1,0 +1,58 @@
+---
+const navItems = [
+  { href: "/works/", label: "Works" },
+  { href: "/available-works/", label: "Available Works" },
+  { href: "/murals/", label: "Murals" },
+  { href: "/projects/", label: "Projects" },
+  { href: "/vr-art/", label: "VR Art" },
+  { href: "/exhibitions/", label: "Exhibitions" },
+  { href: "/about/", label: "About" },
+  { href: "/contact/", label: "Contact" }
+];
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) => pathname === href || pathname.startsWith(href);
+---
+
+<header class="site-header" data-site-header>
+  <a class="brand" href="/" aria-label="HIZE ART home">
+    <span>HIZE</span>
+    <small>ART</small>
+  </a>
+
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" data-menu-toggle>
+    <span class="menu-toggle__line"></span>
+    <span class="menu-toggle__line"></span>
+    <span class="sr-only">Open navigation</span>
+  </button>
+
+  <nav id="site-navigation" class="site-nav" aria-label="Main navigation" data-site-nav>
+    {navItems.map((item) => (
+      <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
+        {item.label}
+      </a>
+    ))}
+    <a class="nav-cta" href="/contact/">Enquire</a>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector("[data-menu-toggle]");
+  const nav = document.querySelector("[data-site-nav]");
+  const header = document.querySelector("[data-site-header]");
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!isOpen));
+    nav?.classList.toggle("is-open", !isOpen);
+    header?.classList.toggle("is-open", !isOpen);
+  });
+
+  nav?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      toggle?.setAttribute("aria-expanded", "false");
+      nav.classList.remove("is-open");
+      header?.classList.remove("is-open");
+    });
+  });
+</script>

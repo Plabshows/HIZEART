@@ -1,0 +1,40 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  path?: string;
+  type?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  image = "/assets/images/featured/hero-visitacastellon.jpg",
+  path = Astro.url.pathname,
+  type = "website",
+  structuredData
+} = Astro.props;
+
+const site = "https://hizeart.com";
+const canonical = new URL(path, site).toString();
+const imageUrl = new URL(image, site).toString();
+const jsonLd = structuredData ? JSON.stringify(structuredData) : "";
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content="HIZE ART" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={imageUrl} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+{jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd} />}

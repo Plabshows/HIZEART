@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ResponsiveImage from "../components/ResponsiveImage.astro";
+import ImageGrid from "../components/ImageGrid.astro";
+import CTASection from "../components/CTASection.astro";
+
+const visuals = [
+  { src: "/assets/images/vr-art/hize-vr-5.jpg", alt: "Hize VR art performance creating digital graffiti in real time" },
+  { src: "/assets/images/vr-art/hize-vr4.jpg", alt: "Hize immersive VR graffiti visual performance" },
+  { src: "/assets/images/vr-art/hize-vr-2.jpg", alt: "Hize digital graffiti gesture in a VR art environment" },
+  { src: "/assets/images/vr-art/hize-vr-3.jpg", alt: "Hize VR art performance with colorful digital graffiti forms" },
+  { src: "/assets/images/vr-art/hize-tragek-web.jpg", alt: "Hize digital graffiti collaboration in immersive visual format" },
+  { src: "/assets/images/vr-art/sin-titulo-189.jpg", alt: "Hize VR art visual composition with abstract graffiti movement" }
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: "VR Art by Hize",
+  url: "https://hizeart.com/vr-art/"
+};
+---
+
+<BaseLayout
+  title="VR Art by Hize | Digital Graffiti Experiences"
+  description="Immersive VR art and digital graffiti performances by Hize, blending urban culture, movement and contemporary visual technology."
+  image="/assets/images/vr-art/hize-vr-5.jpg"
+  structuredData={structuredData}
+>
+  <section class="editorial-hero">
+    <h1>VR Art is the digital extension of Hize's graffiti language - transforming gesture, movement and rhythm into immersive visual experiences.</h1>
+    <div class="editorial-hero__media" style="margin-top: 3rem;">
+      <ResponsiveImage
+        src="/assets/images/vr-art/hize-vr-5.jpg"
+        alt="Hize VR art performance creating digital graffiti in real time"
+        loading="eager"
+        sizes="100vw"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="editorial-grid">
+      <div style="grid-column: span 3;">
+        <p class="eyebrow" style="border-top: 1px solid var(--primary); padding-top: 1rem;">What is VR Art?</p>
+      </div>
+      <div style="grid-column: span 7;">
+        <p class="lead">
+          It is not merely a translation of physical paint to a digital canvas. It is the liberation
+          of the mark from gravity and surface, using movement, gesture and spatial drawing as live
+          visual expression.
+        </p>
+        <p>
+          This practice bridges the visceral, kinetic energy of street art with immersive digital tools,
+          resulting in environments that are simultaneously raw and meticulously engineered.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--dark">
+    <div class="section-heading">
+      <h2>Core Disciplines</h2>
+    </div>
+    <div class="path-grid">
+      <article class="info-card">
+        <p class="eyebrow">Live Digital Graffiti</p>
+        <h3>Real-time spatial art.</h3>
+        <p>Audiences witness the genesis of form and colour in motion, projected or experienced through immersive formats.</p>
+      </article>
+      <article class="info-card">
+        <p class="eyebrow">Events & Performances</p>
+        <h3>Temporal zones between physical and digital.</h3>
+        <p>Curated performances for galleries, festivals, cultural institutions and private events.</p>
+      </article>
+      <article class="info-card">
+        <p class="eyebrow">Brand Experiences</p>
+        <h3>Bespoke virtual environments.</h3>
+        <p>Brand identity translated into an avant-garde language of digital spatial design.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="page-shell">
+      <div class="section-heading">
+        <h2>Selected Visuals</h2>
+        <span class="eyebrow">01 - 06</span>
+      </div>
+      <ImageGrid images={visuals} />
+    </div>
+  </section>
+
+  <CTASection
+    title="Commission the Infinite"
+    text="Contact for VR Art projects, immersive performances and brand experiences."
+    buttons={[
+      { href: "/contact/?type=vr-art-project", label: "Contact for VR Art Projects" },
+      { href: "/projects/vr-art-performance/", label: "Request Performance Details", variant: "secondary" }
+    ]}
+  />
+</BaseLayout>

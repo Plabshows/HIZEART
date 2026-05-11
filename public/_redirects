@@ -1,0 +1,14 @@
+/bio/ /about/ 301
+/contacto/ /contact/ 301
+/galeria/ /works/ 301
+/galeria/canvas/ /works/?filter=canvas 301
+/galeria/graffiti/ /works/?filter=graffiti 301
+/galeria/vr-art/ /vr-art/ 301
+/galeria/murales/ /murals/ 301
+/shop/ /available-works/ 301
+/home-2/ / 301
+/aviso-legal/ /privacy-policy/ 301
+/terminos-y-condiciones/ /privacy-policy/ 301
+/politica-de-cookies/ /privacy-policy/ 301
+/devoluciones-y-reembolso/ /privacy-policy/ 301
+/privacy.html /privacy-policy/ 301

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "torreblanca-mural",
+    "title": "Torreblanca Mural",
+    "location": "Torreblanca, Spain",
+    "year": "2021",
+    "technique": "Acrylic and spray paint on wall",
+    "client": "Client TBC",
+    "description": "A large-scale abstract graffiti mural developed from the identity of the space, combining colour, movement and structural rhythm.",
+    "image": "/assets/images/murals/mural-torreblanca.jpg",
+    "gallery": ["/assets/images/murals/torreblanca-salto.jpg", "/assets/images/murals/img-2752-mural.jpeg"],
+    "alt": "Hize mural in Spain combining graffiti and abstract shapes"
+  },
+  {
+    "id": "abstract-interior-mural",
+    "title": "Abstract Interior Mural",
+    "location": "Spain",
+    "year": "2021",
+    "technique": "Acrylic and spray paint on wall",
+    "client": "Private commission",
+    "description": "A site-specific interior mural using abstract graffiti forms to create movement and atmosphere across the wall.",
+    "image": "/assets/images/murals/webnew-mural.jpg",
+    "gallery": ["/assets/images/murals/webnew-mural.jpg"],
+    "alt": "Hize abstract mural with colorful graffiti shapes in an interior space"
+  },
+  {
+    "id": "futursat-mural",
+    "title": "Futursat Mural",
+    "location": "Spain",
+    "year": "2022",
+    "technique": "Spray paint and acrylic on wall",
+    "client": "Futursat",
+    "description": "A commissioned mural project blending Hize's graffiti roots with a clean visual intervention for a contemporary space.",
+    "image": "/assets/images/murals/futursat.jpg",
+    "gallery": ["/assets/images/murals/futursat.jpg"],
+    "alt": "Hize large scale abstract graffiti mural for a commissioned space"
+  },
+  {
+    "id": "puerto-visual-intervention",
+    "title": "Puerto Visual Intervention",
+    "location": "Spain",
+    "year": "2024",
+    "technique": "Spray paint and acrylic on wall",
+    "client": "Client TBC",
+    "description": "A visual intervention with layered colour and kinetic abstract forms for an architectural environment.",
+    "image": "/assets/images/murals/retocadapuerto.png",
+    "gallery": ["/assets/images/murals/retocadapuerto.png"],
+    "alt": "Hize mural with abstract graffiti shapes in a contemporary space"
+  }
+]

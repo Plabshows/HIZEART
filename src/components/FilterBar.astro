@@ -1,0 +1,67 @@
+---
+interface Filter {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  filters: Filter[];
+}
+
+const { filters } = Astro.props;
+---
+
+<div class="filter-bar" role="toolbar" aria-label="Work filters">
+  {filters.map((filter, index) => (
+    <button
+      type="button"
+      class="filter-button"
+      data-filter-button={filter.value}
+      aria-pressed={index === 0 ? "true" : "false"}
+    >
+      {filter.label}
+    </button>
+  ))}
+</div>
+
+<script>
+  const buttons = Array.from(document.querySelectorAll<HTMLElement>("[data-filter-button]"));
+  const items = Array.from(document.querySelectorAll<HTMLElement>("[data-filter-item]"));
+  const params = new URLSearchParams(window.location.search);
+  const initialFilter = params.get("filter") || "all";
+
+  function applyFilter(filter: string) {
+    buttons.forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.filterButton === filter));
+    });
+
+    items.forEach((item) => {
+      const category = item.dataset.category;
+      const availability = item.dataset.availability;
+      const isVisible =
+        filter === "all" ||
+        category === filter ||
+        availability?.includes(filter) ||
+        (filter === "available" && availability?.includes("available")) ||
+        (filter === "sold" && availability?.includes("sold"));
+
+      item.toggleAttribute("hidden", !isVisible);
+    });
+  }
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const filter = button.dataset.filterButton || "all";
+      const url = new URL(window.location.href);
+      if (filter === "all") {
+        url.searchParams.delete("filter");
+      } else {
+        url.searchParams.set("filter", filter);
+      }
+      history.replaceState({}, "", url);
+      applyFilter(filter);
+    });
+  });
+
+  applyFilter(initialFilter);
+</script>

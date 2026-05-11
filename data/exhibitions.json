@@ -1,0 +1,51 @@
+[
+  {
+    "year": "2020",
+    "title": "Expo 2020 Dubai",
+    "type": "International Project",
+    "location": "Dubai, UAE",
+    "description": "A cultural project connecting graffiti, movement and contemporary abstraction."
+  },
+  {
+    "year": "2023",
+    "title": "Osaka Contemporary Art Museum",
+    "type": "Exhibition",
+    "location": "Osaka, Japan",
+    "description": "International exhibition context for Hize's urban abstract visual language."
+  },
+  {
+    "year": "Archive",
+    "title": "Instagram",
+    "type": "Brand Collaboration",
+    "location": "International",
+    "description": "A brand collaboration extending Hize's graffiti-based visual language into social-first contemporary visual culture."
+  },
+  {
+    "year": "Archive",
+    "title": "Bvlgari",
+    "type": "Brand Collaboration",
+    "location": "International",
+    "description": "A premium brand context for Hize's abstract urban language, shaped around colour, gesture and contemporary culture."
+  },
+  {
+    "year": "Archive",
+    "title": "Valentino",
+    "type": "Brand Collaboration",
+    "location": "International",
+    "description": "A fashion-led visual collaboration connecting Hize's digital graffiti practice with movement, performance and luxury image-making."
+  },
+  {
+    "year": "Ongoing",
+    "title": "International mural projects",
+    "type": "Murals",
+    "location": "Spain and international",
+    "description": "Large-scale commissioned murals for private, public and hospitality spaces."
+  },
+  {
+    "year": "Ongoing",
+    "title": "VR Art performances",
+    "type": "Digital Performance",
+    "location": "International",
+    "description": "Live digital graffiti experiences for events, brands and cultural projects."
+  }
+]

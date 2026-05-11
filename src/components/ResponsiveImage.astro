@@ -1,0 +1,24 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  loading?: "lazy" | "eager";
+  sizes?: string;
+}
+
+const {
+  src,
+  alt,
+  class: className = "",
+  loading = "lazy",
+  sizes = "(min-width: 900px) 50vw, 100vw"
+} = Astro.props;
+
+const webp = src.replace(/\.(jpe?g|png)$/i, ".webp");
+---
+
+<picture>
+  <source srcset={webp} type="image/webp" sizes={sizes} />
+  <img class={className} src={src} alt={alt} loading={loading} decoding="async" sizes={sizes} />
+</picture>

@@ -1,0 +1,42 @@
+---
+import ResponsiveImage from "./ResponsiveImage.astro";
+
+interface Button {
+  href: string;
+  label: string;
+  variant?: "primary" | "secondary";
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  alt: string;
+  buttons?: Button[];
+  align?: "left" | "center";
+}
+
+const { eyebrow, title, subtitle, image, alt, buttons = [], align = "left" } = Astro.props;
+---
+
+<section class={`hero hero--${align}`}>
+  <div class="hero-media">
+    <ResponsiveImage src={image} alt={alt} loading="eager" sizes="100vw" />
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    <p class="hero-subtitle">{subtitle}</p>
+    {buttons.length > 0 && (
+      <div class="button-row">
+        {buttons.map((button) => (
+          <a class={`button button--${button.variant || "primary"}`} href={button.href}>
+            {button.label}
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

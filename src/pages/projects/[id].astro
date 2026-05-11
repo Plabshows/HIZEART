@@ -1,0 +1,73 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ResponsiveImage from "../../components/ResponsiveImage.astro";
+import ImageGrid from "../../components/ImageGrid.astro";
+import CTASection from "../../components/CTASection.astro";
+import projects from "../../../data/projects.json";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project }
+  }));
+}
+
+const { project } = Astro.props;
+const gallery = project.gallery.map((src) => ({ src, alt: project.alt }));
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: project.title,
+  creator: "Manuel Forner Hize",
+  locationCreated: project.location,
+  image: `https://hizeart.com${project.mainImage}`,
+  description: project.description
+};
+---
+
+<BaseLayout
+  title={`${project.title} | Hize Project`}
+  description={project.description}
+  image={project.mainImage}
+  type="article"
+  structuredData={structuredData}
+>
+  <article class="detail-layout">
+    <div class="detail-media">
+      <ResponsiveImage src={project.mainImage} alt={project.alt} loading="eager" sizes="(min-width: 900px) 58vw, 100vw" />
+    </div>
+    <div class="detail-content">
+      <a class="text-link" href="/projects/">Back to Projects</a>
+      <p class="eyebrow">{project.type}</p>
+      <h1>{project.title}</h1>
+      <p class="lead">{project.description}</p>
+      <dl class="spec-list">
+        <div><dt>Year</dt><dd>{project.year}</dd></div>
+        <div><dt>Location</dt><dd>{project.location}</dd></div>
+        <div><dt>Type</dt><dd>{project.type}</dd></div>
+        <div><dt>Client</dt><dd>{project.client}</dd></div>
+      </dl>
+      <div class="button-row">
+        <a class="button button--primary" href="/contact/">Start a Project</a>
+      </div>
+    </div>
+  </article>
+
+  {gallery.length > 0 && (
+    <section class="page-shell section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Project Visuals</p>
+          <h2>{project.title}</h2>
+        </div>
+      </div>
+      <ImageGrid images={gallery} />
+    </section>
+  )}
+
+  <CTASection
+    title="Start a commission or collaboration."
+    text="Share the context, location, timeline and goals for a mural, artwork, brand activation or immersive visual experience."
+    buttons={[{ href: "/contact/", label: "Contact the Artist" }]}
+  />
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+interface Props {
+  to: string;
+}
+
+const { to } = Astro.props;
+const target = new URL(to, "https://hizeart.com").toString();
+const title = "Redirecting | HIZE ART";
+const description = "This page has moved. You are being redirected to the current HIZE ART page.";
+const image = "https://hizeart.com/assets/images/featured/hero-visitacastellon.jpg";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <meta name="robots" content="noindex,follow" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={target} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="HIZE ART" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={target} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <p>Redirecting to <a href={target}>{target}</a>.</p>
+  </body>
+</html>

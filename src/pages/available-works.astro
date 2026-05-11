@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WorkCard from "../components/WorkCard.astro";
+import CTASection from "../components/CTASection.astro";
+import works from "../../data/works.json";
+
+const availableWorks = works.filter((work) => work.availability === "Available");
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Available Artworks by Hize",
+  url: "https://hizeart.com/available-works/"
+};
+---
+
+<BaseLayout
+  title="Available Artworks by Hize"
+  description="Browse available original artworks by Hize and request details for paintings, commissions and collector enquiries."
+  image="/assets/images/canvas/canvas.jpg"
+  structuredData={structuredData}
+>
+  <section class="page-shell page-intro">
+    <p class="eyebrow">Available Works</p>
+    <h1>Available Original Artworks</h1>
+    <p>
+      Explore available original artworks by Hize. Each piece is created from the structure,
+      rhythm and energy of graffiti, transformed into abstract contemporary compositions.
+    </p>
+    <div class="note-bar">
+      <span>Certificate of authenticity included</span>
+      <span>International shipping available upon request</span>
+    </div>
+  </section>
+
+  <section class="page-shell section" style="padding-top: 0;">
+    <div class="work-grid">
+      {availableWorks.map((work) => <WorkCard work={work} showDetails ctaLabel="Enquire about this work" />)}
+    </div>
+    <div class="stats-grid" style="margin-top: 2rem;">
+      <article class="info-card">
+        <h3>Certificate included</h3>
+        <p>Certificate of authenticity included with available original artworks.</p>
+      </article>
+      <article class="info-card">
+        <h3>International enquiries</h3>
+        <p>International shipping available upon request.</p>
+      </article>
+      <article class="info-card">
+        <h3>Catalogue request</h3>
+        <p>Request the current catalogue for details, prices and availability confirmation.</p>
+      </article>
+    </div>
+  </section>
+
+  <CTASection
+    title="Request Full Catalogue"
+    text="Receive available works, prices on request and collector details directly from the studio."
+    buttons={[
+      { href: "/contact/?type=available-artwork", label: "Request Catalogue" },
+      { href: "/works/", label: "View Works", variant: "secondary" }
+    ]}
+  />
+</BaseLayout>

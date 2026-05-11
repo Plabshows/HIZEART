@@ -1,0 +1,28 @@
+---
+interface Entry {
+  year: string;
+  title: string;
+  type: string;
+  location: string;
+  description?: string;
+}
+
+interface Props {
+  entries: Entry[];
+}
+
+const { entries } = Astro.props;
+---
+
+<div class="timeline">
+  {entries.map((entry) => (
+    <article class="timeline-item">
+      <time>{entry.year}</time>
+      <div>
+        <p class="meta-line"><span>{entry.type}</span><span>{entry.location}</span></p>
+        <h3>{entry.title}</h3>
+        {entry.description && <p>{entry.description}</p>}
+      </div>
+    </article>
+  ))}
+</div>

@@ -1,0 +1,53 @@
+---
+import ResponsiveImage from "./ResponsiveImage.astro";
+
+interface Props {
+  work: {
+    id: string;
+    title: string;
+    year: string;
+    category: string;
+    technique: string;
+    size: string;
+    availability: string;
+    image: string;
+    alt: string;
+  };
+  showDetails?: boolean;
+  ctaLabel?: string;
+}
+
+const { work, showDetails = false, ctaLabel = "Enquire" } = Astro.props;
+const category = work.category.toLowerCase().replace(/\s+/g, "-");
+const availability = work.availability.toLowerCase();
+const ctaHref = ctaLabel === "View Work" ? `/works/${work.id}/` : `/contact/?work=${work.id}`;
+---
+
+<article class="work-card" data-filter-item data-category={category} data-availability={availability}>
+  <a class="work-card__image" href={`/works/${work.id}/`} aria-label={`View ${work.title}`}>
+    <ResponsiveImage src={work.image} alt={work.alt} />
+  </a>
+  <div class="work-card__body">
+    <div class="meta-line">
+      <span>{work.category}</span>
+      <span>{work.year}</span>
+    </div>
+    <h3><a href={`/works/${work.id}/`}>{work.title}</a></h3>
+    {showDetails && (
+      <dl class="compact-specs">
+        <div>
+          <dt>Technique</dt>
+          <dd>{work.technique}</dd>
+        </div>
+        <div>
+          <dt>Size</dt>
+          <dd>{work.size}</dd>
+        </div>
+      </dl>
+    )}
+    <div class="card-actions">
+      <span class="status-pill">{work.availability}</span>
+      <a class="text-link" href={ctaHref}>{ctaLabel}</a>
+    </div>
+  </div>
+</article>

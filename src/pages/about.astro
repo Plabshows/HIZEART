@@ -1,0 +1,100 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ResponsiveImage from "../components/ResponsiveImage.astro";
+import CTASection from "../components/CTASection.astro";
+import exhibitions from "../../data/exhibitions.json";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Manuel Forner Hize",
+  alternateName: "Hize",
+  jobTitle: "Spanish contemporary urban artist",
+  url: "https://hizeart.com/about/"
+};
+---
+
+<BaseLayout
+  title="About Hize | Manuel Forner, Spanish Urban Artist"
+  description="Manuel Forner Hize is a Spanish artist with over 25 years in graffiti, creating abstract works, murals and visual projects worldwide."
+  image="/assets/images/about/hize-bio.jpg"
+  structuredData={structuredData}
+>
+  <section class="section split-section">
+    <div>
+      <ResponsiveImage src="/assets/images/about/hize-bio.jpg" alt="Portrait of Spanish urban artist Manuel Forner Hize" loading="eager" />
+      <p class="meta-line" style="margin-top: 1rem;"><span>Manuel Forner "Hize"</span><span>Spain / International</span></p>
+    </div>
+    <div>
+      <p class="eyebrow">About</p>
+      <h1>Translating the kinetic energy of the street into disciplined contemplation.</h1>
+      <p>
+        Manuel Forner "Hize" is a Spanish visual artist whose work transforms the language
+        of traditional graffiti into abstract contemporary compositions. With a trajectory spanning
+        over 25 years, his evolution reflects a continuous refinement of raw urban energy into
+        sophisticated, gallery-ready forms.
+      </p>
+      <p>
+        Born from more than 25 years of painting in the streets, his practice explores the hidden
+        structures between letters, the rhythm of movement, and the visual energy of urban culture.
+      </p>
+      <p>
+        Before fully developing his studio practice, Hize built a parallel career in dance and entertainment,
+        working internationally as a breakdancer, performer and creative director. This connection between
+        body, rhythm and gesture became a central part of his artistic language.
+      </p>
+    </div>
+  </section>
+
+  <section class="about-quote">
+    <h2>
+      From the street to the studio, Hize reinterprets the foundations of graffiti beyond the wall,
+      stripping away noise to reveal movement, rhythm and urban memory.
+    </h2>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Selected Exhibitions</p>
+        <h2>Exhibitions, collaborations and international projects.</h2>
+      </div>
+      <a class="text-link" href="/exhibitions/">Full timeline</a>
+    </div>
+    <div class="timeline">
+      {exhibitions.slice(0, 6).map((entry) => (
+        <article class="timeline-item">
+          <time>{entry.year}</time>
+          <div>
+            <h3>{entry.title}</h3>
+            <p>{entry.type} / {entry.location}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="feature-band">
+    <div class="page-shell split-section">
+      <div>
+        <p class="eyebrow">Selected Collaborations</p>
+        <h2>Instagram<br />Bvlgari<br />Valentino</h2>
+      </div>
+      <div>
+        <p class="lead">
+          For complete curriculum vitae, press materials, private acquisitions or gallery representation.
+        </p>
+        <div class="button-row">
+          <a class="button" href="/contact/?type=portfolio">Download Portfolio</a>
+          <a class="button button--primary" href="/contact/">Contact Studio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title="Request portfolio, press kit or collaboration details."
+    text="For galleries, press, brands, collectors and cultural projects."
+    buttons={[{ href: "/contact/?type=press-gallery", label: "Contact the Artist" }]}
+  />
+</BaseLayout>

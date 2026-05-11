@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "../components/ContactForm.astro";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: "Contact Hize",
+  url: "https://hizeart.com/contact/"
+};
+---
+
+<BaseLayout
+  title="Contact Hize | Artworks, Murals & Commissions"
+  description="Contact Hize for original artworks, mural commissions, brand collaborations, exhibitions and immersive art projects."
+  image="/assets/images/murals/webnew-mural.jpg"
+  structuredData={structuredData}
+>
+  <section class="page-shell page-intro">
+    <p class="eyebrow">Contact & Commissions</p>
+    <h1>Artworks, murals, commissions and collaborations.</h1>
+    <p>
+      Please direct all enquiries via the form below or contact the studio directly. We aim to respond
+      within 48 hours.
+    </p>
+  </section>
+
+  <section class="page-shell section split-section">
+    <div>
+      <div class="path-grid" style="grid-template-columns: 1fr;">
+        <article class="info-card">
+          <p class="eyebrow">Collectors</p>
+          <h3>Request available works catalogue.</h3>
+          <p>Ask for current available works, measurements, prices on request and shipping details.</p>
+        </article>
+        <article class="info-card">
+          <p class="eyebrow">Commissions</p>
+          <h3>Commission a painting, mural or custom visual project.</h3>
+          <p>Share the location, scale, timeline and project context.</p>
+        </article>
+        <article class="info-card">
+          <p class="eyebrow">Galleries / Press / Brands</p>
+          <h3>Request portfolio, press kit or collaboration details.</h3>
+          <p>For exhibitions, editorials, cultural projects, brand activations and VR Art.</p>
+        </article>
+        <article class="info-card">
+          <p class="eyebrow">Email</p>
+          <h3><a href="mailto:info@hizeart.com">info@hizeart.com</a></h3>
+          <p>Spain / International</p>
+        </article>
+      </div>
+    </div>
+    <ContactForm />
+  </section>
+</BaseLayout>

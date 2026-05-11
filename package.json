@@ -1,0 +1,26 @@
+{
+  "name": "hize-art-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.18.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "lint": "astro check",
+    "qa:html": "node scripts/qa-html.mjs",
+    "browser:test": "node scripts/browser-check.mjs",
+    "test": "node scripts/validate-site.mjs",
+    "predeploy": "npm run lint && npm run build && npm run qa:html && npm test"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "astro": "^6.3.1",
+    "puppeteer-core": "^24.43.0",
+    "sharp": "^0.34.5",
+    "typescript": "^5.9.3"
+  }
+}

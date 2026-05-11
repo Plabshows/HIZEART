@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ExhibitionTimeline from "../components/ExhibitionTimeline.astro";
+import exhibitions from "../../data/exhibitions.json";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Exhibitions and Collaborations by Hize",
+  url: "https://hizeart.com/exhibitions/"
+};
+---
+
+<BaseLayout
+  title="Exhibitions by Hize | International Projects & Collaborations"
+  description="Explore selected exhibitions, international projects, murals and collaborations by Spanish contemporary urban artist Hize."
+  image="/assets/images/graffiti/osaka-web.jpg"
+  structuredData={structuredData}
+>
+  <section class="page-shell page-intro">
+    <p class="eyebrow">Exhibitions & Collaborations</p>
+    <h1>International projects, exhibitions and collaborations.</h1>
+    <p>
+      A timeline of selected cultural contexts, brand collaborations, mural projects
+      and VR Art performances.
+    </p>
+  </section>
+  <section class="page-shell section">
+    <ExhibitionTimeline entries={exhibitions} />
+  </section>
+</BaseLayout>

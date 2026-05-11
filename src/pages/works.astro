@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WorkCard from "../components/WorkCard.astro";
+import FilterBar from "../components/FilterBar.astro";
+import works from "../../data/works.json";
+
+const filters = [
+  { label: "All", value: "all" },
+  { label: "Canvas", value: "canvas" },
+  { label: "Graffiti", value: "graffiti" },
+  { label: "Murals", value: "murals" },
+  { label: "VR Art", value: "vr-art" },
+  { label: "Available", value: "available" },
+  { label: "Sold", value: "sold" }
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Abstract Graffiti Paintings by Hize",
+  url: "https://hizeart.com/works/"
+};
+---
+
+<BaseLayout
+  title="Abstract Graffiti Paintings by Hize"
+  description="Explore original canvas works by Hize, combining graffiti structure, movement, colour and abstract contemporary composition."
+  image="/assets/images/canvas/wildsss.jpg"
+  structuredData={structuredData}
+>
+  <section class="page-shell page-intro page-intro--center page-intro--display">
+    <p class="eyebrow">Works</p>
+    <h1>Selected Works</h1>
+    <p>
+      Explore original artworks by Hize, where graffiti structures, movement and urban rhythm
+      are transformed into abstract contemporary compositions.
+    </p>
+    <FilterBar filters={filters} />
+  </section>
+
+  <section class="page-shell section" style="padding-top: 0;">
+    <div class="work-grid">
+      {works.map((work) => <WorkCard work={work} showDetails />)}
+    </div>
+  </section>
+</BaseLayout>

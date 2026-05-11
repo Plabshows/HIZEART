@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ResponsiveImage from "../components/ResponsiveImage.astro";
+import projects from "../../data/projects.json";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Projects by Hize",
+  url: "https://hizeart.com/projects/"
+};
+---
+
+<BaseLayout
+  title="Projects by Hize | Exhibitions, Murals & Collaborations"
+  description="Explore selected projects, exhibitions, murals and collaborations by Spanish urban artist Hize."
+  image="/assets/images/projects/streetxo.jpg"
+  structuredData={structuredData}
+>
+  <section class="project-hero">
+    <ResponsiveImage
+      src="/assets/images/projects/streetxo.jpg"
+      alt="Selected Hize project with contemporary abstract graffiti intervention"
+      loading="eager"
+      sizes="100vw"
+    />
+    <div class="project-hero__content">
+      <h1>Selected Projects & Case Studies</h1>
+      <div class="project-hero__rule"></div>
+    </div>
+  </section>
+
+  <section class="page-shell section" style="padding-top: 0;">
+    <div class="editorial-grid">
+      {projects.map((project) => (
+        <article class="editorial-card">
+          <a class="editorial-card__media" href={`/projects/${project.id}/`}>
+            <ResponsiveImage src={project.mainImage} alt={project.alt} />
+          </a>
+          <div class="card-actions" style="align-items: start;">
+            <div>
+              <h3><a href={`/projects/${project.id}/`}>{project.title}</a></h3>
+              <p>{project.description}</p>
+            </div>
+            <div class="meta-line" style="display: grid; justify-items: end;">
+              <span>{project.year} / {project.location}</span>
+              <span style="color: var(--secondary);">{project.type}</span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="feature-band" style="text-align: center;">
+    <h2>Elevate your space with a bespoke intervention.</h2>
+    <div class="button-row" style="justify-content: center;">
+      <a class="button" href="/contact/?type=brand-collaboration">Commission a similar project</a>
+    </div>
+  </section>
+</BaseLayout>

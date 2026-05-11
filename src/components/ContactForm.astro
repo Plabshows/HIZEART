@@ -1,0 +1,52 @@
+---
+const enquiryTypes = [
+  "Available artwork",
+  "Mural commission",
+  "Brand collaboration",
+  "Exhibition",
+  "VR Art project",
+  "Press / Gallery",
+  "General enquiry"
+];
+
+const formspreeEndpointPlaceholder = "https://formspree.io/f/REPLACE_WITH_FORMSPREE_FORM_ID";
+---
+
+<!-- Formspree fallback: replace the data-formspree-placeholder value and set it as action if Netlify Forms is not used. -->
+<form
+  class="contact-form"
+  name="hize-contact"
+  method="POST"
+  data-netlify="true"
+  data-formspree-placeholder={formspreeEndpointPlaceholder}
+  netlify-honeypot="bot-field"
+>
+  <input type="hidden" name="form-name" value="hize-contact" />
+  <p class="hidden-field">
+    <label>Do not fill this out <input name="bot-field" /></label>
+  </p>
+  <label>
+    <span>Name</span>
+    <input type="text" name="name" autocomplete="name" required />
+  </label>
+  <label>
+    <span>Email</span>
+    <input type="email" name="email" autocomplete="email" required />
+  </label>
+  <label>
+    <span>Type of enquiry</span>
+    <select name="type" required>
+      <option value="">Select an option</option>
+      {enquiryTypes.map((type) => <option value={type}>{type}</option>)}
+    </select>
+  </label>
+  <label>
+    <span>Message</span>
+    <textarea name="message" rows="7" required></textarea>
+  </label>
+  <button class="button button--primary" type="submit">Send Enquiry</button>
+  <p class="form-fallback">
+    This form is Netlify-ready. Direct email fallback:
+    <a href="mailto:info@hizeart.com">info@hizeart.com</a>
+  </p>
+</form>

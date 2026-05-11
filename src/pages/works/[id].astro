@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArtworkDetail from "../../components/ArtworkDetail.astro";
+import works from "../../../data/works.json";
+
+export function getStaticPaths() {
+  return works.map((work) => ({
+    params: { id: work.id },
+    props: { work }
+  }));
+}
+
+const { work } = Astro.props;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "VisualArtwork",
+  name: work.title,
+  creator: "Manuel Forner Hize",
+  artMedium: work.technique,
+  image: `https://hizeart.com${work.image}`,
+  description: work.description
+};
+---
+
+<BaseLayout
+  title={`${work.title} | Hize Artwork`}
+  description={work.description}
+  image={work.image}
+  type="article"
+  structuredData={structuredData}
+>
+  <ArtworkDetail item={work} backHref="/works/" backLabel="Back to Works" />
+</BaseLayout>

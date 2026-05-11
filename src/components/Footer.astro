@@ -1,0 +1,42 @@
+---
+const year = new Date().getFullYear();
+const footerNav = [
+  { href: "/works/", label: "Works" },
+  { href: "/available-works/", label: "Available Works" },
+  { href: "/murals/", label: "Murals" },
+  { href: "/projects/", label: "Projects" },
+  { href: "/vr-art/", label: "VR Art" },
+  { href: "/about/", label: "About" },
+  { href: "/contact/", label: "Contact" },
+  { href: "/privacy-policy/", label: "Privacy" }
+];
+---
+
+<footer class="site-footer">
+  <div class="footer-main">
+    <div>
+      <a class="brand footer-brand" href="/" aria-label="HIZE ART home">
+        <span>HIZE</span>
+        <small>ART</small>
+      </a>
+      <p>
+        Spanish contemporary urban artist transforming graffiti into abstract paintings,
+        murals and immersive visual experiences.
+      </p>
+    </div>
+    <nav aria-label="Footer navigation">
+      {footerNav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+    <div class="footer-contact">
+      <a href="mailto:info@hizeart.com">info@hizeart.com</a>
+      <a href="https://www.instagram.com/hizeart" target="_blank" rel="noreferrer">Instagram</a>
+      <a href="mailto:info@hizeart.com">Email</a>
+      <a href="/contact/">WhatsApp</a>
+      <a href="/privacy-policy/">Terms</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; {year} HIZE ART. Spain / International.</span>
+    <span>Manuel Forner "Hize"</span>
+  </div>
+</footer>

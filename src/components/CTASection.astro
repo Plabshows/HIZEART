@@ -1,0 +1,30 @@
+---
+interface Button {
+  href: string;
+  label: string;
+  variant?: "primary" | "secondary";
+}
+
+interface Props {
+  title: string;
+  text: string;
+  buttons: Button[];
+}
+
+const { title, text, buttons } = Astro.props;
+---
+
+<section class="cta-section">
+  <div>
+    <p class="eyebrow">Enquiries</p>
+    <h2>{title}</h2>
+    <p>{text}</p>
+  </div>
+  <div class="button-row">
+    {buttons.map((button) => (
+      <a class={`button button--${button.variant || "primary"}`} href={button.href}>
+        {button.label}
+      </a>
+    ))}
+  </div>
+</section>

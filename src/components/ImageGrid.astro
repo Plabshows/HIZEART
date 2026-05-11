@@ -1,0 +1,22 @@
+---
+import ResponsiveImage from "./ResponsiveImage.astro";
+
+interface ImageItem {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  images: ImageItem[];
+}
+
+const { images } = Astro.props;
+---
+
+<div class="image-grid">
+  {images.map((image) => (
+    <figure>
+      <ResponsiveImage src={image.src} alt={image.alt} />
+    </figure>
+  ))}
+</div>
