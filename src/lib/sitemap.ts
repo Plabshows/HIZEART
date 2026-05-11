@@ -1,6 +1,6 @@
 import { works, projects, murals } from "./content";
 
-const site = "https://hizeart.com";
+const site = "https://hizeart.vercel.app";
 
 const staticRoutes = [
   "/",

@@ -17,7 +17,7 @@ const {
   structuredData
 } = Astro.props;
 
-const site = "https://hizeart.com";
+const site = "https://hizeart.vercel.app";
 const canonical = new URL(path, site).toString();
 const imageUrl = new URL(image, site).toString();
 const jsonLd = structuredData ? JSON.stringify(structuredData) : "";

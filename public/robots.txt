@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hizeart.com/sitemap-index.xml
+Sitemap: https://hizeart.vercel.app/sitemap-index.xml

@@ -11,8 +11,8 @@ backend:
     deleteMedia: "cms: delete {{path}}"
 
 local_backend: true
-site_url: https://hizeart.com
-display_url: https://hizeart.com
+site_url: https://hizeart.vercel.app
+display_url: https://hizeart.vercel.app
 media_folder: "public/assets/images/uploads"
 public_folder: "/assets/images/uploads"
 
