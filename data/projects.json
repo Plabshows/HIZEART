@@ -63,11 +63,11 @@
     {
       "id": "brand-collaborations",
       "title": "Brand Collaborations",
-      "year": "Archive",
+      "year": "Selected Archive",
       "location": "International",
-      "type": "Collaboration",
+      "type": "Brand Collaboration",
       "client": "Instagram, Bvlgari, Valentino",
-      "description": "A selected archive of collaborations bringing Hize's abstract urban language into fashion, culture and brand experience contexts.",
+      "description": "Selected collaborations placing Hize's abstract urban language within fashion, culture and brand experience contexts.",
       "mainImage": "/assets/images/vr-art/valentino-web.jpg",
       "gallery": [
         "/assets/images/vr-art/valentino-web.jpg",
@@ -78,10 +78,10 @@
     },
     {
       "id": "large-scale-murals",
-      "title": "Large Scale Murals",
+      "title": "Large-Scale Murals",
       "year": "Ongoing",
-      "location": "Spain and international",
-      "type": "Murals",
+      "location": "Spain / International",
+      "type": "Mural Projects",
       "client": "Private and public commissions",
       "description": "Large-scale wall works for private, hospitality, cultural and public spaces.",
       "mainImage": "/assets/images/murals/mural-torreblanca.jpg",
