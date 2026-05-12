@@ -108,7 +108,7 @@ init();
 
 async function init() {
   bindEvents();
-  const session = await api("/api/admin/session");
+  const session = await api("/api/admin/session/");
   if (session.authenticated) {
     await showDashboard();
   } else {
@@ -122,7 +122,7 @@ function bindEvents() {
     setStatus(loginStatus, "Checking credentials...");
     const form = new FormData(loginForm);
     try {
-      await api("/api/admin/login", {
+      await api("/api/admin/login/", {
         method: "POST",
         body: {
           email: form.get("email"),
@@ -139,7 +139,7 @@ function bindEvents() {
 
   saveButton.addEventListener("click", saveContent);
   logoutButton.addEventListener("click", async () => {
-    await api("/api/admin/logout", { method: "POST" }).catch(() => null);
+    await api("/api/admin/logout/", { method: "POST" }).catch(() => null);
     showLogin();
   });
 }
@@ -153,7 +153,7 @@ async function showDashboard() {
   loginView.hidden = true;
   dashboardView.hidden = false;
   setStatus(globalStatus, "Loading content...");
-  const data = await api("/api/admin/content");
+  const data = await api("/api/admin/content/");
   Object.assign(files, data.files);
   renderNav();
   activateSection(sections[0], sectionNav.querySelector("button"));
@@ -384,22 +384,30 @@ function renderImageTools(file, path, value) {
 
 async function handleUpload(file) {
   if (!file || !currentUploadButton) return;
-  setStatus(globalStatus, `Uploading ${file.name}...`);
-  const contentBase64 = await readAsDataUrl(file);
-  const folder = uploadFolderForPath(currentUploadButton.path);
-  const result = await api("/api/admin/upload", {
-    method: "POST",
-    body: { filename: file.name, folder, contentBase64 }
-  });
-  updateValue(currentUploadButton.file, currentUploadButton.path, result.path);
-  setStatus(globalStatus, "Image uploaded. Save content to publish the new image reference.", "ok");
-  renderEditor();
+  try {
+    if (file.size > 8 * 1024 * 1024) {
+      throw new Error("The image is too large. Please upload an optimized image under 8 MB.");
+    }
+
+    setStatus(globalStatus, `Uploading ${file.name}...`);
+    const contentBase64 = await readAsDataUrl(file);
+    const folder = uploadFolderForPath(currentUploadButton.path);
+    const result = await api("/api/admin/upload/", {
+      method: "POST",
+      body: { filename: file.name, folder, contentBase64 }
+    });
+    updateValue(currentUploadButton.file, currentUploadButton.path, result.path);
+    setStatus(globalStatus, "Image uploaded. Now click Save changes to publish the image on the site.", "ok");
+    renderEditor();
+  } catch (error) {
+    setStatus(globalStatus, error.message || "Image upload failed.", "error");
+  }
 }
 
 async function saveContent() {
   setStatus(globalStatus, "Saving to GitHub...");
   try {
-    await api("/api/admin/content", {
+    await api("/api/admin/content/", {
       method: "PUT",
       body: {
         files: clone(files),

@@ -58,5 +58,11 @@ Store it as `GITHUB_TOKEN` in Vercel. Do not commit it to the repository.
 6. The admin commits updates to GitHub.
 7. Vercel deploys the new static site.
 
-Large image uploads should be optimized before uploading. The current limit is 8 MB per image.
+Large image uploads should be optimized before uploading. The current limit is 8 MB per image. After an image upload finishes, click `Save changes` so the edited page or item points to the new image.
 
+If uploads fail, confirm the GitHub token has:
+
+```txt
+Repository: Plabshows/HIZEART
+Permissions: Contents -> Read and write
+```
