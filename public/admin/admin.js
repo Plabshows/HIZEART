@@ -10,7 +10,7 @@ let activeButton = null;
 let currentUploadButton = null;
 let session = loadStoredSession();
 let usingBootstrapContent = false;
-let supabaseSetup = { table: false, bucket: false };
+let supabaseSetup = { table: false };
 
 const loginView = document.querySelector("[data-login-view]");
 const dashboardView = document.querySelector("[data-dashboard-view]");
@@ -177,7 +177,7 @@ async function showDashboard() {
     renderNav();
     activateSection(sections[0], sectionNav.querySelector("button"));
     await checkSupabaseSetup();
-    if (supabaseSetup.table && supabaseSetup.bucket) {
+    if (supabaseSetup.table) {
       setStatus(globalStatus, "Content loaded from Supabase.", "ok");
     }
   } catch (error) {
@@ -450,10 +450,6 @@ async function handleUpload(file) {
       throw new Error("The image is too large. Upload an optimized image under 8 MB.");
     }
 
-    if (!supabaseSetup.bucket) {
-      throw new Error("Supabase bucket hize-images is missing. Run the SQL migration in supabase/migrations to create the bucket before uploading images.");
-    }
-
     setStatus(globalStatus, `Uploading ${file.name} to Supabase Storage...`);
     const folder = uploadFolderForPath(currentUploadButton.path);
     const result = await uploadImage(file, folder);
@@ -552,18 +548,12 @@ async function verifySession() {
 }
 
 async function checkSupabaseSetup() {
-  supabaseSetup = {
-    table: await hasSiteDocumentsTable(),
-    bucket: await hasStorageBucket()
-  };
+  supabaseSetup = { table: await hasSiteDocumentsTable() };
 
-  if (!supabaseSetup.table || !supabaseSetup.bucket) {
-    const missing = [];
-    if (!supabaseSetup.table) missing.push("site_documents table");
-    if (!supabaseSetup.bucket) missing.push("hize-images bucket");
+  if (!supabaseSetup.table) {
     setStatus(
       globalStatus,
-      `Supabase setup incomplete: missing ${missing.join(" and ")}. Run the SQL migration in supabase/migrations/20260512170000_hize_admin_content.sql.`,
+      "Supabase setup incomplete: missing site_documents table. Run the SQL migration in supabase/migrations/20260512170000_hize_admin_content.sql.",
       "error"
     );
   }
@@ -579,18 +569,6 @@ async function hasSiteDocumentsTable() {
   if (response.ok) return true;
   const detail = await response.json().catch(() => ({}));
   return !/could not find the table|schema cache/i.test(detail.message || detail.error || "");
-}
-
-async function hasStorageBucket() {
-  const response = await fetch(`${SUPABASE_URL}/storage/v1/bucket/${STORAGE_BUCKET}`, {
-    headers: {
-      apikey: SUPABASE_KEY,
-      Authorization: `Bearer ${session.access_token}`
-    }
-  });
-  if (response.ok) return true;
-  const detail = await response.json().catch(() => ({}));
-  return !/bucket not found/i.test(detail.message || detail.error || "");
 }
 
 async function signOut() {
