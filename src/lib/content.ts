@@ -8,6 +8,7 @@ import pagesData from "../../data/pages.json";
 
 export type Work = {
   id: string;
+  slug?: string;
   title: string;
   year: string;
   category: string;
@@ -23,6 +24,7 @@ export type Work = {
 
 export type Project = {
   id: string;
+  slug?: string;
   title: string;
   year: string;
   location: string;
@@ -36,6 +38,7 @@ export type Project = {
 
 export type Mural = {
   id: string;
+  slug?: string;
   title: string;
   location: string;
   year: string;
@@ -67,6 +70,29 @@ export type AssetFolder = {
 };
 
 export type PageContent = Record<string, any>;
+
+export function slugifySegment(value: string, fallback = "item"): string {
+  const slug = String(value ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+  return slug || fallback;
+}
+
+function assignUniqueSlugs<T extends { id?: string; slug?: string; title?: string; name?: string }>(items: T[]): (T & { slug: string })[] {
+  const seen = new Map<string, number>();
+
+  return items.map((item, index) => {
+    const base = slugifySegment(item.slug || item.id || item.title || item.name || `item-${index + 1}`);
+    const count = seen.get(base) || 0;
+    seen.set(base, count + 1);
+    const slug = count === 0 ? base : `${base}-${count + 1}`;
+    return { ...item, slug };
+  });
+}
 
 type ContentDocument =
   | "data/works.json"
@@ -152,9 +178,9 @@ const collaborationsDocument = documentFor<typeof collaborationsData>("data/coll
 const assetsDocument = documentFor<typeof assetsData>("data/assets.json");
 const pagesDocument = documentFor<typeof pagesData>("data/pages.json");
 
-export const works = collection<Work>(worksDocument, "works");
-export const projects = collection<Project>(projectsDocument, "projects");
-export const murals = collection<Mural>(muralsDocument, "murals");
+export const works = assignUniqueSlugs(collection<Work>(worksDocument, "works"));
+export const projects = assignUniqueSlugs(collection<Project>(projectsDocument, "projects"));
+export const murals = assignUniqueSlugs(collection<Mural>(muralsDocument, "murals"));
 export const exhibitions = collection<Exhibition>(exhibitionsDocument, "exhibitions");
 export const collaborations = collection<Collaboration>(collaborationsDocument, "collaborations");
 export const assets = collection<AssetFolder>(assetsDocument, "assets");

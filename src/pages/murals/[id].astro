@@ -3,11 +3,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import ResponsiveImage from "../../components/ResponsiveImage.astro";
 import ImageGrid from "../../components/ImageGrid.astro";
 import CTASection from "../../components/CTASection.astro";
-import { murals } from "../../lib/content";
+import { murals, slugifySegment } from "../../lib/content";
 
 export function getStaticPaths() {
   return murals.map((mural) => ({
-    params: { id: mural.id },
+    params: { id: mural.slug || slugifySegment(mural.id || mural.title || "mural") },
     props: { mural }
   }));
 }

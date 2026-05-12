@@ -1,4 +1,4 @@
-import { works, projects, murals } from "./content";
+import { works, projects, murals, slugifySegment } from "./content";
 
 const site = "https://hizeart.vercel.app";
 
@@ -17,9 +17,9 @@ const staticRoutes = [
 
 const routes = [
   ...staticRoutes,
-  ...works.map((work) => `/works/${work.id}/`),
-  ...projects.map((project) => `/projects/${project.id}/`),
-  ...murals.map((mural) => `/murals/${mural.id}/`)
+  ...works.map((work) => `/works/${work.slug || slugifySegment(work.id || work.title || "work")}/`),
+  ...projects.map((project) => `/projects/${project.slug || slugifySegment(project.id || project.title || "project")}/`),
+  ...murals.map((mural) => `/murals/${mural.slug || slugifySegment(mural.id || mural.title || "mural")}/`)
 ];
 
 export function buildSitemap() {

@@ -3,11 +3,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import ResponsiveImage from "../../components/ResponsiveImage.astro";
 import ImageGrid from "../../components/ImageGrid.astro";
 import CTASection from "../../components/CTASection.astro";
-import { projects } from "../../lib/content";
+import { projects, slugifySegment } from "../../lib/content";
 
 export function getStaticPaths() {
   return projects.map((project) => ({
-    params: { id: project.id },
+    params: { id: project.slug || slugifySegment(project.id || project.title || "project") },
     props: { project }
   }));
 }

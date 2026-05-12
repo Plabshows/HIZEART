@@ -75,9 +75,11 @@ await withPage({ width: 390, height: 844, isMobile: true, deviceScaleFactor: 2 }
   await page.goto(`${baseUrl}/works/?filter=canvas`, { waitUntil: "networkidle0" });
   const active = await page.$eval('[data-filter-button="canvas"]', (button) => button.getAttribute("aria-pressed"));
   if (active !== "true") errors.push("Initial works filter did not activate from query string.");
-  await page.click('[data-filter-button="vr-art"]');
-  const visibleVrItems = await page.$$eval("[data-filter-item]:not([hidden])", (items) => items.length);
-  if (visibleVrItems < 1) errors.push("VR Art filter did not show any works.");
+  await page.click('[data-filter-button="available"]');
+  const activeAvailable = await page.$eval('[data-filter-button="available"]', (button) => button.getAttribute("aria-pressed"));
+  if (activeAvailable !== "true") errors.push("Available filter did not activate.");
+  const visibleAvailableItems = await page.$$eval("[data-filter-item]:not([hidden])", (items) => items.length);
+  if (visibleAvailableItems < 1) errors.push("Available filter did not show any works.");
 });
 
 await withPage({ width: 390, height: 844, isMobile: true, deviceScaleFactor: 2 }, async (page) => {

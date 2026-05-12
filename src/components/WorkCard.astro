@@ -1,9 +1,11 @@
 ---
 import ResponsiveImage from "./ResponsiveImage.astro";
+import { slugifySegment } from "../lib/content";
 
 interface Props {
   work: {
     id: string;
+    slug?: string;
     title: string;
     year: string;
     category: string;
@@ -20,11 +22,15 @@ interface Props {
 const { work, showDetails = false, ctaLabel = "Enquire" } = Astro.props;
 const category = work.category.toLowerCase().replace(/\s+/g, "-");
 const availability = work.availability.toLowerCase();
-const ctaHref = ctaLabel === "View Work" ? `/works/${work.id}/` : `/contact/?work=${work.id}`;
+const workSlug = work.slug || slugifySegment(work.id || work.title || "work");
+const ctaHref =
+  ctaLabel === "View Work"
+    ? `/works/${workSlug}/`
+    : `/contact/?work=${encodeURIComponent(work.slug || work.id || workSlug)}`;
 ---
 
 <article class="work-card" data-filter-item data-category={category} data-availability={availability}>
-  <a class="work-card__image" href={`/works/${work.id}/`} aria-label={`View ${work.title}`}>
+  <a class="work-card__image" href={`/works/${workSlug}/`} aria-label={`View ${work.title}`}>
     <ResponsiveImage src={work.image} alt={work.alt} />
   </a>
   <div class="work-card__body">
@@ -32,7 +38,7 @@ const ctaHref = ctaLabel === "View Work" ? `/works/${work.id}/` : `/contact/?wor
       <span>{work.category}</span>
       <span>{work.year}</span>
     </div>
-    <h3><a href={`/works/${work.id}/`}>{work.title}</a></h3>
+    <h3><a href={`/works/${workSlug}/`}>{work.title}</a></h3>
     {showDetails && (
       <dl class="compact-specs">
         <div>

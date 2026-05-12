@@ -2,9 +2,13 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ResponsiveImage from "../components/ResponsiveImage.astro";
 import CTASection from "../components/CTASection.astro";
-import { murals, pages } from "../lib/content";
+import { murals, pages, slugifySegment } from "../lib/content";
 
 const page = pages.murals;
+const muralCards = murals.map((mural) => ({
+  mural,
+  slug: mural.slug || slugifySegment(mural.id || mural.title || "mural")
+}));
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -36,14 +40,14 @@ const structuredData = {
       <p class="eyebrow">{page.selectedEyebrow}</p>
     </div>
     <div class="editorial-grid">
-      {murals.map((mural) => (
+      {muralCards.map(({ mural, slug }) => (
         <article class="editorial-card">
-          <a class="editorial-card__media" href={`/murals/${mural.id}/`}>
+          <a class="editorial-card__media" href={`/murals/${slug}/`}>
             <ResponsiveImage src={mural.image} alt={mural.alt} />
           </a>
           <div class="card-actions" style="align-items: start;">
             <div>
-              <h3><a href={`/murals/${mural.id}/`}>{mural.title}</a></h3>
+              <h3><a href={`/murals/${slug}/`}>{mural.title}</a></h3>
               <p class="meta-line">
                 <span>{mural.location}</span>
                 <span>{mural.year}</span>
@@ -51,7 +55,7 @@ const structuredData = {
               </p>
               {mural.client !== "Client TBC" && <p>{mural.client}</p>}
             </div>
-            <a class="text-link" href={`/murals/${mural.id}/`}>View Details</a>
+            <a class="text-link" href={`/murals/${slug}/`}>View Details</a>
           </div>
         </article>
       ))}

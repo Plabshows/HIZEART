@@ -1,9 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ResponsiveImage from "../components/ResponsiveImage.astro";
-import { projects, pages } from "../lib/content";
+import { projects, pages, slugifySegment } from "../lib/content";
 
 const page = pages.projects;
+const projectCards = projects.map((project) => ({
+  project,
+  slug: project.slug || slugifySegment(project.id || project.title || "project")
+}));
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -33,14 +37,14 @@ const structuredData = {
 
   <section class="page-shell section" style="padding-top: 0;">
     <div class="editorial-grid">
-      {projects.map((project) => (
+      {projectCards.map(({ project, slug }) => (
         <article class="editorial-card">
-          <a class="editorial-card__media" href={`/projects/${project.id}/`}>
+          <a class="editorial-card__media" href={`/projects/${slug}/`}>
             <ResponsiveImage src={project.mainImage} alt={project.alt} />
           </a>
           <div class="card-actions" style="align-items: start;">
             <div>
-              <h3><a href={`/projects/${project.id}/`}>{project.title}</a></h3>
+              <h3><a href={`/projects/${slug}/`}>{project.title}</a></h3>
               <p>{project.description}</p>
             </div>
             <div class="meta-line" style="display: grid; justify-items: end;">

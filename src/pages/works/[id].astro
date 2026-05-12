@@ -1,11 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ArtworkDetail from "../../components/ArtworkDetail.astro";
-import { works } from "../../lib/content";
+import { works, slugifySegment } from "../../lib/content";
 
 export function getStaticPaths() {
   return works.map((work) => ({
-    params: { id: work.id },
+    params: { id: work.slug || slugifySegment(work.id || work.title || "work") },
     props: { work }
   }));
 }

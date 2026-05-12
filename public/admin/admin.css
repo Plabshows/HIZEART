@@ -290,6 +290,11 @@ select:focus {
   gap: 1rem;
 }
 
+.section-stack {
+  display: grid;
+  gap: 1rem;
+}
+
 .editor-card,
 .empty-card {
   border: 1px solid var(--line);
@@ -308,9 +313,30 @@ select:focus {
   margin-bottom: 1.5rem;
 }
 
+.card-heading {
+  display: grid;
+  gap: 0.45rem;
+}
+
 .editor-card h2,
 .editor-card h3 {
   margin: 0;
+}
+
+.card-summary {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  line-height: 1.45;
+}
+
+.block-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(250, 250, 250, 1));
+}
+
+.collection-card .editor-card__header {
+  margin-bottom: 1rem;
 }
 
 .nested-grid {
@@ -352,10 +378,28 @@ select:focus {
   gap: 0.5rem;
 }
 
+.image-actions {
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.image-actions__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .small-button {
   min-height: 34px;
   padding: 0.55rem 0.7rem;
   font-size: 0.66rem;
+  letter-spacing: 0.1em;
 }
 
 .danger {
@@ -381,6 +425,7 @@ select:focus {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 1rem;
+  align-items: center;
 }
 
 .hidden-input {
@@ -416,5 +461,9 @@ select:focus {
 
   .header-actions {
     justify-content: flex-start;
+  }
+
+  .editor-card__header {
+    display: grid;
   }
 }

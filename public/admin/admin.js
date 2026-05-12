@@ -21,6 +21,7 @@ const editor = document.querySelector("[data-editor]");
 const saveButton = document.querySelector("[data-save]");
 const logoutButton = document.querySelector("[data-logout]");
 const globalStatus = document.querySelector("[data-global-status]");
+const dirtyStatus = document.querySelector("[data-dirty-status]");
 const currentKicker = document.querySelector("[data-current-kicker]");
 const currentTitle = document.querySelector("[data-current-title]");
 const currentHelp = document.querySelector("[data-current-help]");
@@ -101,6 +102,7 @@ const templates = {
 };
 
 const titleMap = {
+  id: "URL slug / ID",
   seoTitle: "SEO title",
   seoDescription: "SEO description",
   seoImage: "SEO image",
@@ -111,6 +113,280 @@ const titleMap = {
   vrArt: "VR Art",
   availableWorks: "Available Works"
 };
+
+const pageLayouts = {
+  home: [
+    {
+      title: "SEO",
+      description: "Search title, description and social image.",
+      fields: [["seoTitle"], ["seoDescription"], ["seoImage"]]
+    },
+    {
+      title: "Hero",
+      description: "Main opening statement, image and call to action.",
+      fields: [["hero"]]
+    },
+    {
+      title: "Artist Statement",
+      description: "Intro copy and supporting image.",
+      fields: [["artistStatement"]]
+    },
+    {
+      title: "Selected Works",
+      description: "Homepage teaser for the works section.",
+      fields: [["selectedWorks"]]
+    },
+    {
+      title: "Murals & Commissions",
+      description: "Collector, brand and hospitality service blocks.",
+      fields: [["commissions"]]
+    },
+    {
+      title: "VR Art",
+      description: "Digital graffiti and immersive visuals.",
+      fields: [["vrArt"]]
+    },
+    {
+      title: "Exhibitions & Collaborations",
+      description: "International names and project contexts.",
+      fields: [["collaborations"]]
+    },
+    {
+      title: "Latest Projects",
+      description: "Featured project strip shown near the bottom of the page.",
+      fields: [["latestProjects"]]
+    },
+    {
+      title: "Contact CTA",
+      description: "Final call to action on the homepage.",
+      fields: [["cta"]]
+    }
+  ],
+  works: [
+    {
+      title: "SEO",
+      description: "Metadata used for the works listing.",
+      fields: [["seoTitle"], ["seoDescription"], ["seoImage"]]
+    },
+    {
+      title: "Intro",
+      description: "Introductory copy for the works page.",
+      fields: [["eyebrow"], ["title"], ["intro"]]
+    }
+  ],
+  availableWorks: [
+    {
+      title: "SEO",
+      description: "Metadata used for the available works page.",
+      fields: [["seoTitle"], ["seoDescription"], ["seoImage"]]
+    },
+    {
+      title: "Intro",
+      description: "Intro copy shown above the available works grid.",
+      fields: [["eyebrow"], ["title"], ["intro"]]
+    },
+    {
+      title: "Collector Notes",
+      description: "Availability notes, catalogue copy and service hints.",
+      fields: [["noteOne"], ["noteTwo"], ["infoCards"]]
+    },
+    {
+      title: "CTA",
+      description: "Bottom request catalogue section.",
+      fields: [["cta"]]
+    }
+  ],
+  murals: [
+    {
+      title: "SEO",
+      description: "Metadata used for the murals page.",
+      fields: [["seoTitle"], ["seoDescription"], ["seoImage"]]
+    },
+    {
+      title: "Hero",
+      description: "Main hero copy, image and alt text.",
+      fields: [["heroTitle"], ["heroImage"], ["heroAlt"]]
+    },
+    {
+      title: "Selected Murals",
+      description: "Eyebrow and card list for the mural projects.",
+      fields: [["selectedEyebrow"]]
+    },
+    {
+      title: "Process",
+      description: "How mural commissions are developed.",
+      fields: [["process"]]
+    },
+    {
+      title: "CTA",
+      description: "Commission call to action.",
+      fields: [["cta"]]
+    }
+  ],
+  projects: [
+    {
+      title: "SEO",
+      description: "Metadata used for the projects page.",
+      fields: [["seoTitle"], ["seoDescription"], ["seoImage"]]
+    },
+    {
+      title: "Hero",
+      description: "Hero title, image and alt text.",
+      fields: [["heroTitle"], ["heroImage"], ["heroAlt"]]
+    },
+    {
+      title: "CTA",
+      description: "Bottom call to action.",
+      fields: [["ctaTitle"], ["ctaButtonLabel"], ["ctaButtonHref"]]
+    }
+  ],
+  vrArt: [
+    {
+      title: "SEO",
+      description: "Metadata used for the VR Art page.",
+      fields: [["seoTitle"], ["seoDescription"], ["seoImage"]]
+    },
+    {
+      title: "Hero",
+      description: "Hero copy, image and alt text.",
+      fields: [["heroTitle"], ["heroImage"], ["heroAlt"]]
+    },
+    {
+      title: "Intro",
+      description: "Intro text explaining the VR practice.",
+      fields: [["introEyebrow"], ["introLead"], ["introText"]]
+    },
+    {
+      title: "Disciplines",
+      description: "Live digital graffiti, events and brand experiences.",
+      fields: [["disciplinesTitle"], ["disciplines"]]
+    },
+    {
+      title: "Visuals",
+      description: "Image set shown in the VR Art gallery.",
+      fields: [["visualsTitle"], ["visualsCounter"], ["visuals"]]
+    },
+    {
+      title: "CTA",
+      description: "Book a VR Art experience.",
+      fields: [["cta"]]
+    }
+  ],
+  exhibitions: [
+    {
+      title: "SEO",
+      description: "Metadata used for the exhibitions page.",
+      fields: [["seoTitle"], ["seoDescription"], ["seoImage"]]
+    },
+    {
+      title: "Page Copy",
+      description: "Timeline intro and eyebrow.",
+      fields: [["eyebrow"], ["title"], ["intro"]]
+    }
+  ],
+  about: [
+    {
+      title: "SEO",
+      description: "Metadata used for the about page.",
+      fields: [["seoTitle"], ["seoDescription"], ["seoImage"]]
+    },
+    {
+      title: "Portrait & Meta",
+      description: "Portrait image and short profile labels.",
+      fields: [["portraitImage"], ["portraitAlt"], ["metaOne"], ["metaTwo"], ["eyebrow"], ["title"]]
+    },
+    {
+      title: "Biography",
+      description: "Long-form artist bio and quote.",
+      fields: [["paragraphs"], ["quote"]]
+    },
+    {
+      title: "Exhibitions",
+      description: "Exhibitions section copy.",
+      fields: [["exhibitionsEyebrow"], ["exhibitionsTitle"], ["exhibitionsLinkLabel"]]
+    },
+    {
+      title: "Collaborations",
+      description: "Partner names and collaboration heading.",
+      fields: [["collaborationsEyebrow"], ["collaborationsTitle"]]
+    },
+    {
+      title: "Portfolio",
+      description: "Portfolio text and button label.",
+      fields: [["portfolioText"], ["portfolioButtonLabel"], ["portfolioButtonHref"], ["contactButtonLabel"], ["contactButtonHref"]]
+    },
+    {
+      title: "CTA",
+      description: "Final about-page call to action.",
+      fields: [["cta"]]
+    }
+  ],
+  contact: [
+    {
+      title: "SEO",
+      description: "Metadata used for the contact page.",
+      fields: [["seoTitle"], ["seoDescription"], ["seoImage"]]
+    },
+    {
+      title: "Page Copy",
+      description: "Introductory contact copy.",
+      fields: [["eyebrow"], ["title"], ["intro"]]
+    },
+    {
+      title: "Contact Paths",
+      description: "Collectors, commissions and press / brand routes.",
+      fields: [["paths"]]
+    }
+  ]
+};
+
+const collectionLayouts = {
+  "data/works.json": {
+    itemLabel: "work",
+    summary(item) {
+      return [item.category, item.year, item.availability].filter(Boolean).join(" · ");
+    },
+    order: ["id", "title", "year", "category", "availability", "price", "featured", "technique", "size", "description", "image", "alt"]
+  },
+  "data/projects.json": {
+    itemLabel: "project",
+    summary(item) {
+      return [item.location, item.type, item.year].filter(Boolean).join(" · ");
+    },
+    order: ["id", "title", "year", "location", "type", "client", "description", "mainImage", "gallery", "alt"]
+  },
+  "data/murals.json": {
+    itemLabel: "mural",
+    summary(item) {
+      return [item.location, item.year, item.client].filter(Boolean).join(" · ");
+    },
+    order: ["id", "title", "location", "year", "technique", "client", "description", "image", "gallery", "alt"]
+  },
+  "data/exhibitions.json": {
+    itemLabel: "exhibition",
+    summary(item) {
+      return [item.year, item.location].filter(Boolean).join(" · ");
+    },
+    order: ["year", "title", "type", "location", "description"]
+  },
+  "data/collaborations.json": {
+    itemLabel: "collaboration",
+    summary(item) {
+      return [item.name, item.type].filter(Boolean).join(" · ");
+    },
+    order: ["name", "type"]
+  },
+  "data/assets.json": {
+    itemLabel: "folder",
+    summary(item) {
+      const count = Array.isArray(item.files) ? `${item.files.length} files` : "0 files";
+      return [item.category, item.path, count].filter(Boolean).join(" · ");
+    },
+    order: ["category", "path", "files"]
+  }
+};
+
+const routedCollections = new Set(["data/works.json", "data/projects.json", "data/murals.json"]);
 
 init();
 
@@ -147,7 +423,6 @@ function bindEvents() {
       });
       storeSession(data);
       loginForm.reset();
-      loginForm.email.value = "info@hizeart.com";
       await showDashboard();
     } catch (error) {
       setStatus(loginStatus, authErrorMessage(error), "error");
@@ -180,6 +455,7 @@ async function showDashboard() {
     if (supabaseSetup.table) {
       setStatus(globalStatus, "Content loaded from Supabase.", "ok");
     }
+    updateDirtyStatus();
   } catch (error) {
     setStatus(globalStatus, contentErrorMessage(error), "error");
   }
@@ -251,8 +527,8 @@ function activateSection(section, button) {
   currentTitle.textContent = section.title;
   currentHelp.textContent =
     section.type === "page"
-      ? "Edit page copy, SEO text, buttons and section images. Image uploads go to Supabase Storage."
-      : "Edit list items. Image uploads go to Supabase Storage and are linked in the selected field.";
+      ? "Edit page blocks, reorder arrays and manage images directly from each section card."
+      : "Reorder items, rename them inline and manage images or galleries from each item card.";
   renderEditor();
 }
 
@@ -261,28 +537,51 @@ function renderEditor() {
   if (!activeSection) return;
   if (activeSection.type === "page") {
     renderPageEditor();
-    return;
+  } else {
+    renderCollectionEditor();
   }
-  renderCollectionEditor();
+  updateDirtyStatus();
 }
 
 function renderPageEditor() {
+  const pageKey = activeSection.path[1];
+  const layout = pageLayouts[pageKey];
   const value = getValue(activeSection.file, activeSection.path);
-  const card = createCard(activeSection.title, "Page content");
-  card.appendChild(renderValue(activeSection.file, activeSection.path, value, activeSection.title));
-  editor.appendChild(card);
+  const container = document.createElement("div");
+  container.className = "section-stack";
+
+  if (layout && layout.length > 0) {
+    layout.forEach((block) => {
+      const card = createCard(block.title, "Page block", block.description);
+      card.classList.add("block-card");
+      const fields = block.fields || [];
+      fields.forEach((fieldPath) => {
+        const normalized = normalizePath(fieldPath);
+        const fieldValue = getValue(activeSection.file, [...activeSection.path, ...normalized]);
+        card.appendChild(renderValue(activeSection.file, [...activeSection.path, ...normalized], fieldValue, normalized[normalized.length - 1]));
+      });
+      container.appendChild(card);
+    });
+  } else {
+    const card = createCard(activeSection.title, "Page content");
+    card.appendChild(renderValue(activeSection.file, activeSection.path, value, activeSection.title));
+    container.appendChild(card);
+  }
+
+  editor.appendChild(container);
 }
 
 function renderCollectionEditor() {
   const items = getValue(activeSection.file, activeSection.path) || [];
+  const layout = collectionLayouts[activeSection.file] || {};
   const toolbar = document.createElement("div");
   toolbar.className = "collection-toolbar";
   toolbar.innerHTML = `<p class="notice">${items.length} items</p>`;
   const addButton = document.createElement("button");
   addButton.type = "button";
-  addButton.textContent = `Add ${activeSection.title.slice(0, -1) || "item"}`;
+  addButton.textContent = `Add ${layout.itemLabel || activeSection.title.slice(0, -1) || "item"}`;
   addButton.addEventListener("click", () => {
-    items.unshift(clone(templates[activeSection.template] || {}));
+    items.unshift(prepareCollectionItem(activeSection.file, items, templates[activeSection.template] || {}));
     markDirty(activeSection.file);
     renderEditor();
   });
@@ -291,29 +590,29 @@ function renderCollectionEditor() {
 
   items.forEach((item, index) => {
     const title = item.title || item.name || `${activeSection.title} ${index + 1}`;
-    const card = createCard(title, `Item ${index + 1}`);
-    const remove = document.createElement("button");
-    remove.type = "button";
-    remove.className = "secondary danger small-button";
-    remove.textContent = "Remove";
-    remove.addEventListener("click", () => {
-      if (!confirm(`Remove "${title}"?`)) return;
-      items.splice(index, 1);
-      markDirty(activeSection.file);
-      renderEditor();
-    });
-    card.querySelector(".editor-card__header").appendChild(remove);
+    const summary = summarizeCollectionItem(activeSection.file, item);
+    const card = createCard(title, `Item ${index + 1}`, summary);
+    card.classList.add("collection-card");
+    card.dataset.collectionItem = "true";
+    card.dataset.itemIndex = String(index);
     card.appendChild(renderValue(activeSection.file, [...activeSection.path, index], item, title));
+    const actions = buildCollectionActions(items, index, title);
+    card.querySelector(".editor-card__header").appendChild(actions);
     editor.appendChild(card);
   });
 }
 
-function createCard(title, kicker) {
+function createCard(title, kicker, description = "") {
   const card = document.createElement("article");
   card.className = "editor-card";
   const header = document.createElement("div");
   header.className = "editor-card__header";
-  header.innerHTML = `<div><p class="eyebrow">${escapeHtml(kicker)}</p><h2>${escapeHtml(title)}</h2></div>`;
+  header.innerHTML = `
+    <div class="card-heading">
+      <p class="eyebrow">${escapeHtml(kicker)}</p>
+      <h2 data-card-title>${escapeHtml(title)}</h2>
+      ${description ? `<p class="card-summary" data-card-summary>${escapeHtml(description)}</p>` : `<p class="card-summary" data-card-summary></p>`}
+    </div>`;
   card.appendChild(header);
   return card;
 }
@@ -334,7 +633,7 @@ function renderObject(file, path, value, label) {
 
   const grid = document.createElement("div");
   grid.className = "nested-grid";
-  for (const [key, nestedValue] of Object.entries(value)) {
+  for (const [key, nestedValue] of orderedEntries(file, path, value)) {
     grid.appendChild(renderValue(file, [...path, key], nestedValue, key));
   }
   wrapper.appendChild(grid);
@@ -346,7 +645,7 @@ function renderArray(file, path, value, label) {
   wrapper.className = "field-group";
   const heading = document.createElement("div");
   heading.className = "editor-card__header";
-  heading.innerHTML = `<div><p class="eyebrow">List</p><h3>${escapeHtml(cleanLabel(label))}</h3></div>`;
+  heading.innerHTML = `<div class="card-heading"><p class="eyebrow">List</p><h3>${escapeHtml(cleanLabel(label))}</h3><p class="card-summary">${escapeHtml(describeArray(label, value))}</p></div>`;
   const addButton = document.createElement("button");
   addButton.type = "button";
   addButton.className = "secondary small-button";
@@ -367,6 +666,12 @@ function renderArray(file, path, value, label) {
     row.appendChild(renderValue(file, [...path, index], item, `${label} ${index + 1}`));
     const actions = document.createElement("div");
     actions.className = "array-actions";
+    actions.append(
+      smallButton("↑", () => moveArrayItem(value, index, -1, file)),
+      smallButton("↓", () => moveArrayItem(value, index, 1, file)),
+      smallButton("⇤", () => moveArrayItem(value, index, -index, file)),
+      smallButton("⇥", () => moveArrayItem(value, index, value.length - index - 1, file))
+    );
     const duplicate = smallButton("Duplicate", () => {
       value.splice(index + 1, 0, clone(item));
       markDirty(file);
@@ -388,6 +693,7 @@ function renderArray(file, path, value, label) {
 function renderPrimitive(file, path, value, label) {
   const row = document.createElement("label");
   row.className = "field-row";
+  row.dataset.fieldKey = String(label);
   const span = document.createElement("span");
   span.textContent = cleanLabel(label);
   row.appendChild(span);
@@ -405,7 +711,10 @@ function renderPrimitive(file, path, value, label) {
   const input = shouldUseTextarea(label, stringValue) ? document.createElement("textarea") : document.createElement("input");
   input.value = stringValue;
   if (input.tagName === "INPUT") input.type = "text";
-  input.addEventListener("input", () => updateValue(file, path, input.value));
+  input.addEventListener("input", () => {
+    updateValue(file, path, input.value);
+    refreshCardFromInput(row, file, path, label, input.value);
+  });
   row.appendChild(input);
 
   if (isImageField(label, stringValue)) {
@@ -418,6 +727,8 @@ function renderPrimitive(file, path, value, label) {
 function renderImageTools(file, path, value) {
   const wrapper = document.createElement("div");
   wrapper.className = "image-actions";
+  const controls = document.createElement("div");
+  controls.className = "image-actions__controls";
   if (value && (value.startsWith("/") || value.startsWith("http"))) {
     const img = document.createElement("img");
     img.className = "image-preview";
@@ -426,7 +737,7 @@ function renderImageTools(file, path, value) {
     wrapper.appendChild(img);
   }
 
-  const upload = smallButton("Upload image", () => {
+  const upload = smallButton("Replace image", () => {
     currentUploadButton = { file, path };
     const picker = document.createElement("input");
     picker.className = "hidden-input";
@@ -439,7 +750,31 @@ function renderImageTools(file, path, value) {
     document.body.appendChild(picker);
     picker.click();
   });
-  wrapper.appendChild(upload);
+  const clear = smallButton("Remove reference", () => {
+    if (!confirm("Remove this image reference from the page?")) return;
+    updateValue(file, path, "");
+    renderEditor();
+  }, "danger");
+
+  controls.append(upload, clear);
+
+  const storageObject = parseStorageObject(value);
+  if (storageObject) {
+    const deleteButton = smallButton("Delete uploaded file", async () => {
+      if (!confirm("Delete this uploaded file from Supabase Storage?")) return;
+      try {
+        await deleteStorageObject(storageObject);
+        updateValue(file, path, "");
+        setStatus(globalStatus, "Uploaded image deleted from Supabase Storage.", "ok");
+        renderEditor();
+      } catch (error) {
+        setStatus(globalStatus, error.message || "Could not delete uploaded image.", "error");
+      }
+    }, "danger");
+    controls.append(deleteButton);
+  }
+
+  wrapper.append(controls);
   return wrapper;
 }
 
@@ -496,6 +831,7 @@ async function saveContent() {
     }
     await saveDocuments();
     dirtyFiles.clear();
+    updateDirtyStatus();
     const redeploy = await triggerRedeploy();
     if (redeploy.skipped) {
       setStatus(globalStatus, "Saved in Supabase. VERCEL_DEPLOY_HOOK_URL is not configured yet, so redeploy Vercel manually to publish.", "ok");
@@ -676,6 +1012,109 @@ function updateValue(file, path, value) {
 
 function markDirty(file) {
   dirtyFiles.add(file);
+  updateDirtyStatus();
+}
+
+function updateDirtyStatus() {
+  if (!dirtyStatus) return;
+
+  if (dirtyFiles.size === 0) {
+    setStatus(dirtyStatus, "All changes are saved in Supabase.", "ok");
+    return;
+  }
+
+  const count = dirtyFiles.size;
+  const noun = count === 1 ? "section" : "sections";
+  setStatus(dirtyStatus, `${count} ${noun} have unsaved changes. Click Save changes to publish them.`, "error");
+}
+
+function refreshCardFromInput(row, file, path) {
+  if (activeSection?.type !== "collection" || file !== activeSection.file) return;
+  if (path.length !== activeSection.path.length + 2) return;
+  const card = row.closest(".editor-card");
+  if (!card) return;
+  refreshCollectionCard(card, file, path.slice(0, -1));
+}
+
+function refreshCollectionCard(card, file, itemPath) {
+  const item = getValue(file, itemPath);
+  if (!item || typeof item !== "object") return;
+  const layout = collectionLayouts[file] || {};
+  setCardTitle(card, item.title || item.name || "Untitled item");
+  setCardSummary(card, layout.summary ? layout.summary(item) : "");
+}
+
+function setCardTitle(card, title) {
+  const titleNode = card.querySelector("[data-card-title]");
+  if (titleNode) titleNode.textContent = title || "Untitled item";
+}
+
+function setCardSummary(card, summary) {
+  const summaryNode = card.querySelector("[data-card-summary]");
+  if (summaryNode) summaryNode.textContent = summary || "";
+}
+
+function summarizeCollectionItem(file, item) {
+  const layout = collectionLayouts[file];
+  if (layout?.summary) return layout.summary(item);
+  return "";
+}
+
+function orderedEntries(file, path, value) {
+  const entries = Object.entries(value);
+  if (!collectionLayouts[file] || path.length !== 2) return entries;
+
+  const preferredOrder = collectionLayouts[file].order || [];
+  if (!preferredOrder.length) return entries;
+
+  const orderMap = new Map(preferredOrder.map((key, index) => [key, index]));
+  return entries.sort((left, right) => {
+    const leftRank = orderMap.has(left[0]) ? orderMap.get(left[0]) : Number.POSITIVE_INFINITY;
+    const rightRank = orderMap.has(right[0]) ? orderMap.get(right[0]) : Number.POSITIVE_INFINITY;
+    if (leftRank !== rightRank) return leftRank - rightRank;
+    return left[0].localeCompare(right[0]);
+  });
+}
+
+function buildCollectionActions(items, index, title) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "item-actions";
+
+  wrapper.append(
+    smallButton("↑", () => moveArrayItem(items, index, -1, activeSection.file)),
+    smallButton("↓", () => moveArrayItem(items, index, 1, activeSection.file)),
+    smallButton("⇤", () => moveArrayItem(items, index, -index, activeSection.file)),
+    smallButton("⇥", () => moveArrayItem(items, index, items.length - index - 1, activeSection.file)),
+    smallButton("Duplicate", () => {
+      const copy = prepareCollectionItem(activeSection.file, items, clone(items[index]), title);
+      if (copy.title) copy.title = copy.title.startsWith("Copy of ") ? `${copy.title} copy` : `Copy of ${copy.title}`;
+      if (copy.name) copy.name = copy.name.startsWith("Copy of ") ? `${copy.name} copy` : `Copy of ${copy.name}`;
+      items.splice(index + 1, 0, copy);
+      markDirty(activeSection.file);
+      renderEditor();
+    }),
+    smallButton("Remove", () => {
+      if (!confirm(`Remove "${title}"?`)) return;
+      items.splice(index, 1);
+      markDirty(activeSection.file);
+      renderEditor();
+    }, "danger")
+  );
+
+  return wrapper;
+}
+
+function moveArrayItem(array, index, delta, file) {
+  const targetIndex = Math.max(0, Math.min(array.length - 1, index + delta));
+  if (targetIndex === index) return;
+  const [entry] = array.splice(index, 1);
+  array.splice(targetIndex, 0, entry);
+  markDirty(file);
+  renderEditor();
+}
+
+function normalizePath(path) {
+  return Array.isArray(path) ? path : [path];
 }
 
 function getValue(file, path) {
@@ -708,11 +1147,52 @@ function shouldUseTextarea(label, value) {
 function defaultArrayItem(label, array) {
   if (array.length) return clone(array[array.length - 1]);
   const key = String(label).toLowerCase();
-  if (key.includes("gallery") || key.includes("files")) return "";
-  if (key.includes("visual")) return { src: "/assets/images/vr-art/hize-vr-5.jpg", alt: "Hize visual artwork" };
-  if (key.includes("discipline")) return { eyebrow: "New discipline", title: "New title", text: "Description text." };
-  if (key.includes("path")) return { eyebrow: "New path", title: "New title", text: "Description text." };
+  if (/(gallery|files|steps|paragraphs|links|notes)/i.test(key)) return "";
+  if (/(visuals|disciplines|info cards|infoCards|items|paths)/i.test(key)) {
+    if (key.includes("visual")) return { src: "/assets/images/vr-art/hize-vr-5.jpg", alt: "Hize visual artwork" };
+    if (key.includes("discipl")) return { eyebrow: "New discipline", title: "New title", text: "Description text." };
+    if (key.includes("path")) return { eyebrow: "New path", title: "New title", text: "Description text." };
+    if (key.includes("item")) return { title: "New item", text: "Description text." };
+    return { title: "New item", text: "Description text." };
+  }
+  if (key.includes("collaboration")) return { name: "New collaboration", type: "Brand Collaboration" };
   return { title: "New item", text: "Description text." };
+}
+
+function prepareCollectionItem(file, items, item, titleHint = "") {
+  const copy = clone(item);
+  if (routedCollections.has(file)) {
+    const base = copy.id || copy.slug || titleHint || copy.title || copy.name || "item";
+    copy.id = uniqueCollectionId(base, items);
+  }
+  return copy;
+}
+
+function uniqueCollectionId(base, items) {
+  const taken = new Set(
+    items
+      .map((entry) => entry && typeof entry === "object" ? entry.id || entry.slug || entry.title || entry.name : "")
+      .filter(Boolean)
+      .map((value) => slugifySegment(value, "item"))
+  );
+  const root = slugifySegment(base, "item");
+  if (!taken.has(root)) return root;
+
+  let suffix = 2;
+  while (taken.has(`${root}-${suffix}`)) suffix += 1;
+  return `${root}-${suffix}`;
+}
+
+function describeArray(label, value) {
+  const total = value.length;
+  const itemLabel = total === 1 ? "item" : "items";
+  const key = String(label).toLowerCase();
+  const type = value[0] && typeof value[0] === "object"
+    ? "structured"
+    : /(gallery|files|steps|paragraphs|links|notes)/i.test(key)
+      ? "text"
+      : "text";
+  return `${total} ${itemLabel} · ${type} list`;
 }
 
 function uploadFolderForPath(path) {
@@ -736,6 +1216,16 @@ function sanitizeFilename(filename) {
   return cleaned || "upload.jpg";
 }
 
+function slugifySegment(value, fallback = "item") {
+  const slug = String(value ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return slug || fallback;
+}
+
 function smallButton(label, onClick, extraClass = "") {
   const button = document.createElement("button");
   button.type = "button";
@@ -749,6 +1239,32 @@ function setStatus(element, message, type = "") {
   element.textContent = message || "";
   element.classList.toggle("is-error", type === "error");
   element.classList.toggle("is-ok", type === "ok");
+}
+
+function parseStorageObject(value) {
+  if (!value || typeof value !== "string") return null;
+  const marker = `/storage/v1/object/public/${STORAGE_BUCKET}/`;
+  const index = value.indexOf(marker);
+  if (index === -1) return null;
+  const path = value.slice(index + marker.length).split("?")[0];
+  if (!path) return null;
+  return {
+    bucket: STORAGE_BUCKET,
+    path
+  };
+}
+
+async function deleteStorageObject(storageObject) {
+  const encodedPath = storageObject.path.split("/").map(encodeURIComponent).join("/");
+  const response = await fetch(`${SUPABASE_URL}/storage/v1/object/${storageObject.bucket}/${encodedPath}`, {
+    method: "DELETE",
+    headers: await authHeaders()
+  });
+
+  if (!response.ok) {
+    const detail = await response.json().catch(() => ({}));
+    throw new Error(detail.message || detail.error || `Delete failed with status ${response.status}`);
+  }
 }
 
 function escapeHtml(value) {
