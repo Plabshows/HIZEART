@@ -137,6 +137,23 @@ export function checkLogin(email, password) {
   return false;
 }
 
+export function adminConfigStatus() {
+  const adminEmail = (process.env.ADMIN_EMAIL || "").trim().toLowerCase();
+  const hasPasswordHash = Boolean((process.env.ADMIN_PASSWORD_HASH || "").trim());
+  const hasPassword = Boolean(process.env.ADMIN_PASSWORD);
+  const sessionSecret = process.env.SESSION_SECRET || "";
+  return {
+    adminEmailConfigured: Boolean(adminEmail),
+    adminEmail,
+    passwordConfigured: hasPassword || hasPasswordHash,
+    passwordMode: hasPasswordHash ? "hash" : hasPassword ? "plain" : "missing",
+    sessionSecretConfigured: sessionSecret.length >= 24,
+    githubRepoConfigured: Boolean(process.env.GITHUB_REPO || "Plabshows/HIZEART"),
+    githubBranchConfigured: Boolean(process.env.GITHUB_BRANCH || "main"),
+    githubTokenConfigured: Boolean(process.env.GITHUB_TOKEN)
+  };
+}
+
 function githubHeaders() {
   if (!process.env.GITHUB_TOKEN) throw new Error("Missing GITHUB_TOKEN environment variable");
   return {
