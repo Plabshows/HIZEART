@@ -1,12 +1,14 @@
 # HIZE ART Website
 
-Static Astro website for HIZE ART, prepared for GitHub and Vercel.
+Static Astro website for HIZE ART, prepared for GitHub, Vercel and Supabase-powered content editing.
 
 ## Stack
 
 - Astro static output
-- JSON content in `data/`
-- Images in `public/assets/images/`
+- Supabase Auth for `/admin/`
+- Supabase Database for editable site content
+- Supabase Storage for uploaded images
+- Local JSON in `data/` as build fallback and seed source
 - SEO and redirects configured for production
 
 ## Local Commands
@@ -21,25 +23,13 @@ npm test
 npm run predeploy
 ```
 
-## GitHub First Setup
-
-Create an empty GitHub repository, then from this project folder run:
+Seed current JSON content into Supabase:
 
 ```bash
-git remote add origin git@github.com:YOUR_USER_OR_ORG/hize-art-website.git
-git push -u origin main
-```
-
-If you prefer HTTPS:
-
-```bash
-git remote add origin https://github.com/YOUR_USER_OR_ORG/hize-art-website.git
-git push -u origin main
+SUPABASE_ADMIN_EMAIL=info@hizeart.com SUPABASE_ADMIN_PASSWORD='your-password' npm run supabase:seed
 ```
 
 ## Vercel
-
-After the repository is on GitHub, import it in Vercel.
 
 Use:
 
@@ -54,14 +44,6 @@ More detail is in `DEPLOY_VERCEL.md`.
 
 The admin is available at `/admin/` after deployment.
 
-It is a custom password-protected panel for the Vercel site:
-
-- edits page content in `data/pages.json`
-- edits works, projects, murals, exhibitions, collaborations and asset lists in `data/`
-- uploads new images to `public/assets/images/uploads/`
-- commits admin changes to `main`
-- Vercel deploys automatically after each GitHub commit
-
 Editable areas:
 
 - Page content
@@ -72,4 +54,6 @@ Editable areas:
 - Home collaborations strip
 - Image catalogue
 
-Production setup requires admin and GitHub token environment variables in Vercel. See `ADMIN_SETUP.md`.
+The admin saves to Supabase. Vercel rebuilds automatically after each save when `VERCEL_DEPLOY_HOOK_URL` is configured.
+
+Full setup is in `ADMIN_SETUP.md`.

@@ -1,8 +1,14 @@
+const SUPABASE_URL = "https://omhjbjvjzkxjmqqionbs.supabase.co";
+const SUPABASE_KEY = "sb_publishable_nbqGkvXvIrKDKE0Mk3cIgg_RZA1exc9";
+const STORAGE_BUCKET = "hize-images";
+const SESSION_KEY = "hize-admin-supabase-session";
+
 const files = {};
 const dirtyFiles = new Set();
 let activeSection = null;
 let activeButton = null;
 let currentUploadButton = null;
+let session = loadStoredSession();
 
 const loginView = document.querySelector("[data-login-view]");
 const dashboardView = document.querySelector("[data-dashboard-view]");
@@ -46,7 +52,7 @@ const templates = {
     availability: "Available",
     price: "Price on request",
     featured: false,
-    description: "Describe the work here.",
+    description: "Add the collector-facing artwork description here.",
     image: "/assets/images/canvas/canvas.jpg",
     alt: "Hize abstract graffiti artwork on canvas"
   },
@@ -57,7 +63,7 @@ const templates = {
     location: "Spain",
     type: "Project",
     client: "",
-    description: "Describe the project here.",
+    description: "Add the public project description here.",
     mainImage: "/assets/images/projects/streetxo.jpg",
     gallery: [],
     alt: "Hize contemporary urban art project"
@@ -69,7 +75,7 @@ const templates = {
     year: "2026",
     technique: "Spray paint and acrylic on wall",
     client: "",
-    description: "Describe the mural here.",
+    description: "Add the mural description here.",
     image: "/assets/images/murals/mural-torreblanca.jpg",
     gallery: [],
     alt: "Hize abstract graffiti mural in a contemporary space"
@@ -79,7 +85,7 @@ const templates = {
     title: "New Exhibition",
     type: "Exhibition",
     location: "International",
-    description: "Describe the exhibition or collaboration here."
+    description: "Add the exhibition or collaboration note here."
   },
   collaboration: {
     name: "New Collaboration",
@@ -87,7 +93,7 @@ const templates = {
   },
   asset: {
     category: "Uploads",
-    path: "/assets/images/uploads",
+    path: "supabase://hize-images/uploads",
     files: []
   }
 };
@@ -98,8 +104,8 @@ const titleMap = {
   seoImage: "SEO image",
   heroTitle: "Hero title",
   heroImage: "Hero image",
-  heroAlt: "Hero alt text",
   mainImage: "Main image",
+  portraitImage: "Portrait image",
   vrArt: "VR Art",
   availableWorks: "Available Works"
 };
@@ -108,10 +114,17 @@ init();
 
 async function init() {
   bindEvents();
-  const session = await api("/api/admin/session/");
-  if (session.authenticated) {
+  if (!session) {
+    showLogin();
+    return;
+  }
+
+  try {
+    await verifySession();
     await showDashboard();
-  } else {
+  } catch (error) {
+    clearStoredSession();
+    setStatus(loginStatus, "Session expired. Please sign in again.", "error");
     showLogin();
   }
 }
@@ -121,25 +134,27 @@ function bindEvents() {
     event.preventDefault();
     setStatus(loginStatus, "Checking credentials...");
     const form = new FormData(loginForm);
+
     try {
-      await api("/api/admin/login/", {
+      const data = await supabaseRequest("/auth/v1/token?grant_type=password", {
         method: "POST",
         body: {
-          email: form.get("email"),
-          password: form.get("password")
+          email: String(form.get("email") || ""),
+          password: String(form.get("password") || "")
         }
       });
+      storeSession(data);
       loginForm.reset();
       loginForm.email.value = "info@hizeart.com";
       await showDashboard();
     } catch (error) {
-      setStatus(loginStatus, error.message, "error");
+      setStatus(loginStatus, authErrorMessage(error), "error");
     }
   });
 
   saveButton.addEventListener("click", saveContent);
   logoutButton.addEventListener("click", async () => {
-    await api("/api/admin/logout/", { method: "POST" }).catch(() => null);
+    await signOut();
     showLogin();
   });
 }
@@ -152,12 +167,35 @@ function showLogin() {
 async function showDashboard() {
   loginView.hidden = true;
   dashboardView.hidden = false;
-  setStatus(globalStatus, "Loading content...");
-  const data = await api("/api/admin/content/");
-  Object.assign(files, data.files);
-  renderNav();
-  activateSection(sections[0], sectionNav.querySelector("button"));
-  setStatus(globalStatus, "Content loaded.", "ok");
+  setStatus(globalStatus, "Loading content from Supabase...");
+  try {
+    const data = await loadContentDocuments();
+    Object.keys(files).forEach((key) => delete files[key]);
+    Object.assign(files, data);
+    renderNav();
+    activateSection(sections[0], sectionNav.querySelector("button"));
+    setStatus(globalStatus, "Content loaded from Supabase.", "ok");
+  } catch (error) {
+    setStatus(globalStatus, contentErrorMessage(error), "error");
+  }
+}
+
+async function loadContentDocuments() {
+  const rows = await supabaseRequest("/rest/v1/site_documents?select=key,content", {
+    headers: await authHeaders()
+  });
+
+  if (Array.isArray(rows) && rows.length > 0) {
+    return rows.reduce((documents, row) => {
+      documents[row.key] = row.content;
+      return documents;
+    }, {});
+  }
+
+  const bootstrap = await fetch("/admin/bootstrap-content.json", { cache: "no-store" });
+  if (!bootstrap.ok) throw new Error("No content found in Supabase and bootstrap content is missing.");
+  setStatus(globalStatus, "Supabase is empty. Starter content loaded; click Save changes once to seed the database.", "ok");
+  return bootstrap.json();
 }
 
 function renderNav() {
@@ -190,8 +228,8 @@ function activateSection(section, button) {
   currentTitle.textContent = section.title;
   currentHelp.textContent =
     section.type === "page"
-      ? "Edit the page copy, SEO text, buttons and section images."
-      : "Edit list items. Uploaded images are saved to GitHub, then linked in these fields.";
+      ? "Edit page copy, SEO text, buttons and section images. Image uploads go to Supabase Storage."
+      : "Edit list items. Image uploads go to Supabase Storage and are linked in the selected field.";
   renderEditor();
 }
 
@@ -357,7 +395,7 @@ function renderPrimitive(file, path, value, label) {
 function renderImageTools(file, path, value) {
   const wrapper = document.createElement("div");
   wrapper.className = "image-actions";
-  if (value && value.startsWith("/")) {
+  if (value && (value.startsWith("/") || value.startsWith("http"))) {
     const img = document.createElement("img");
     img.className = "image-preview";
     img.src = value;
@@ -386,51 +424,191 @@ async function handleUpload(file) {
   if (!file || !currentUploadButton) return;
   try {
     if (file.size > 8 * 1024 * 1024) {
-      throw new Error("The image is too large. Please upload an optimized image under 8 MB.");
+      throw new Error("The image is too large. Upload an optimized image under 8 MB.");
     }
 
-    setStatus(globalStatus, `Uploading ${file.name}...`);
-    const contentBase64 = await readAsDataUrl(file);
+    setStatus(globalStatus, `Uploading ${file.name} to Supabase Storage...`);
     const folder = uploadFolderForPath(currentUploadButton.path);
-    const result = await api("/api/admin/upload/", {
-      method: "POST",
-      body: { filename: file.name, folder, contentBase64 }
-    });
-    updateValue(currentUploadButton.file, currentUploadButton.path, result.path);
-    setStatus(globalStatus, "Image uploaded. Now click Save changes to publish the image on the site.", "ok");
+    const result = await uploadImage(file, folder);
+    updateValue(currentUploadButton.file, currentUploadButton.path, result.publicUrl);
+    setStatus(globalStatus, "Image uploaded. Click Save changes to publish this image in the content database.", "ok");
     renderEditor();
   } catch (error) {
     setStatus(globalStatus, error.message || "Image upload failed.", "error");
   }
 }
 
+async function uploadImage(file, folder) {
+  const objectPath = `${folder}/${Date.now()}-${sanitizeFilename(file.name)}`;
+  const encodedPath = objectPath.split("/").map(encodeURIComponent).join("/");
+  const response = await fetch(`${SUPABASE_URL}/storage/v1/object/${STORAGE_BUCKET}/${encodedPath}`, {
+    method: "POST",
+    headers: {
+      ...(await authHeaders()),
+      "Content-Type": file.type || "application/octet-stream",
+      "x-upsert": "false"
+    },
+    body: file
+  });
+
+  if (!response.ok) {
+    const detail = await response.json().catch(() => ({}));
+    throw new Error(detail.message || detail.error || `Upload failed with status ${response.status}`);
+  }
+
+  return {
+    path: objectPath,
+    publicUrl: `${SUPABASE_URL}/storage/v1/object/public/${STORAGE_BUCKET}/${encodedPath}`
+  };
+}
+
 async function saveContent() {
-  setStatus(globalStatus, "Saving to GitHub...");
+  if (!Object.keys(files).length) return;
+  setStatus(globalStatus, "Saving content to Supabase...");
+  saveButton.disabled = true;
+
   try {
-    await api("/api/admin/content/", {
-      method: "PUT",
-      body: {
-        files: clone(files),
-        message: "admin: update HIZE ART content"
-      }
-    });
+    await saveDocuments();
     dirtyFiles.clear();
-    setStatus(globalStatus, "Saved. Vercel will redeploy the site automatically.", "ok");
+    const redeploy = await triggerRedeploy();
+    if (redeploy.skipped) {
+      setStatus(globalStatus, "Saved in Supabase. VERCEL_DEPLOY_HOOK_URL is not configured yet, so redeploy Vercel manually to publish.", "ok");
+    } else {
+      setStatus(globalStatus, "Saved in Supabase. Vercel rebuild has been triggered.", "ok");
+    }
   } catch (error) {
-    setStatus(globalStatus, error.message, "error");
+    setStatus(globalStatus, error.message || "Save failed.", "error");
+  } finally {
+    saveButton.disabled = false;
   }
 }
 
-async function api(url, options = {}) {
-  const response = await fetch(url, {
-    method: options.method || "GET",
-    credentials: "include",
-    headers: options.body ? { "Content-Type": "application/json" } : undefined,
-    body: options.body ? JSON.stringify(options.body) : undefined
+async function saveDocuments() {
+  const rows = Object.entries(files).map(([key, content]) => ({ key, content }));
+  await supabaseRequest("/rest/v1/site_documents?on_conflict=key", {
+    method: "POST",
+    headers: {
+      ...(await authHeaders()),
+      Prefer: "resolution=merge-duplicates,return=minimal"
+    },
+    body: rows,
+    expectJson: false
+  });
+}
+
+async function triggerRedeploy() {
+  const headers = await authHeaders();
+  const response = await fetch("/api/admin/redeploy/", {
+    method: "POST",
+    headers
   });
   const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(data.error || "Request failed");
+  if (!response.ok) throw new Error(data.error || "Content saved, but Vercel redeploy could not be triggered.");
   return data;
+}
+
+async function verifySession() {
+  await supabaseRequest("/auth/v1/user", {
+    headers: await authHeaders()
+  });
+}
+
+async function signOut() {
+  if (session?.access_token) {
+    await fetch(`${SUPABASE_URL}/auth/v1/logout`, {
+      method: "POST",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${session.access_token}`
+      }
+    }).catch(() => null);
+  }
+  clearStoredSession();
+}
+
+async function authHeaders() {
+  await ensureSession();
+  return {
+    apikey: SUPABASE_KEY,
+    Authorization: `Bearer ${session.access_token}`,
+    "Content-Type": "application/json"
+  };
+}
+
+async function ensureSession() {
+  if (session?.access_token && session.expires_at && Date.now() < session.expires_at - 30000) return;
+  if (!session?.refresh_token) throw new Error("Session expired. Please sign in again.");
+
+  const data = await supabaseRequest("/auth/v1/token?grant_type=refresh_token", {
+    method: "POST",
+    body: { refresh_token: session.refresh_token },
+    skipAuth: true
+  });
+  storeSession(data);
+}
+
+async function supabaseRequest(path, options = {}) {
+  const headers = {
+    apikey: SUPABASE_KEY,
+    ...(options.headers || {})
+  };
+
+  if (options.body && !headers["Content-Type"]) {
+    headers["Content-Type"] = "application/json";
+  }
+
+  const response = await fetch(`${SUPABASE_URL}${path}`, {
+    method: options.method || "GET",
+    headers,
+    body: options.body ? JSON.stringify(options.body) : undefined
+  });
+
+  if (!response.ok) {
+    const detail = await response.json().catch(() => ({}));
+    throw new Error(detail.msg || detail.message || detail.error_description || detail.error || `Request failed with status ${response.status}`);
+  }
+
+  if (options.expectJson === false || response.status === 204) return {};
+  return response.json();
+}
+
+function storeSession(data) {
+  const expiresIn = Number(data.expires_in || 3600);
+  session = {
+    access_token: data.access_token,
+    refresh_token: data.refresh_token,
+    expires_at: Date.now() + expiresIn * 1000
+  };
+  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+}
+
+function loadStoredSession() {
+  try {
+    const value = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+    if (!value?.access_token) return null;
+    return value;
+  } catch {
+    return null;
+  }
+}
+
+function clearStoredSession() {
+  session = null;
+  localStorage.removeItem(SESSION_KEY);
+}
+
+function authErrorMessage(error) {
+  if (/invalid login/i.test(error.message)) {
+    return "Invalid email or password. Check that this user exists in Supabase Auth.";
+  }
+  return error.message || "Login failed.";
+}
+
+function contentErrorMessage(error) {
+  if (/site_documents|schema cache|could not find the table/i.test(error.message)) {
+    return "Supabase login works, but the content table is not installed yet. Run the SQL migration in supabase/migrations, then reload this admin.";
+  }
+  return error.message || "Could not load content from Supabase.";
 }
 
 function updateValue(file, path, value) {
@@ -486,7 +664,18 @@ function uploadFolderForPath(path) {
   if (joined.includes("vrart") || joined.includes("vr-art") || joined.includes("visual")) return "vr-art";
   if (joined.includes("about") || joined.includes("portrait")) return "about";
   if (joined.includes("hero") || joined.includes("featured")) return "featured";
+  if (joined.includes("canvas") || joined.includes("work")) return "canvas";
   return "uploads";
+}
+
+function sanitizeFilename(filename) {
+  const cleaned = filename
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9.]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return cleaned || "upload.jpg";
 }
 
 function smallButton(label, onClick, extraClass = "") {
@@ -502,15 +691,6 @@ function setStatus(element, message, type = "") {
   element.textContent = message || "";
   element.classList.toggle("is-error", type === "error");
   element.classList.toggle("is-ok", type === "ok");
-}
-
-function readAsDataUrl(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(reader.error);
-    reader.readAsDataURL(file);
-  });
 }
 
 function escapeHtml(value) {

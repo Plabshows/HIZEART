@@ -14,6 +14,7 @@
     "lint": "astro check",
     "qa:html": "node scripts/qa-html.mjs",
     "browser:test": "node scripts/browser-check.mjs",
+    "supabase:seed": "node scripts/seed-supabase-content.mjs",
     "test": "node scripts/validate-site.mjs",
     "predeploy": "npm run lint && npm run build && npm run qa:html && npm test"
   },

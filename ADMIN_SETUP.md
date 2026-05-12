@@ -1,68 +1,81 @@
 # HIZE ART Admin Setup
 
-The custom admin panel lives at:
+The admin panel lives at:
 
 ```txt
 https://hizeart.vercel.app/admin/
 ```
 
-It is a private panel for editing page copy, works, projects, murals, exhibitions, collaborations and image references. When content is saved, the admin commits JSON/image changes to GitHub. Vercel then redeploys the site automatically.
+It now uses Supabase for login, editable content and image uploads:
 
-## Required Vercel Environment Variables
+- Supabase Auth: private admin login.
+- Supabase Database: page and collection content.
+- Supabase Storage: uploaded images.
+- Vercel Deploy Hook: optional automatic rebuild after saving.
 
-Set these in Vercel Project Settings -> Environment Variables for Production, Preview and Development if needed:
+## 1. Create The Supabase Tables And Bucket
+
+Open Supabase -> SQL Editor and run:
 
 ```txt
-ADMIN_EMAIL=info@hizeart.com
-ADMIN_PASSWORD=your-private-admin-password
-SESSION_SECRET=a-long-random-secret
-GITHUB_REPO=Plabshows/HIZEART
-GITHUB_BRANCH=main
-GITHUB_TOKEN=github-token-with-repo-contents-read-write-access
+supabase/migrations/20260512170000_hize_admin_content.sql
 ```
 
-For stronger security, use `ADMIN_PASSWORD_HASH` instead of `ADMIN_PASSWORD`.
+This creates:
 
-Generate the hash locally:
+- `public.site_documents`
+- public read access for the static site
+- write access only for `info@hizeart.com`
+- public bucket `hize-images`
+- upload/delete access only for `info@hizeart.com`
+
+## 2. Create The Admin User
+
+In Supabase -> Authentication -> Users, create:
+
+```txt
+Email: info@hizeart.com
+Password: your private password
+```
+
+Do not commit this password to the repository.
+
+## 3. Seed Current Site Content
+
+After the SQL and user are ready, run locally:
 
 ```bash
-node -e "const crypto=require('crypto'); const password=process.argv[1]; console.log(crypto.createHash('sha256').update(password).digest('hex'))" "your-private-admin-password"
+SUPABASE_ADMIN_EMAIL=info@hizeart.com SUPABASE_ADMIN_PASSWORD='your-password' npm run supabase:seed
 ```
 
-Then set:
+This copies the current JSON content from `data/` into Supabase.
+
+## 4. Vercel Environment Variables
+
+Set these in Vercel Project Settings -> Environment Variables:
 
 ```txt
-ADMIN_PASSWORD_HASH=the-generated-hash
+PUBLIC_SUPABASE_URL=https://omhjbjvjzkxjmqqionbs.supabase.co
+PUBLIC_SUPABASE_ANON_KEY=sb_publishable_nbqGkvXvIrKDKE0Mk3cIgg_RZA1exc9
+ADMIN_EMAIL=info@hizeart.com
 ```
 
-If both `ADMIN_PASSWORD_HASH` and `ADMIN_PASSWORD` exist, the hash is used.
-
-## GitHub Token
-
-Create a fine-grained GitHub Personal Access Token with access only to:
+Optional but recommended:
 
 ```txt
-Repository: Plabshows/HIZEART
-Permissions: Contents -> Read and write
+VERCEL_DEPLOY_HOOK_URL=your-vercel-deploy-hook-url
 ```
 
-Store it as `GITHUB_TOKEN` in Vercel. Do not commit it to the repository.
+Create the deploy hook in Vercel -> Project Settings -> Git -> Deploy Hooks. Choose branch `main`.
 
-## How Editing Works
+## 5. How Editing Works
 
 1. Open `/admin/`.
-2. Log in with the configured admin email and password.
-3. Edit content by page or by collection.
-4. Upload images from image fields when needed.
+2. Log in with the Supabase admin user.
+3. Edit pages, works, projects, murals, exhibitions, collaborations or asset lists.
+4. Upload images from image fields.
 5. Click `Save changes`.
-6. The admin commits updates to GitHub.
-7. Vercel deploys the new static site.
+6. The admin saves content in Supabase.
+7. If `VERCEL_DEPLOY_HOOK_URL` is configured, Vercel rebuilds the static site.
 
-Large image uploads should be optimized before uploading. The current limit is 8 MB per image. After an image upload finishes, click `Save changes` so the edited page or item points to the new image.
-
-If uploads fail, confirm the GitHub token has:
-
-```txt
-Repository: Plabshows/HIZEART
-Permissions: Contents -> Read and write
-```
+If the deploy hook is not configured, the content still saves in Supabase, but you must redeploy manually in Vercel to publish the static site.
