@@ -10,6 +10,7 @@ let activeButton = null;
 let currentUploadButton = null;
 let session = loadStoredSession();
 let usingBootstrapContent = false;
+let supabaseSetup = { table: false, bucket: false };
 
 const loginView = document.querySelector("[data-login-view]");
 const dashboardView = document.querySelector("[data-dashboard-view]");
@@ -175,7 +176,10 @@ async function showDashboard() {
     Object.assign(files, data);
     renderNav();
     activateSection(sections[0], sectionNav.querySelector("button"));
-    setStatus(globalStatus, "Content loaded from Supabase.", "ok");
+    await checkSupabaseSetup();
+    if (supabaseSetup.table && supabaseSetup.bucket) {
+      setStatus(globalStatus, "Content loaded from Supabase.", "ok");
+    }
   } catch (error) {
     setStatus(globalStatus, contentErrorMessage(error), "error");
   }
@@ -446,6 +450,10 @@ async function handleUpload(file) {
       throw new Error("The image is too large. Upload an optimized image under 8 MB.");
     }
 
+    if (!supabaseSetup.bucket) {
+      throw new Error("Supabase bucket hize-images is missing. Run the SQL migration in supabase/migrations to create the bucket before uploading images.");
+    }
+
     setStatus(globalStatus, `Uploading ${file.name} to Supabase Storage...`);
     const folder = uploadFolderForPath(currentUploadButton.path);
     const result = await uploadImage(file, folder);
@@ -487,6 +495,9 @@ async function saveContent() {
   saveButton.disabled = true;
 
   try {
+    if (!supabaseSetup.table) {
+      throw new Error("Supabase table site_documents is missing. Run the SQL migration in supabase/migrations before saving content.");
+    }
     await saveDocuments();
     dirtyFiles.clear();
     const redeploy = await triggerRedeploy();
@@ -538,6 +549,48 @@ async function verifySession() {
   await supabaseRequest("/auth/v1/user", {
     headers: await authHeaders()
   });
+}
+
+async function checkSupabaseSetup() {
+  supabaseSetup = {
+    table: await hasSiteDocumentsTable(),
+    bucket: await hasStorageBucket()
+  };
+
+  if (!supabaseSetup.table || !supabaseSetup.bucket) {
+    const missing = [];
+    if (!supabaseSetup.table) missing.push("site_documents table");
+    if (!supabaseSetup.bucket) missing.push("hize-images bucket");
+    setStatus(
+      globalStatus,
+      `Supabase setup incomplete: missing ${missing.join(" and ")}. Run the SQL migration in supabase/migrations/20260512170000_hize_admin_content.sql.`,
+      "error"
+    );
+  }
+}
+
+async function hasSiteDocumentsTable() {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/site_documents?select=key&limit=1`, {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${session.access_token}`
+    }
+  });
+  if (response.ok) return true;
+  const detail = await response.json().catch(() => ({}));
+  return !/could not find the table|schema cache/i.test(detail.message || detail.error || "");
+}
+
+async function hasStorageBucket() {
+  const response = await fetch(`${SUPABASE_URL}/storage/v1/bucket/${STORAGE_BUCKET}`, {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${session.access_token}`
+    }
+  });
+  if (response.ok) return true;
+  const detail = await response.json().catch(() => ({}));
+  return !/bucket not found/i.test(detail.message || detail.error || "");
 }
 
 async function signOut() {
