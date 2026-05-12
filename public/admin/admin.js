@@ -9,6 +9,7 @@ let activeSection = null;
 let activeButton = null;
 let currentUploadButton = null;
 let session = loadStoredSession();
+let usingBootstrapContent = false;
 
 const loginView = document.querySelector("[data-login-view]");
 const dashboardView = document.querySelector("[data-dashboard-view]");
@@ -181,21 +182,39 @@ async function showDashboard() {
 }
 
 async function loadContentDocuments() {
-  const rows = await supabaseRequest("/rest/v1/site_documents?select=key,content", {
-    headers: await authHeaders()
-  });
+  try {
+    const rows = await supabaseRequest("/rest/v1/site_documents?select=key,content", {
+      headers: await authHeaders()
+    });
 
-  if (Array.isArray(rows) && rows.length > 0) {
-    return rows.reduce((documents, row) => {
-      documents[row.key] = row.content;
-      return documents;
-    }, {});
+    if (Array.isArray(rows) && rows.length > 0) {
+      usingBootstrapContent = false;
+      return rows.reduce((documents, row) => {
+        documents[row.key] = row.content;
+        return documents;
+      }, {});
+    }
+
+    usingBootstrapContent = true;
+    const bootstrap = await fetch("/admin/bootstrap-content.json", { cache: "no-store" });
+    if (!bootstrap.ok) throw new Error("No content found in Supabase and bootstrap content is missing.");
+    setStatus(globalStatus, "Supabase is empty. Starter content loaded; click Save changes once to seed the database.", "ok");
+    return bootstrap.json();
+  } catch (error) {
+    if (!/site_documents|schema cache|could not find the table/i.test(error.message)) {
+      throw error;
+    }
+
+    usingBootstrapContent = true;
+    const bootstrap = await fetch("/admin/bootstrap-content.json", { cache: "no-store" });
+    if (!bootstrap.ok) throw error;
+    setStatus(
+      globalStatus,
+      "Supabase content table is not installed yet. Starter content loaded locally, but saves will only work after the SQL migration runs.",
+      "ok"
+    );
+    return bootstrap.json();
   }
-
-  const bootstrap = await fetch("/admin/bootstrap-content.json", { cache: "no-store" });
-  if (!bootstrap.ok) throw new Error("No content found in Supabase and bootstrap content is missing.");
-  setStatus(globalStatus, "Supabase is empty. Starter content loaded; click Save changes once to seed the database.", "ok");
-  return bootstrap.json();
 }
 
 function renderNav() {
@@ -477,6 +496,14 @@ async function saveContent() {
       setStatus(globalStatus, "Saved in Supabase. Vercel rebuild has been triggered.", "ok");
     }
   } catch (error) {
+    if (usingBootstrapContent && /site_documents|schema cache|could not find the table/i.test(error.message)) {
+      setStatus(
+        globalStatus,
+        "The admin is showing starter content, but Supabase still needs the SQL migration from supabase/migrations/20260512170000_hize_admin_content.sql before saving can work.",
+        "error"
+      );
+      return;
+    }
     setStatus(globalStatus, error.message || "Save failed.", "error");
   } finally {
     saveButton.disabled = false;
