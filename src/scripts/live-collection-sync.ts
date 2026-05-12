@@ -53,6 +53,14 @@ async function syncCollectionContainer(container: HTMLElement, explicitOptions?:
       fragment.appendChild(renderItem(item, options));
     }
     container.replaceChildren(fragment);
+    window.dispatchEvent(
+      new CustomEvent("collection-sync:updated", {
+        detail: {
+          collectionKey: options.collectionKey,
+          itemType: options.itemType
+        }
+      })
+    );
   } catch {
     // Quiet fallback: the static server-rendered version remains visible.
   }

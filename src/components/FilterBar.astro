@@ -25,43 +25,60 @@ const { filters } = Astro.props;
 </div>
 
 <script>
-  const buttons = Array.from(document.querySelectorAll<HTMLElement>("[data-filter-button]"));
-  const items = Array.from(document.querySelectorAll<HTMLElement>("[data-filter-item]"));
-  const params = new URLSearchParams(window.location.search);
-  const initialFilter = params.get("filter") || "all";
+  function setupFilterBar() {
+    const buttons = Array.from(document.querySelectorAll<HTMLElement>("[data-filter-button]"));
+    if (buttons.length === 0) return;
 
-  function applyFilter(filter: string) {
+    const params = new URLSearchParams(window.location.search);
+    let activeFilter = params.get("filter") || "all";
+
+    const getItems = () => Array.from(document.querySelectorAll<HTMLElement>("[data-filter-item]"));
+
+    function applyFilter(filter: string) {
+      activeFilter = filter;
+
+      buttons.forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.filterButton === filter));
+      });
+
+      getItems().forEach((item) => {
+        const category = item.dataset.category;
+        const availability = item.dataset.availability;
+        const isVisible =
+          filter === "all" ||
+          category === filter ||
+          availability?.includes(filter) ||
+          (filter === "available" && availability?.includes("available")) ||
+          (filter === "sold" && availability?.includes("sold"));
+
+        item.toggleAttribute("hidden", !isVisible);
+      });
+    }
+
     buttons.forEach((button) => {
-      button.setAttribute("aria-pressed", String(button.dataset.filterButton === filter));
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filterButton || "all";
+        const url = new URL(window.location.href);
+        if (filter === "all") {
+          url.searchParams.delete("filter");
+        } else {
+          url.searchParams.set("filter", filter);
+        }
+        history.replaceState({}, "", url);
+        applyFilter(filter);
+      });
     });
 
-    items.forEach((item) => {
-      const category = item.dataset.category;
-      const availability = item.dataset.availability;
-      const isVisible =
-        filter === "all" ||
-        category === filter ||
-        availability?.includes(filter) ||
-        (filter === "available" && availability?.includes("available")) ||
-        (filter === "sold" && availability?.includes("sold"));
-
-      item.toggleAttribute("hidden", !isVisible);
+    window.addEventListener("collection-sync:updated", () => {
+      applyFilter(activeFilter);
     });
+
+    applyFilter(activeFilter);
   }
 
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const filter = button.dataset.filterButton || "all";
-      const url = new URL(window.location.href);
-      if (filter === "all") {
-        url.searchParams.delete("filter");
-      } else {
-        url.searchParams.set("filter", filter);
-      }
-      history.replaceState({}, "", url);
-      applyFilter(filter);
-    });
-  });
-
-  applyFilter(initialFilter);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupFilterBar, { once: true });
+  } else {
+    setupFilterBar();
+  }
 </script>
