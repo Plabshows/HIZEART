@@ -20,7 +20,7 @@ const { project } = Astro.props;
 const projectSlug = project.slug || slugifySegment(project.id || project.title || "project");
 ---
 
-<article class="project-card">
+<article class="project-card" data-content-id={project.id} data-content-slug={projectSlug}>
   <a class="project-card__image" href={`/projects/${projectSlug}/`} aria-label={`View ${project.title}`}>
     <ResponsiveImage src={project.mainImage} alt={project.alt} />
   </a>

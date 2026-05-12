@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ResponsiveImage from "../components/ResponsiveImage.astro";
+import CollectionLiveSync from "../components/CollectionLiveSync.astro";
 import { projects, pages, slugifySegment } from "../lib/content";
 
 const page = pages.projects;
@@ -36,9 +37,9 @@ const structuredData = {
   </section>
 
   <section class="page-shell section" style="padding-top: 0;">
-    <div class="editorial-grid">
+    <div class="editorial-grid" data-live-collection="projects" data-live-item-type="project">
       {projectCards.map(({ project, slug }) => (
-        <article class="editorial-card">
+        <article class="editorial-card" data-content-id={project.id} data-content-slug={slug}>
           <a class="editorial-card__media" href={`/projects/${slug}/`}>
             <ResponsiveImage src={project.mainImage} alt={project.alt} />
           </a>
@@ -56,6 +57,8 @@ const structuredData = {
       ))}
     </div>
   </section>
+
+  <CollectionLiveSync />
 
   <section class="feature-band" style="text-align: center;">
     <h2>{page.ctaTitle}</h2>

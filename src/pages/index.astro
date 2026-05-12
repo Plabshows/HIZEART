@@ -5,6 +5,7 @@ import ResponsiveImage from "../components/ResponsiveImage.astro";
 import FeaturedWorks from "../components/FeaturedWorks.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import CTASection from "../components/CTASection.astro";
+import CollectionLiveSync from "../components/CollectionLiveSync.astro";
 import { works, projects, collaborations, pages } from "../lib/content";
 
 const page = pages.home;
@@ -132,9 +133,10 @@ const structuredData = [
       </div>
       <a class="text-link" href={page.latestProjects.linkHref}>{page.latestProjects.linkLabel}</a>
     </div>
-    <div class="project-grid">
+    <div class="project-grid" data-live-collection="projects" data-live-item-type="project" data-live-limit="3">
       {featuredProjects.map((project) => <ProjectCard project={project} />)}
     </div>
+    <CollectionLiveSync />
   </section>
 
   <CTASection

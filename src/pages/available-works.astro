@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import WorkCard from "../components/WorkCard.astro";
 import CTASection from "../components/CTASection.astro";
+import CollectionLiveSync from "../components/CollectionLiveSync.astro";
 import { works, pages } from "../lib/content";
 
 const page = pages.availableWorks;
@@ -31,7 +32,7 @@ const structuredData = {
   </section>
 
   <section class="page-shell section" style="padding-top: 0;">
-    <div class="work-grid">
+    <div class="work-grid" data-live-collection="works" data-live-item-type="work" data-live-show-details="true" data-live-cta-label="Enquire about this work" data-live-available-only="true">
       {availableWorks.map((work) => <WorkCard work={work} showDetails ctaLabel="Enquire about this work" />)}
     </div>
     <div class="stats-grid" style="margin-top: 2rem;">
@@ -52,4 +53,6 @@ const structuredData = {
       { href: page.cta.secondaryButtonHref, label: page.cta.secondaryButtonLabel, variant: "secondary" }
     ]}
   />
+
+  <CollectionLiveSync />
 </BaseLayout>

@@ -834,9 +834,9 @@ async function saveContent() {
     updateDirtyStatus();
     const redeploy = await triggerRedeploy();
     if (redeploy.skipped) {
-      setStatus(globalStatus, "Saved in Supabase. VERCEL_DEPLOY_HOOK_URL is not configured yet, so redeploy Vercel manually to publish.", "ok");
+      setStatus(globalStatus, "Saved in Supabase. Public pages will pick up the latest content when they load.", "ok");
     } else {
-      setStatus(globalStatus, "Saved in Supabase. Vercel rebuild has been triggered.", "ok");
+      setStatus(globalStatus, "Saved in Supabase. Vercel rebuild has been triggered and public pages will also read the latest content on load.", "ok");
     }
   } catch (error) {
     if (usingBootstrapContent && /site_documents|schema cache|could not find the table/i.test(error.message)) {

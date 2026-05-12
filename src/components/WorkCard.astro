@@ -29,7 +29,7 @@ const ctaHref =
     : `/contact/?work=${encodeURIComponent(work.slug || work.id || workSlug)}`;
 ---
 
-<article class="work-card" data-filter-item data-category={category} data-availability={availability}>
+<article class="work-card" data-filter-item data-category={category} data-availability={availability} data-content-id={work.id} data-content-slug={workSlug}>
   <a class="work-card__image" href={`/works/${workSlug}/`} aria-label={`View ${work.title}`}>
     <ResponsiveImage src={work.image} alt={work.alt} />
   </a>

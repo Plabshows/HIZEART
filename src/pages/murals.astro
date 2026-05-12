@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ResponsiveImage from "../components/ResponsiveImage.astro";
 import CTASection from "../components/CTASection.astro";
+import CollectionLiveSync from "../components/CollectionLiveSync.astro";
 import { murals, pages, slugifySegment } from "../lib/content";
 
 const page = pages.murals;
@@ -39,9 +40,9 @@ const structuredData = {
     <div class="section-heading">
       <p class="eyebrow">{page.selectedEyebrow}</p>
     </div>
-    <div class="editorial-grid">
+    <div class="editorial-grid" data-live-collection="murals" data-live-item-type="mural">
       {muralCards.map(({ mural, slug }) => (
-        <article class="editorial-card">
+        <article class="editorial-card" data-content-id={mural.id} data-content-slug={slug}>
           <a class="editorial-card__media" href={`/murals/${slug}/`}>
             <ResponsiveImage src={mural.image} alt={mural.alt} />
           </a>
@@ -61,6 +62,8 @@ const structuredData = {
       ))}
     </div>
   </section>
+
+  <CollectionLiveSync />
 
   <section class="feature-band">
     <div class="page-shell split-section split-section--reverse">
