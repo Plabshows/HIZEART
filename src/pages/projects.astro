@@ -37,7 +37,7 @@ const structuredData = {
   </section>
 
   <section class="page-shell section" style="padding-top: 0;">
-    <div class="editorial-grid" data-live-collection="projects" data-live-item-type="project">
+    <div class="editorial-grid" data-live-collection="projects" data-live-item-type="project" data-live-layout="editorial">
       {projectCards.map(({ project, slug }) => (
         <article class="editorial-card" data-content-id={project.id} data-content-slug={slug}>
           <a class="editorial-card__media" href={`/projects/${slug}/`}>

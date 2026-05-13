@@ -1014,6 +1014,16 @@ dd {
   margin-top: 5rem;
 }
 
+.editorial-card:nth-child(5) {
+  grid-column: span 6;
+  margin-top: 1rem;
+}
+
+.editorial-card:nth-child(6) {
+  grid-column: span 6;
+  margin-top: 7rem;
+}
+
 .editorial-card__media {
   overflow: hidden;
   margin-bottom: 1rem;
@@ -1034,6 +1044,14 @@ dd {
 
 .editorial-card:nth-child(4) .editorial-card__media {
   height: 600px;
+}
+
+.editorial-card:nth-child(5) .editorial-card__media {
+  height: 520px;
+}
+
+.editorial-card:nth-child(6) .editorial-card__media {
+  height: 580px;
 }
 
 .editorial-card__media img {

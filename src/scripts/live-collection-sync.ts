@@ -49,8 +49,8 @@ async function syncCollectionContainer(container: HTMLElement, explicitOptions?:
     if (filtered.length === 0) return;
 
     const fragment = document.createDocumentFragment();
-    for (const item of filtered) {
-      fragment.appendChild(renderItem(item, options));
+    for (const [index, item] of filtered.entries()) {
+      fragment.appendChild(renderItem(item, options, container, index));
     }
     container.replaceChildren(fragment);
     window.dispatchEvent(
@@ -124,9 +124,12 @@ function applyFilters(items: Array<Record<string, any>>, options: SyncOptions): 
   return filtered;
 }
 
-function renderItem(item: Record<string, any>, options: SyncOptions): HTMLElement {
+function renderItem(item: Record<string, any>, options: SyncOptions, container: HTMLElement, index: number): HTMLElement {
   switch (options.itemType) {
     case "project":
+      if (container.dataset.liveLayout === "editorial" || container.classList.contains("editorial-grid")) {
+        return renderEditorialProjectCard(item, index);
+      }
       return renderProjectCard(item);
     case "mural":
       return renderMuralCard(item);
@@ -238,6 +241,52 @@ function renderProjectCard(item: Record<string, any>): HTMLElement {
 
   body.append(metaLine, heading, description, actions);
   article.append(imageLink, body);
+  return article;
+}
+
+function renderEditorialProjectCard(item: Record<string, any>, index: number): HTMLElement {
+  const title = String(item.title || "Untitled project");
+  const slug = slugifySegment(item.slug || item.id || title, "project");
+  const article = document.createElement("article");
+  article.className = "editorial-card";
+  article.dataset.contentId = String(item.id || slug);
+  article.dataset.contentSlug = slug;
+  article.dataset.index = String(index + 1);
+
+  const imageLink = document.createElement("a");
+  imageLink.className = "editorial-card__media";
+  imageLink.href = `/projects/${slug}/`;
+  imageLink.setAttribute("aria-label", `View ${title}`);
+  imageLink.appendChild(buildPicture(String(item.mainImage || ""), String(item.alt || title), "(min-width: 900px) 50vw, 100vw"));
+
+  const actions = document.createElement("div");
+  actions.className = "card-actions";
+  actions.style.alignItems = "start";
+
+  const text = document.createElement("div");
+  const heading = document.createElement("h3");
+  const headingLink = document.createElement("a");
+  headingLink.href = `/projects/${slug}/`;
+  headingLink.textContent = title;
+  heading.appendChild(headingLink);
+
+  const description = document.createElement("p");
+  description.textContent = String(item.description || "");
+
+  text.append(heading, description);
+
+  const metaLine = document.createElement("div");
+  metaLine.className = "meta-line";
+  metaLine.style.display = "grid";
+  metaLine.style.justifyItems = "end";
+
+  const yearLocation = createSpan([item.year, item.location].filter(Boolean).join(" / "));
+  const type = createSpan(String(item.type || ""));
+  type.style.color = "var(--secondary)";
+  metaLine.append(yearLocation, type);
+
+  actions.append(text, metaLine);
+  article.append(imageLink, actions);
   return article;
 }
 
