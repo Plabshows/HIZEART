@@ -9,6 +9,7 @@ interface Props {
 }
 
 const { filters } = Astro.props;
+const hasAllFilter = filters.some((filter) => filter.value === "all");
 ---
 
 <div class="filter-bar" role="toolbar" aria-label="Work filters">
@@ -17,7 +18,7 @@ const { filters } = Astro.props;
       type="button"
       class="filter-button"
       data-filter-button={filter.value}
-      aria-pressed={index === 0 ? "true" : "false"}
+      aria-pressed={hasAllFilter && index === 0 ? "true" : "false"}
     >
       {filter.label}
     </button>
