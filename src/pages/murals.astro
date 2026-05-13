@@ -42,7 +42,7 @@ const structuredData = {
     </div>
     <div class="editorial-grid" data-live-collection="murals" data-live-item-type="mural">
       {muralCards.map(({ mural, slug }) => (
-        <article class="editorial-card" data-content-id={mural.id} data-content-slug={slug}>
+        <article class={`editorial-card${mural.id === "puerto-visual-intervention" ? " editorial-card--featured" : ""}`} data-content-id={mural.id} data-content-slug={slug}>
           <a class="editorial-card__media" href={`/murals/${slug}/`}>
             <ResponsiveImage src={mural.image} alt={mural.alt} />
           </a>

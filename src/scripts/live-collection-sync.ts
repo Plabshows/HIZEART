@@ -293,10 +293,12 @@ function renderEditorialProjectCard(item: Record<string, any>, index: number): H
 function renderMuralCard(item: Record<string, any>): HTMLElement {
   const title = String(item.title || "Untitled mural");
   const slug = slugifySegment(item.slug || item.id || title, "mural");
+  const isFeatured = item.id === "puerto-visual-intervention";
 
   const article = document.createElement("article");
-  article.className = "editorial-card";
+  article.className = `editorial-card${isFeatured ? " editorial-card--featured" : ""}`;
   article.dataset.contentId = String(item.id || slug);
+  if (isFeatured) article.dataset.featured = "true";
 
   const mediaLink = document.createElement("a");
   mediaLink.className = "editorial-card__media";
