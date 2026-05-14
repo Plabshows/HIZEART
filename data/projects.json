@@ -42,6 +42,11 @@
         "/assets/images/projects/streetxo.jpg",
         "/assets/images/projects/streetxo-2.jpg"
       ],
+      "video": {
+        "youtubeId": "qYECRqmzcTc",
+        "title": "StreetXO Project Film",
+        "text": "A moving portrait of the project, showing the spatial rhythm, atmosphere and visual energy inside the room."
+      },
       "alt": "Hize StreetXO visual project with abstract graffiti energy"
     },
     {

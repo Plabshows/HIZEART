@@ -33,6 +33,11 @@ export type Project = {
   description: string;
   mainImage: string;
   gallery: string[];
+  video?: {
+    youtubeId: string;
+    title?: string;
+    text?: string;
+  };
   alt: string;
 };
 
