@@ -11,12 +11,98 @@ interface Props {
 }
 
 const { images } = Astro.props;
+const placeholderImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 ---
 
+<div class="image-grid-shell" data-image-grid-shell>
 <div class="image-grid">
   {images.map((image) => (
     <figure>
-      <ResponsiveImage src={image.src} alt={image.alt} />
+      <button
+        type="button"
+        class="image-grid__trigger"
+        data-image-trigger
+        data-image-src={image.src}
+        data-image-alt={image.alt}
+        aria-label={`Open full-size image: ${image.alt}`}
+      >
+        <ResponsiveImage src={image.src} alt={image.alt} />
+      </button>
     </figure>
   ))}
 </div>
+
+<dialog class="image-lightbox" data-image-lightbox aria-label="Expanded gallery image">
+  <div class="image-lightbox__panel">
+    <button type="button" class="image-lightbox__close" data-image-lightbox-close aria-label="Close enlarged image">
+      Close
+    </button>
+    <img data-image-lightbox-image data-placeholder-src={placeholderImage} src={placeholderImage} alt="" />
+  </div>
+</dialog>
+</div>
+
+<script>
+  function setupImageGridLightbox() {
+    const grids = Array.from(document.querySelectorAll<HTMLElement>("[data-image-grid-shell]"));
+    if (grids.length === 0) return;
+
+    grids.forEach((shell) => {
+      if (shell.dataset.imageGridLightboxInitialized === "true") return;
+      shell.dataset.imageGridLightboxInitialized = "true";
+
+      const dialog = shell.querySelector<HTMLDialogElement>("[data-image-lightbox]");
+      const image = shell.querySelector<HTMLImageElement>("[data-image-lightbox-image]");
+      const placeholder = image?.dataset.placeholderSrc || "";
+      const triggers = Array.from(shell.querySelectorAll<HTMLButtonElement>("[data-image-trigger]"));
+      if (!dialog || !image || triggers.length === 0) return;
+
+      const open = (src: string, alt: string) => {
+        image.src = src;
+        image.alt = alt;
+        document.body.dataset.scrollLock = "true";
+        document.body.style.overflow = "hidden";
+        if (typeof dialog.showModal === "function") {
+          dialog.showModal();
+        } else {
+          dialog.setAttribute("open", "");
+        }
+      };
+
+      const close = () => {
+        image.src = placeholder;
+        image.alt = "";
+        document.body.style.overflow = "";
+        delete document.body.dataset.scrollLock;
+        if (dialog.open) {
+          dialog.close();
+        } else {
+          dialog.removeAttribute("open");
+        }
+      };
+
+      triggers.forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          open(trigger.dataset.imageSrc || "", trigger.dataset.imageAlt || "Expanded image");
+        });
+      });
+
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) close();
+      });
+      dialog.addEventListener("cancel", (event) => {
+        event.preventDefault();
+        close();
+      });
+      dialog.querySelectorAll("[data-image-lightbox-close]").forEach((button) => {
+        button.addEventListener("click", close);
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupImageGridLightbox, { once: true });
+  } else {
+    setupImageGridLightbox();
+  }
+</script>
