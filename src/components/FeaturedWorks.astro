@@ -21,6 +21,7 @@ interface Props {
   linkLabel?: string;
   linkHref?: string;
   categoryFilter?: string;
+  limit?: number;
 }
 
 const {
@@ -29,12 +30,14 @@ const {
   title = "Abstract graffiti transformed into contemporary visual language.",
   linkLabel = "View all works",
   linkHref = "/works/",
-  categoryFilter = ""
+  categoryFilter = "",
+  limit = 8
 } = Astro.props;
 const categorySlug = categoryFilter ? slugifySegment(categoryFilter, "work") : "";
-const displayWorks = categorySlug
-  ? works.filter((work) => slugifySegment(work.category || "", "work") === categorySlug).slice(0, 8)
-  : works.slice(0, 8);
+const displayWorks = (categorySlug
+  ? works.filter((work) => slugifySegment(work.category || "", "work") === categorySlug)
+  : works
+).slice(0, limit);
 ---
 
 <div class="section-heading">
@@ -46,8 +49,7 @@ const displayWorks = categorySlug
   class="work-grid"
   data-live-collection="works"
   data-live-item-type="work"
-  data-live-limit="8"
-  data-live-featured-only="true"
+  data-live-limit={limit}
   data-live-category-only={categorySlug || undefined}
   data-live-cta-label="View Work"
 >

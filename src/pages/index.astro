@@ -9,7 +9,7 @@ import CollectionLiveSync from "../components/CollectionLiveSync.astro";
 import { works, projects, collaborations, pages } from "../lib/content";
 
 const page = pages.home;
-const featuredWorks = works.filter((work) => work.featured);
+const homeWorks = works;
 const featuredProjects = projects.slice(0, 3);
 const structuredData = [
   {
@@ -67,12 +67,13 @@ const structuredData = [
 
   <section class="section">
     <FeaturedWorks
-      works={featuredWorks}
+      works={homeWorks}
       eyebrow={page.selectedWorks.eyebrow}
       title={page.selectedWorks.title}
       linkLabel={page.selectedWorks.linkLabel}
       linkHref={page.selectedWorks.linkHref}
       categoryFilter="Canvas"
+      limit={3}
     />
   </section>
 
