@@ -643,13 +643,14 @@ function renderObject(file, path, value, label) {
 function renderArray(file, path, value, label) {
   const wrapper = document.createElement("div");
   wrapper.className = "field-group";
+  const isImageList = /(gallery|images|media|files)/i.test(String(label));
   const heading = document.createElement("div");
   heading.className = "editor-card__header";
   heading.innerHTML = `<div class="card-heading"><p class="eyebrow">List</p><h3>${escapeHtml(cleanLabel(label))}</h3><p class="card-summary">${escapeHtml(describeArray(label, value))}</p></div>`;
   const addButton = document.createElement("button");
   addButton.type = "button";
   addButton.className = "secondary small-button";
-  addButton.textContent = "Add item";
+  addButton.textContent = isImageList ? "Add image" : "Add item";
   addButton.addEventListener("click", () => {
     value.push(defaultArrayItem(label, value));
     markDirty(file);
@@ -737,7 +738,7 @@ function renderImageTools(file, path, value) {
     wrapper.appendChild(img);
   }
 
-  const upload = smallButton("Replace image", () => {
+  const upload = smallButton(value ? "Replace image" : "Upload image", () => {
     currentUploadButton = { file, path };
     const picker = document.createElement("input");
     picker.className = "hidden-input";
@@ -1137,7 +1138,7 @@ function cleanLabel(label) {
 }
 
 function isImageField(label, value) {
-  return /(image|mainImage|seoImage|portraitImage|heroImage|src)$/i.test(String(label)) || /\.(jpe?g|png|webp|gif)$/i.test(value);
+  return /(image|images|gallery|media|mainImage|seoImage|portraitImage|heroImage|src)$/i.test(String(label)) || /\.(jpe?g|png|webp|gif)$/i.test(value);
 }
 
 function shouldUseTextarea(label, value) {
@@ -1189,7 +1190,9 @@ function describeArray(label, value) {
   const key = String(label).toLowerCase();
   const type = value[0] && typeof value[0] === "object"
     ? "structured"
-    : /(gallery|files|steps|paragraphs|links|notes)/i.test(key)
+    : /(gallery|images|media|files)/i.test(key)
+      ? "image"
+      : /(steps|paragraphs|links|notes)/i.test(key)
       ? "text"
       : "text";
   return `${total} ${itemLabel} · ${type} list`;
