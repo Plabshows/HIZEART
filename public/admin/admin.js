@@ -652,7 +652,7 @@ function renderArray(file, path, value, label) {
   addButton.className = "secondary small-button";
   addButton.textContent = isImageList ? "Add image" : "Add item";
   addButton.addEventListener("click", () => {
-    value.push(defaultArrayItem(label, value));
+    value.push(isImageList ? "" : defaultArrayItem(label, value));
     markDirty(file);
     renderEditor();
   });
