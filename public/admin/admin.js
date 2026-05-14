@@ -1138,7 +1138,7 @@ function cleanLabel(label) {
 }
 
 function isImageField(label, value) {
-  return /(image|images|gallery|media|mainImage|seoImage|portraitImage|heroImage|src)$/i.test(String(label)) || /\.(jpe?g|png|webp|gif)$/i.test(value);
+  return /(image|images|gallery|media|mainImage|seoImage|portraitImage|heroImage|src)/i.test(String(label)) || /\.(jpe?g|png|webp|gif)$/i.test(value);
 }
 
 function shouldUseTextarea(label, value) {
