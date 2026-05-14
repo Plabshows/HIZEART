@@ -12,6 +12,7 @@ interface SyncOptions {
   ctaLabel?: string;
   availableOnly?: boolean;
   featuredOnly?: boolean;
+  categoryOnly?: string;
 }
 
 type SiteDocument = {
@@ -74,7 +75,8 @@ function readContainerOptions(container: HTMLElement): SyncOptions {
     showDetails: container.dataset.liveShowDetails === "true",
     ctaLabel: container.dataset.liveCtaLabel || undefined,
     availableOnly: container.dataset.liveAvailableOnly === "true",
-    featuredOnly: container.dataset.liveFeaturedOnly === "true"
+    featuredOnly: container.dataset.liveFeaturedOnly === "true",
+    categoryOnly: container.dataset.liveCategoryOnly ? slugifySegment(container.dataset.liveCategoryOnly, "work") : undefined
   };
 }
 
@@ -111,6 +113,10 @@ function applyFilters(items: Array<Record<string, any>>, options: SyncOptions): 
     if (featured.length > 0) {
       filtered = featured;
     }
+  }
+
+  if (options.categoryOnly) {
+    filtered = filtered.filter((item) => slugifySegment(String(item.category || ""), "work") === options.categoryOnly);
   }
 
   if (options.availableOnly) {

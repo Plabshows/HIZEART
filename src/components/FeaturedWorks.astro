@@ -1,5 +1,6 @@
 ---
 import WorkCard from "./WorkCard.astro";
+import { slugifySegment } from "../lib/content";
 
 interface Work {
   id: string;
@@ -19,6 +20,7 @@ interface Props {
   title?: string;
   linkLabel?: string;
   linkHref?: string;
+  categoryFilter?: string;
 }
 
 const {
@@ -26,8 +28,13 @@ const {
   eyebrow = "Selected Works",
   title = "Abstract graffiti transformed into contemporary visual language.",
   linkLabel = "View all works",
-  linkHref = "/works/"
+  linkHref = "/works/",
+  categoryFilter = ""
 } = Astro.props;
+const categorySlug = categoryFilter ? slugifySegment(categoryFilter, "work") : "";
+const displayWorks = categorySlug
+  ? works.filter((work) => slugifySegment(work.category || "", "work") === categorySlug).slice(0, 8)
+  : works.slice(0, 8);
 ---
 
 <div class="section-heading">
@@ -35,6 +42,14 @@ const {
   <h2>{title}</h2>
   <a class="text-link" href={linkHref}>{linkLabel}</a>
 </div>
-<div class="work-grid" data-live-collection="works" data-live-item-type="work" data-live-limit="8" data-live-featured-only="true" data-live-cta-label="View Work">
-  {works.slice(0, 8).map((work) => <WorkCard work={work} ctaLabel="View Work" />)}
+<div
+  class="work-grid"
+  data-live-collection="works"
+  data-live-item-type="work"
+  data-live-limit="8"
+  data-live-featured-only="true"
+  data-live-category-only={categorySlug || undefined}
+  data-live-cta-label="View Work"
+>
+  {displayWorks.map((work) => <WorkCard work={work} ctaLabel="View Work" />)}
 </div>
