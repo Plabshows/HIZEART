@@ -6,19 +6,20 @@ interface Filter {
 
 interface Props {
   filters: Filter[];
+  defaultFilter?: string;
 }
 
-const { filters } = Astro.props;
-const hasAllFilter = filters.some((filter) => filter.value === "all");
+const { filters, defaultFilter = "all" } = Astro.props;
+const hasDefaultFilter = filters.some((filter) => filter.value === defaultFilter);
 ---
 
-<div class="filter-bar" role="toolbar" aria-label="Work filters">
-  {filters.map((filter, index) => (
+<div class="filter-bar" role="toolbar" aria-label="Work filters" data-filter-bar data-default-filter={defaultFilter}>
+  {filters.map((filter) => (
     <button
       type="button"
       class="filter-button"
       data-filter-button={filter.value}
-      aria-pressed={hasAllFilter && index === 0 ? "true" : "false"}
+      aria-pressed={hasDefaultFilter && filter.value === defaultFilter ? "true" : "false"}
     >
       {filter.label}
     </button>
@@ -30,10 +31,10 @@ const hasAllFilter = filters.some((filter) => filter.value === "all");
     const buttons = Array.from(document.querySelectorAll<HTMLElement>("[data-filter-button]"));
     if (buttons.length === 0) return;
 
-    const params = new URLSearchParams(window.location.search);
-    let activeFilter = params.get("filter") || "all";
-
     const getItems = () => Array.from(document.querySelectorAll<HTMLElement>("[data-filter-item]"));
+    const params = new URLSearchParams(window.location.search);
+    const defaultFilter = document.querySelector<HTMLElement>("[data-filter-bar]")?.dataset.defaultFilter || "all";
+    let activeFilter = params.get("filter") || defaultFilter;
 
     function applyFilter(filter: string) {
       activeFilter = filter;
