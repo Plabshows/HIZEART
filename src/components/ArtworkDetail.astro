@@ -1,5 +1,6 @@
 ---
 import ResponsiveImage from "./ResponsiveImage.astro";
+import ImageGrid from "./ImageGrid.astro";
 
 interface Props {
   item: {
@@ -14,6 +15,7 @@ interface Props {
     description: string;
     image?: string;
     mainImage?: string;
+    gallery?: string[];
     alt: string;
   };
   backHref: string;
@@ -22,6 +24,7 @@ interface Props {
 
 const { item, backHref, backLabel } = Astro.props;
 const image = item.image || item.mainImage || "";
+const gallery = item.gallery || [];
 ---
 
 <article class="detail-layout">
@@ -46,3 +49,13 @@ const image = item.image || item.mainImage || "";
     </div>
   </div>
 </article>
+
+{gallery.length > 0 && (
+  <section class="section-shell detail-gallery">
+    <div class="section-heading">
+      <p class="eyebrow">Gallery</p>
+      <h2>Additional views</h2>
+    </div>
+    <ImageGrid images={gallery.map((src) => ({ src, alt: item.alt }))} />
+  </section>
+)}

@@ -11,13 +11,14 @@ export function getStaticPaths() {
 }
 
 const { work } = Astro.props;
+const workImage = new URL(work.image, "https://hizeart.vercel.app").toString();
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "VisualArtwork",
   name: work.title,
   creator: "Manuel Forner Hize",
   artMedium: work.technique,
-  image: `https://hizeart.vercel.app${work.image}`,
+  image: workImage,
   description: work.description
 };
 ---

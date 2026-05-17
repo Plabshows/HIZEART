@@ -14,6 +14,7 @@ export function getStaticPaths() {
 
 const { project } = Astro.props;
 const gallery = project.gallery.map((src) => ({ src, alt: project.alt }));
+const projectImage = new URL(project.mainImage, "https://hizeart.vercel.app").toString();
 const projectVideo = project.video?.youtubeId
   ? {
       title: project.video.title || `${project.title} Film`,
@@ -28,7 +29,7 @@ const structuredData = {
   name: project.title,
   creator: "Manuel Forner Hize",
   locationCreated: project.location,
-  image: `https://hizeart.vercel.app${project.mainImage}`,
+  image: projectImage,
   description: project.description
 };
 ---

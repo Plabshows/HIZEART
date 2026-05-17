@@ -37,7 +37,7 @@ const placeholderImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAA
     <button type="button" class="image-lightbox__close" data-image-lightbox-close aria-label="Close enlarged image">
       Close
     </button>
-    <img data-image-lightbox-image data-placeholder-src={placeholderImage} src={placeholderImage} alt="" />
+    <img data-image-lightbox-image data-placeholder-src={placeholderImage} src={placeholderImage} alt="Expanded gallery image" />
   </div>
 </dialog>
 </div>
@@ -71,7 +71,7 @@ const placeholderImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAA
 
       const close = () => {
         image.src = placeholder;
-        image.alt = "";
+        image.alt = "Expanded gallery image";
         document.body.style.overflow = "";
         delete document.body.dataset.scrollLock;
         if (dialog.open) {

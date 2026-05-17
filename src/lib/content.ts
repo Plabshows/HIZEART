@@ -19,6 +19,7 @@ export type Work = {
   featured?: boolean;
   description: string;
   image: string;
+  gallery?: string[];
   alt: string;
 };
 

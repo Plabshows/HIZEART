@@ -37,16 +37,12 @@
       "type": "Hospitality Project",
       "client": "StreetXO",
       "description": "A visual project for a hospitality environment, connecting Hize's abstract graffiti language with a high-energy spatial experience.",
-      "mainImage": "/assets/images/projects/streetxo.jpg",
+      "mainImage": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778772912371-chatgpt-image-14-may-2026-17-34-41.png",
       "gallery": [
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778772912371-chatgpt-image-14-may-2026-17-34-41.png",
         "/assets/images/projects/streetxo.jpg",
         "/assets/images/projects/streetxo-2.jpg"
       ],
-      "video": {
-        "youtubeId": "qYECRqmzcTc",
-        "title": "StreetXO Project Film",
-        "text": "A moving portrait of the project, showing the spatial rhythm, atmosphere and visual energy inside the room."
-      },
       "alt": "Hize StreetXO visual project with abstract graffiti energy"
     },
     {
@@ -57,38 +53,41 @@
       "type": "Digital Performance",
       "client": "Project on request",
       "description": "Live digital graffiti performances where gesture, rhythm and immersive tools become visual expression.",
-      "mainImage": "/assets/images/vr-art/hize-vr-5.jpg",
+      "mainImage": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/vr-art/1778771613986-vr-show.jpg",
       "gallery": [
-        "/assets/images/vr-art/hize-vr4.jpg",
-        "/assets/images/vr-art/hize-vr-2.jpg",
-        "/assets/images/vr-art/hize-vr-3.jpg"
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/vr-art/1778771613986-vr-show.jpg",
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/vr-art/1778771638047-d9c66e86-d34d-4bfa-a07e-a0891d056036.jpg",
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/vr-art/1778609462147-vr-asahi-beer-whotels.jpeg",
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/vr-art/1778627560248-vr-artist.jpeg"
       ],
       "alt": "Hize VR art performance creating digital graffiti in real time"
     },
-  {
-    "id": "brand-collaborations",
-    "title": "Brand Collaborations",
-    "year": "Selected Archive",
-    "location": "International",
-    "type": "Brand Collaboration",
-    "client": "Instagram, Bvlgari, Valentino",
-    "description": "Selected collaborations placing Hize's abstract urban language within fashion, culture and brand experience contexts.",
-    "mainImage": "/assets/images/vr-art/valentino-web.jpg",
+    {
+      "id": "brand-collaborations",
+      "title": "Brand Collaborations",
+      "year": "Selected Archive",
+      "location": "International",
+      "type": "Brand Collaboration",
+      "client": "Instagram, Bvlgari, Valentino",
+      "description": "Selected collaborations placing Hize's abstract urban language within fashion, culture and brand experience contexts.",
+      "mainImage": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778771966769-ca3d968e-c31c-437b-879b-7d0ce40c53e4.jpg",
       "gallery": [
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778771966769-ca3d968e-c31c-437b-879b-7d0ce40c53e4.jpg",
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778771974008-d9c66e86-d34d-4bfa-a07e-a0891d056036.jpg",
         "/assets/images/vr-art/valentino-web.jpg",
         "/assets/images/projects/golf8.png",
         "/assets/images/projects/golf7.png"
       ],
       "alt": "Hize brand collaboration with contemporary visual artwork"
     },
-  {
-    "id": "large-scale-murals",
-    "title": "Large-Scale Murals",
-    "year": "Ongoing",
-    "location": "Spain / International",
-    "type": "Mural Projects",
-    "client": "Private and public commissions",
-    "description": "Large-scale wall works for private, hospitality, cultural and public spaces.",
+    {
+      "id": "large-scale-murals",
+      "title": "Large-Scale Murals",
+      "year": "Ongoing",
+      "location": "Spain / International",
+      "type": "Mural Projects",
+      "client": "Private and public commissions",
+      "description": "Large-scale wall works for private, hospitality, cultural and public spaces.",
       "mainImage": "/assets/images/murals/mural-torreblanca.jpg",
       "gallery": [
         "/assets/images/murals/webnew-mural.jpg",

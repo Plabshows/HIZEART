@@ -14,6 +14,7 @@ export function getStaticPaths() {
 
 const { mural } = Astro.props;
 const gallery = mural.gallery.map((src) => ({ src, alt: mural.alt }));
+const muralImage = new URL(mural.image, "https://hizeart.vercel.app").toString();
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
@@ -21,7 +22,7 @@ const structuredData = {
   creator: "Manuel Forner Hize",
   artMedium: mural.technique,
   locationCreated: mural.location,
-  image: `https://hizeart.vercel.app${mural.image}`,
+  image: muralImage,
   description: mural.description
 };
 ---

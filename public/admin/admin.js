@@ -57,6 +57,7 @@ const templates = {
     featured: false,
     description: "Add the collector-facing artwork description here.",
     image: "/assets/images/canvas/canvas.jpg",
+    gallery: [],
     alt: "Hize abstract graffiti artwork on canvas"
   },
   project: {
@@ -346,7 +347,7 @@ const collectionLayouts = {
     summary(item) {
       return [item.category, item.year, item.availability].filter(Boolean).join(" · ");
     },
-    order: ["id", "title", "year", "category", "availability", "price", "featured", "technique", "size", "description", "image", "alt"]
+    order: ["id", "title", "year", "category", "availability", "price", "featured", "technique", "size", "description", "image", "gallery", "alt"]
   },
   "data/projects.json": {
     itemLabel: "project",
