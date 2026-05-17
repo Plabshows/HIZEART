@@ -65,15 +65,15 @@
       ],
       "alt": "Hize VR art performance creating digital graffiti in real time"
     },
-    {
-      "id": "brand-collaborations",
-      "title": "Brand Collaborations",
-      "year": "Selected Archive",
-      "location": "International",
-      "type": "Brand Collaboration",
-      "client": "Instagram, Bvlgari, Valentino",
-      "description": "Selected collaborations placing Hize's abstract urban language within fashion, culture and brand experience contexts.",
-      "mainImage": "/assets/images/vr-art/valentino-web.jpg",
+  {
+    "id": "brand-collaborations",
+    "title": "Brand Collaborations",
+    "year": "Selected Archive",
+    "location": "International",
+    "type": "Brand Collaboration",
+    "client": "Instagram, Bvlgari, Valentino",
+    "description": "Selected collaborations placing Hize's abstract urban language within fashion, culture and brand experience contexts.",
+    "mainImage": "/assets/images/vr-art/valentino-web.jpg",
       "gallery": [
         "/assets/images/vr-art/valentino-web.jpg",
         "/assets/images/projects/golf8.png",
@@ -81,14 +81,14 @@
       ],
       "alt": "Hize brand collaboration with contemporary visual artwork"
     },
-    {
-      "id": "large-scale-murals",
-      "title": "Large-Scale Murals",
-      "year": "Ongoing",
-      "location": "Spain / International",
-      "type": "Mural Projects",
-      "client": "Private and public commissions",
-      "description": "Large-scale wall works for private, hospitality, cultural and public spaces.",
+  {
+    "id": "large-scale-murals",
+    "title": "Large-Scale Murals",
+    "year": "Ongoing",
+    "location": "Spain / International",
+    "type": "Mural Projects",
+    "client": "Private and public commissions",
+    "description": "Large-scale wall works for private, hospitality, cultural and public spaces.",
       "mainImage": "/assets/images/murals/mural-torreblanca.jpg",
       "gallery": [
         "/assets/images/murals/webnew-mural.jpg",

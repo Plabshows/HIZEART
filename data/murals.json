@@ -8,9 +8,9 @@
       "technique": "Acrylic and spray paint on wall",
       "client": "Client TBC",
       "description": "A large-scale abstract graffiti mural developed from the identity of the space, combining colour, movement and structural rhythm.",
-      "image": "/assets/images/murals/mural-torreblanca.jpg",
+      "image": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/murals/1778618550419-mural-torreblanca-web.jpg",
       "gallery": [
-        "/assets/images/murals/torreblanca-salto.jpg",
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/murals/1778618550419-mural-torreblanca-web.jpg",
         "/assets/images/murals/img-2752-mural.jpeg"
       ],
       "alt": "Hize mural in Spain combining graffiti and abstract shapes"
@@ -51,9 +51,9 @@
       "technique": "Spray paint and acrylic on wall",
       "client": "Client TBC",
       "description": "A visual intervention with layered colour and kinetic abstract forms for an architectural environment.",
-      "image": "/assets/images/murals/retocadapuerto.png",
+      "image": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/murals/1778682074957-img-4293.jpeg",
       "gallery": [
-        "/assets/images/murals/retocadapuerto.png"
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/murals/1778682074957-img-4293.jpeg"
       ],
       "alt": "Hize mural with abstract graffiti shapes in a contemporary space"
     }

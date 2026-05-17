@@ -304,7 +304,7 @@
     "works": [
       {
         "id": "wild-structures",
-        "title": "Wild Structures",
+        "title": "Style is Wild",
         "year": "2022",
         "category": "Canvas",
         "technique": "Mixed media on canvas",
@@ -313,7 +313,7 @@
         "price": "Price on request",
         "featured": true,
         "description": "An abstract composition based on the hidden structures between graffiti letters, movement and urban rhythm.",
-        "image": "/assets/images/canvas/wildsss.jpg",
+        "image": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/canvas/1778693661574-17c5d275-2b96-47d5-aa85-c9e5750c3033.png",
         "alt": "Hize colorful abstract graffiti artwork on canvas"
       },
       {
@@ -327,7 +327,7 @@
         "price": "Price on request",
         "featured": true,
         "description": "A studio work translating graffiti rhythm, colour and letter construction into a contemporary abstract composition.",
-        "image": "/assets/images/canvas/canvas.jpg",
+        "image": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/canvas/1778693886721-e37e8685-653a-4fb0-aeea-e469ec01b9aa-1-.png",
         "alt": "Hize abstract painting inspired by graffiti letter structures"
       },
       {
@@ -341,7 +341,7 @@
         "price": "Price on request",
         "featured": true,
         "description": "A canvas work connecting traditional graffiti energy with layered abstract colour fields.",
-        "image": "/assets/images/canvas/get-high.jpg",
+        "image": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/canvas/1778627264608-chatgpt-image-12-may-2026-22-53-31-1-.png",
         "alt": "Hize abstract graffiti canvas with colorful letter fragments"
       },
       {
@@ -355,7 +355,7 @@
         "price": "Price on request",
         "featured": true,
         "description": "A composition built from connections between letter fragments, movement and abstract urban structure.",
-        "image": "/assets/images/canvas/hize-conexion.jpg",
+        "image": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/canvas/1778680317773-chatgpt-image-13-may-2026-15-46-40-2-.png",
         "alt": "Hize abstract graffiti canvas with pastel color movement"
       },
       {
@@ -369,7 +369,7 @@
         "price": "Price on request",
         "featured": false,
         "description": "A canvas work exploring balance, kinetic gesture and the visual memory of graffiti writing.",
-        "image": "/assets/images/canvas/hize-conexion-3.jpg",
+        "image": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/canvas/1778680327896-chatgpt-image-13-may-2026-15-46-40-3-.png",
         "alt": "Hize colorful abstract graffiti artwork on canvas"
       },
       {
@@ -383,7 +383,7 @@
         "price": "Price on request",
         "featured": false,
         "description": "A panoramic studio piece with layered graffiti references, contrast and abstract rhythm.",
-        "image": "/assets/images/canvas/expo-bohemia-negro.jpg",
+        "image": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/canvas/1778680365012-chatgpt-image-13-may-2026-15-46-40-5-.png",
         "alt": "Hize abstract graffiti canvas with black background and colorful shapes"
       },
       {
@@ -509,11 +509,11 @@
       {
         "id": "brand-collaborations",
         "title": "Brand Collaborations",
-        "year": "Selected Archive",
+    "year": "Selected Archive",
         "location": "International",
-        "type": "Brand Collaboration",
+    "type": "Brand Collaboration",
         "client": "Instagram, Bvlgari, Valentino",
-        "description": "Selected collaborations placing Hize's abstract urban language within fashion, culture and brand experience contexts.",
+    "description": "Selected collaborations placing Hize's abstract urban language within fashion, culture and brand experience contexts.",
         "mainImage": "/assets/images/vr-art/valentino-web.jpg",
         "gallery": [
           "/assets/images/vr-art/valentino-web.jpg",
@@ -524,10 +524,10 @@
       },
       {
         "id": "large-scale-murals",
-        "title": "Large-Scale Murals",
+    "title": "Large-Scale Murals",
         "year": "Ongoing",
-        "location": "Spain / International",
-        "type": "Mural Projects",
+    "location": "Spain / International",
+    "type": "Mural Projects",
         "client": "Private and public commissions",
         "description": "Large-scale wall works for private, hospitality, cultural and public spaces.",
         "mainImage": "/assets/images/murals/mural-torreblanca.jpg",
@@ -550,9 +550,9 @@
         "technique": "Acrylic and spray paint on wall",
         "client": "Client TBC",
         "description": "A large-scale abstract graffiti mural developed from the identity of the space, combining colour, movement and structural rhythm.",
-        "image": "/assets/images/murals/mural-torreblanca.jpg",
+        "image": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/murals/1778618550419-mural-torreblanca-web.jpg",
         "gallery": [
-          "/assets/images/murals/torreblanca-salto.jpg",
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/murals/1778618550419-mural-torreblanca-web.jpg",
           "/assets/images/murals/img-2752-mural.jpeg"
         ],
         "alt": "Hize mural in Spain combining graffiti and abstract shapes"
@@ -593,9 +593,9 @@
         "technique": "Spray paint and acrylic on wall",
         "client": "Client TBC",
         "description": "A visual intervention with layered colour and kinetic abstract forms for an architectural environment.",
-        "image": "/assets/images/murals/retocadapuerto.png",
+        "image": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/murals/1778682074957-img-4293.jpeg",
         "gallery": [
-          "/assets/images/murals/retocadapuerto.png"
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/murals/1778682074957-img-4293.jpeg"
         ],
         "alt": "Hize mural with abstract graffiti shapes in a contemporary space"
       }
