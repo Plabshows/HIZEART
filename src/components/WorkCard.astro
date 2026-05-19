@@ -14,6 +14,7 @@ interface Props {
     availability: string;
     image: string;
     alt: string;
+    href?: string;
   };
   showDetails?: boolean;
   ctaLabel?: string;
@@ -23,14 +24,15 @@ const { work, showDetails = false, ctaLabel = "Enquire" } = Astro.props;
 const category = work.category.toLowerCase().replace(/\s+/g, "-");
 const availability = work.availability.toLowerCase();
 const workSlug = work.slug || slugifySegment(work.id || work.title || "work");
+const detailHref = work.href || `/works/${workSlug}/`;
 const ctaHref =
   ctaLabel === "View Work"
-    ? `/works/${workSlug}/`
+    ? detailHref
     : `/contact/?work=${encodeURIComponent(work.slug || work.id || workSlug)}`;
 ---
 
 <article class="work-card" data-filter-item data-category={category} data-availability={availability} data-content-id={work.id} data-content-slug={workSlug}>
-  <a class="work-card__image" href={`/works/${workSlug}/`} aria-label={`View ${work.title}`}>
+  <a class="work-card__image" href={detailHref} aria-label={`View ${work.title}`}>
     <ResponsiveImage src={work.image} alt={work.alt} />
   </a>
   <div class="work-card__body">
@@ -38,7 +40,7 @@ const ctaHref =
       <span>{work.category}</span>
       <span>{work.year}</span>
     </div>
-    <h3><a href={`/works/${workSlug}/`}>{work.title}</a></h3>
+    <h3><a href={detailHref}>{work.title}</a></h3>
     {showDetails && (
       <dl class="compact-specs">
         <div>

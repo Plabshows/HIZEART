@@ -710,6 +710,24 @@ function renderPrimitive(file, path, value, label) {
   }
 
   const stringValue = value == null ? "" : String(value);
+  const selectOptions = selectOptionsForField(file, label, stringValue);
+  if (selectOptions) {
+    const select = document.createElement("select");
+    selectOptions.forEach((optionValue) => {
+      const option = document.createElement("option");
+      option.value = optionValue;
+      option.textContent = optionValue;
+      select.appendChild(option);
+    });
+    select.value = stringValue || selectOptions[0] || "";
+    select.addEventListener("change", () => {
+      updateValue(file, path, select.value);
+      refreshCardFromInput(row, file, path, label, select.value);
+    });
+    row.appendChild(select);
+    return row;
+  }
+
   const input = shouldUseTextarea(label, stringValue) ? document.createElement("textarea") : document.createElement("input");
   input.value = stringValue;
   if (input.tagName === "INPUT") input.type = "text";
@@ -724,6 +742,13 @@ function renderPrimitive(file, path, value, label) {
   }
 
   return row;
+}
+
+function selectOptionsForField(file, label, currentValue) {
+  if (file !== "data/works.json" || String(label) !== "category") return null;
+  const options = ["Canvas", "Murals", "VR Art", "Graffiti"];
+  if (currentValue && !options.includes(currentValue)) return [currentValue, ...options];
+  return options;
 }
 
 function renderImageTools(file, path, value) {

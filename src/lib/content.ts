@@ -9,6 +9,7 @@ import pagesData from "../../data/pages.json";
 export type Work = {
   id: string;
   slug?: string;
+  href?: string;
   title: string;
   year: string;
   category: string;
@@ -187,7 +188,41 @@ const pagesDocument = documentFor<typeof pagesData>("data/pages.json");
 export const works = assignUniqueSlugs(collection<Work>(worksDocument, "works"));
 export const projects = assignUniqueSlugs(collection<Project>(projectsDocument, "projects"));
 export const murals = assignUniqueSlugs(collection<Mural>(muralsDocument, "murals"));
+const muralIdentityKeys = new Set(murals.flatMap((mural) => identityValues(mural)));
+export const workDetailItems = works.filter((work) => !isDuplicateMuralWork(work));
+export const worksCatalog = [
+  ...workDetailItems,
+  ...murals.map((mural) => {
+    const slug = mural.slug || slugifySegment(mural.id || mural.title || "mural");
+    return {
+      id: `mural-${mural.id || slug}`,
+      slug,
+      href: `/murals/${slug}/`,
+      title: mural.title,
+      year: mural.year,
+      category: "Murals",
+      technique: mural.technique,
+      size: "Site-specific",
+      availability: "Commission archive",
+      price: "Commission on request",
+      featured: false,
+      description: mural.description,
+      image: mural.image,
+      gallery: mural.gallery,
+      alt: mural.alt
+    } satisfies Work;
+  })
+];
 export const exhibitions = collection<Exhibition>(exhibitionsDocument, "exhibitions");
 export const collaborations = collection<Collaboration>(collaborationsDocument, "collaborations");
 export const assets = collection<AssetFolder>(assetsDocument, "assets");
 export const pages = ((pagesDocument as { pages?: PageContent }).pages || {}) as PageContent;
+
+function isDuplicateMuralWork(work: Work): boolean {
+  if (slugifySegment(work.category || "", "work") !== "murals") return false;
+  return identityValues(work).some((value) => muralIdentityKeys.has(value));
+}
+
+function identityValues(item: { id?: string; slug?: string; title?: string }): string[] {
+  return [item.id, item.slug, item.title].filter(Boolean).map((value) => slugifySegment(String(value), "item"));
+}

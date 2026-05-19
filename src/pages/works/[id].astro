@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ArtworkDetail from "../../components/ArtworkDetail.astro";
-import { works, slugifySegment } from "../../lib/content";
+import { workDetailItems, slugifySegment } from "../../lib/content";
 
 export function getStaticPaths() {
-  return works.map((work) => ({
+  return workDetailItems.map((work) => ({
     params: { id: work.slug || slugifySegment(work.id || work.title || "work") },
     props: { work }
   }));

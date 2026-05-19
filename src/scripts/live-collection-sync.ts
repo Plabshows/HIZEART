@@ -13,6 +13,7 @@ interface SyncOptions {
   availableOnly?: boolean;
   featuredOnly?: boolean;
   categoryOnly?: string;
+  includeMurals?: boolean;
 }
 
 type SiteDocument = {
@@ -44,7 +45,16 @@ async function syncCollectionContainer(container: HTMLElement, explicitOptions?:
 
   try {
     const documents = await loadSiteDocuments();
-    const collection = readCollection(documents[`data/${options.collectionKey}.json`], options.collectionKey);
+    let collection = readCollection(documents[`data/${options.collectionKey}.json`], options.collectionKey);
+    if (options.collectionKey === "works" && options.includeMurals) {
+      const muralItems = readCollection(documents["data/murals.json"], "murals");
+      const muralIdentityKeys = new Set(muralItems.flatMap(identityValues));
+      const muralWorks = muralItems.map(muralToWorkItem);
+      collection = [
+        ...collection.filter((item) => !isDuplicateMuralWorkItem(item, muralIdentityKeys)),
+        ...muralWorks
+      ];
+    }
     const filtered = applyFilters(collection, options);
 
     if (filtered.length === 0) return;
@@ -76,7 +86,8 @@ function readContainerOptions(container: HTMLElement): SyncOptions {
     ctaLabel: container.dataset.liveCtaLabel || undefined,
     availableOnly: container.dataset.liveAvailableOnly === "true",
     featuredOnly: container.dataset.liveFeaturedOnly === "true",
-    categoryOnly: container.dataset.liveCategoryOnly ? slugifySegment(container.dataset.liveCategoryOnly, "work") : undefined
+    categoryOnly: container.dataset.liveCategoryOnly ? slugifySegment(container.dataset.liveCategoryOnly, "work") : undefined,
+    includeMurals: container.dataset.liveIncludeMurals === "true"
   };
 }
 
@@ -148,8 +159,9 @@ function renderItem(item: Record<string, any>, options: SyncOptions, container: 
 function renderWorkCard(item: Record<string, any>, options: SyncOptions): HTMLElement {
   const title = String(item.title || "Untitled work");
   const slug = slugifySegment(item.slug || item.id || title, "work");
+  const detailHref = String(item.href || item.detailHref || `/works/${slug}/`);
   const ctaLabel = options.ctaLabel || "Enquire";
-  const ctaHref = ctaLabel === "View Work" ? `/works/${slug}/` : `/contact/?work=${encodeURIComponent(item.slug || item.id || slug)}`;
+  const ctaHref = ctaLabel === "View Work" ? detailHref : `/contact/?work=${encodeURIComponent(item.slug || item.id || slug)}`;
 
   const article = document.createElement("article");
   article.className = "work-card";
@@ -160,7 +172,7 @@ function renderWorkCard(item: Record<string, any>, options: SyncOptions): HTMLEl
 
   const imageLink = document.createElement("a");
   imageLink.className = "work-card__image";
-  imageLink.href = `/works/${slug}/`;
+  imageLink.href = detailHref;
   imageLink.setAttribute("aria-label", `View ${title}`);
   imageLink.appendChild(buildPicture(String(item.image || ""), String(item.alt || title), "(min-width: 900px) 50vw, 100vw"));
 
@@ -173,7 +185,7 @@ function renderWorkCard(item: Record<string, any>, options: SyncOptions): HTMLEl
 
   const heading = document.createElement("h3");
   const headingLink = document.createElement("a");
-  headingLink.href = `/works/${slug}/`;
+  headingLink.href = detailHref;
   headingLink.textContent = title;
   heading.appendChild(headingLink);
 
@@ -203,6 +215,37 @@ function renderWorkCard(item: Record<string, any>, options: SyncOptions): HTMLEl
   body.appendChild(actions);
   article.append(imageLink, body);
   return article;
+}
+
+function muralToWorkItem(item: Record<string, any>): Record<string, any> {
+  const title = String(item.title || "Untitled mural");
+  const slug = slugifySegment(item.slug || item.id || title, "mural");
+
+  return {
+    id: `mural-${item.id || slug}`,
+    slug,
+    href: `/murals/${slug}/`,
+    title,
+    year: item.year,
+    category: "Murals",
+    technique: item.technique,
+    size: "Site-specific",
+    availability: "Commission archive",
+    price: "Commission on request",
+    description: item.description,
+    image: item.image,
+    gallery: item.gallery,
+    alt: item.alt
+  };
+}
+
+function isDuplicateMuralWorkItem(item: Record<string, any>, muralIdentityKeys: Set<string>): boolean {
+  if (slugifySegment(String(item.category || ""), "work") !== "murals") return false;
+  return identityValues(item).some((value) => muralIdentityKeys.has(value));
+}
+
+function identityValues(item: Record<string, any>): string[] {
+  return [item.id, item.slug, item.title].filter(Boolean).map((value) => slugifySegment(String(value), "item"));
 }
 
 function renderProjectCard(item: Record<string, any>): HTMLElement {
