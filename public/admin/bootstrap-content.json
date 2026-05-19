@@ -241,14 +241,15 @@
       },
       "projects": {
         "heroAlt": "Selected Hize project with contemporary abstract graffiti intervention",
-        "ctaTitle": "Elevate your space with a bespoke visual project.",
+        "ctaTitle": "Commission a visual project with Hize.",
         "seoImage": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1779146888094-chatgpt-image-14-may-2026-17-34-41.png",
         "seoTitle": "Projects by Hize | Exhibitions, Murals & Collaborations",
         "heroImage": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1779146902061-chatgpt-image-14-may-2026-17-34-41.png",
-        "heroTitle": "Selected Projects & Case Studies",
+        "heroTitle": "Selected Projects & Collaborations",
         "ctaButtonHref": "/contact/?type=brand-collaboration",
-        "ctaButtonLabel": "Commission a Project",
-        "seoDescription": "Explore selected projects, exhibitions, murals and collaborations by Spanish urban artist Hize."
+        "ctaButtonLabel": "Start a Project",
+        "seoDescription": "Explore selected projects, hospitality commissions, murals, brand collaborations and immersive visual experiences by Spanish urban artist Hize.",
+        "intro": "A curated archive of international projects, hospitality commissions, murals, brand collaborations and immersive visual experiences by Hize."
       },
       "exhibitions": {
         "intro": "A timeline of selected cultural contexts, brand collaborations, mural projects and VR Art performances.",
