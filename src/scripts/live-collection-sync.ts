@@ -60,8 +60,8 @@ async function syncCollectionContainer(container: HTMLElement, explicitOptions?:
     if (filtered.length === 0) return;
 
     const fragment = document.createDocumentFragment();
-    for (const [index, item] of filtered.entries()) {
-      fragment.appendChild(renderItem(item, options, container, index));
+    for (const item of filtered) {
+      fragment.appendChild(renderItem(item, options, container));
     }
     container.replaceChildren(fragment);
     window.dispatchEvent(
@@ -141,11 +141,11 @@ function applyFilters(items: Array<Record<string, any>>, options: SyncOptions): 
   return filtered;
 }
 
-function renderItem(item: Record<string, any>, options: SyncOptions, container: HTMLElement, index: number): HTMLElement {
+function renderItem(item: Record<string, any>, options: SyncOptions, container: HTMLElement): HTMLElement {
   switch (options.itemType) {
     case "project":
-      if (container.dataset.liveLayout === "editorial" || container.classList.contains("editorial-grid")) {
-        return renderEditorialProjectCard(item, index);
+      if (container.dataset.liveLayout === "project-index" || container.classList.contains("projects-index-grid")) {
+        return renderProjectIndexCard(item);
       }
       return renderProjectCard(item);
     case "mural":
@@ -293,26 +293,27 @@ function renderProjectCard(item: Record<string, any>): HTMLElement {
   return article;
 }
 
-function renderEditorialProjectCard(item: Record<string, any>, index: number): HTMLElement {
+function renderProjectIndexCard(item: Record<string, any>): HTMLElement {
   const title = String(item.title || "Untitled project");
   const slug = slugifySegment(item.slug || item.id || title, "project");
   const article = document.createElement("article");
-  article.className = "editorial-card";
+  article.className = "project-index-card";
   article.dataset.contentId = String(item.id || slug);
   article.dataset.contentSlug = slug;
-  article.dataset.index = String(index + 1);
 
   const imageLink = document.createElement("a");
-  imageLink.className = "editorial-card__media";
+  imageLink.className = "project-index-card__media";
   imageLink.href = `/projects/${slug}/`;
   imageLink.setAttribute("aria-label", `View ${title}`);
   imageLink.appendChild(buildPicture(String(item.mainImage || ""), String(item.alt || title), "(min-width: 900px) 50vw, 100vw"));
 
-  const actions = document.createElement("div");
-  actions.className = "card-actions";
-  actions.style.alignItems = "start";
+  const body = document.createElement("div");
+  body.className = "project-index-card__body";
 
-  const text = document.createElement("div");
+  const metaLine = document.createElement("div");
+  metaLine.className = "meta-line";
+  metaLine.append(createSpan(String(item.type || "")), createSpan(String(item.year || "")));
+
   const heading = document.createElement("h3");
   const headingLink = document.createElement("a");
   headingLink.href = `/projects/${slug}/`;
@@ -322,20 +323,18 @@ function renderEditorialProjectCard(item: Record<string, any>, index: number): H
   const description = document.createElement("p");
   description.textContent = String(item.description || "");
 
-  text.append(heading, description);
+  const facts = document.createElement("div");
+  facts.className = "project-index-card__facts";
+  if (item.location) facts.appendChild(createSpan(String(item.location)));
+  if (item.client) facts.appendChild(createSpan(String(item.client)));
 
-  const metaLine = document.createElement("div");
-  metaLine.className = "meta-line";
-  metaLine.style.display = "grid";
-  metaLine.style.justifyItems = "end";
+  const cta = document.createElement("a");
+  cta.className = "text-link";
+  cta.href = `/projects/${slug}/`;
+  cta.textContent = "View Project";
 
-  const yearLocation = createSpan([item.year, item.location].filter(Boolean).join(" / "));
-  const type = createSpan(String(item.type || ""));
-  type.style.color = "var(--secondary)";
-  metaLine.append(yearLocation, type);
-
-  actions.append(text, metaLine);
-  article.append(imageLink, actions);
+  body.append(metaLine, heading, description, facts, cta);
+  article.append(imageLink, body);
   return article;
 }
 

@@ -499,6 +499,15 @@ dt,
   background: var(--primary);
 }
 
+.project-hero__intro {
+  max-width: 760px;
+  margin: 0;
+  color: var(--on-surface-variant);
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: clamp(1.25rem, 2vw, 1.45rem);
+  line-height: 1.6;
+}
+
 .section-heading {
   display: flex;
   align-items: end;
@@ -615,6 +624,100 @@ dt,
 .mural-card__body p,
 .info-card p {
   color: var(--on-surface-variant);
+}
+
+.projects-index-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(2rem, 4vw, 4rem) var(--gutter);
+}
+
+.project-index-card {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+
+.project-index-card:nth-child(1) {
+  grid-column: span 7;
+}
+
+.project-index-card:nth-child(2) {
+  grid-column: span 5;
+  margin-top: clamp(4rem, 7vw, 7rem);
+}
+
+.project-index-card:nth-child(3),
+.project-index-card:nth-child(4),
+.project-index-card:nth-child(5),
+.project-index-card:nth-child(6) {
+  grid-column: span 6;
+}
+
+.project-index-card:nth-child(4),
+.project-index-card:nth-child(6) {
+  margin-top: clamp(3rem, 6vw, 6rem);
+}
+
+.project-index-card__media {
+  display: block;
+  overflow: hidden;
+  min-height: 420px;
+  background: var(--surface-variant);
+}
+
+.project-index-card:nth-child(1) .project-index-card__media {
+  min-height: 620px;
+}
+
+.project-index-card:nth-child(2) .project-index-card__media {
+  min-height: 470px;
+}
+
+.project-index-card__media img {
+  height: 100%;
+  object-fit: cover;
+  transition: transform 700ms ease;
+}
+
+.project-index-card:hover img {
+  transform: scale(1.02);
+}
+
+.project-index-card__body {
+  display: grid;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--primary);
+}
+
+.project-index-card__body h3,
+.project-index-card__body p {
+  margin: 0;
+}
+
+.project-index-card__body p {
+  max-width: 680px;
+  color: var(--on-surface-variant);
+}
+
+.project-index-card__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  color: var(--outline);
+  font-family: "Hanken Grotesk", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.project-index-card__facts span:not(:last-child)::after {
+  content: "/";
+  margin-left: 0.65rem;
+  color: var(--outline-variant);
 }
 
 .section--dark .info-card {
@@ -1333,10 +1436,18 @@ dd {
 
   .editorial-card,
   .editorial-card:nth-child(n),
+  .project-index-card,
+  .project-index-card:nth-child(n),
   .image-grid figure,
   .image-grid figure:nth-child(n) {
     grid-column: 1 / -1;
     margin-top: 0;
+  }
+
+  .project-index-card__media,
+  .project-index-card:nth-child(n) .project-index-card__media {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
   }
 
   .editorial-card--featured {
@@ -1396,6 +1507,11 @@ dd {
 
   .editorial-card:nth-child(n) .editorial-card__media {
     height: auto;
+    aspect-ratio: 4 / 5;
+  }
+
+  .project-index-card__media,
+  .project-index-card:nth-child(n) .project-index-card__media {
     aspect-ratio: 4 / 5;
   }
 

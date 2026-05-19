@@ -11,12 +11,13 @@ interface Props {
 }
 
 const { images } = Astro.props;
+const visibleImages = images.filter((image) => image.src);
 const placeholderImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 ---
 
 <div class="image-grid-shell" data-image-grid-shell>
 <div class="image-grid">
-  {images.map((image) => (
+  {visibleImages.map((image) => (
     <figure>
       <button
         type="button"

@@ -2,75 +2,77 @@
   "projects": [
     {
       "id": "expo-2020-dubai",
-      "title": "Expo 2020 Dubai",
-      "year": "2020",
-      "location": "Dubai, UAE",
+      "alt": "Hize art project at Expo 2020 Dubai",
       "type": "International Project",
+      "year": "2020",
+      "title": "Expo 2020 Dubai",
       "client": "Expo 2020 Dubai",
-      "description": "A visual art project connecting graffiti, movement and contemporary abstraction in an international cultural context.",
-      "mainImage": "/assets/images/graffiti/hize-sharjah.jpg",
       "gallery": [
         "/assets/images/graffiti/abu-dhabi.jpg",
         "/assets/images/graffiti/hize-sharjah.jpg"
       ],
-      "alt": "Hize art project at Expo 2020 Dubai"
+      "location": "Dubai, UAE",
+      "mainImage": "/assets/images/graffiti/hize-sharjah.jpg",
+      "description": "A cultural project presenting Hize's abstract graffiti language through movement, colour and large-scale visual presence in an international context."
     },
     {
       "id": "osaka-contemporary-art-museum",
-      "title": "Osaka Contemporary Art Museum",
-      "year": "2023",
-      "location": "Osaka, Japan",
+      "alt": "Hize graffiti artwork presented in Osaka Japan",
       "type": "Exhibition",
+      "year": "2023",
+      "title": "Osaka Contemporary Art Museum",
       "client": "Osaka Contemporary Art Museum",
-      "description": "An exhibition context presenting Hize's graffiti-based visual language to an international audience.",
-      "mainImage": "/assets/images/graffiti/osaka-web.jpg",
       "gallery": [
         "/assets/images/graffiti/osaka-web.jpg"
       ],
-      "alt": "Hize graffiti artwork presented in Osaka Japan"
+      "location": "Osaka, Japan",
+      "mainImage": "/assets/images/graffiti/osaka-web.jpg",
+      "description": "A Japan-based exhibition context connecting graffiti writing, abstract composition and the international language of contemporary urban art."
     },
     {
       "id": "streetxo-project",
-      "title": "StreetXO Project",
-      "year": "2024",
-      "location": "Spain",
+      "alt": "Hize StreetXO visual project with abstract graffiti energy",
       "type": "Hospitality Project",
+      "year": "2024",
+      "title": "StreetXO Dubai Project",
       "client": "StreetXO",
-      "description": "A visual project for a hospitality environment, connecting Hize's abstract graffiti language with a high-energy spatial experience.",
-      "mainImage": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778772912371-chatgpt-image-14-may-2026-17-34-41.png",
       "gallery": [
         "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778772912371-chatgpt-image-14-may-2026-17-34-41.png",
-        "/assets/images/projects/streetxo.jpg",
-        "/assets/images/projects/streetxo-2.jpg"
+        "/assets/images/projects/streetxo-2.jpg",
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1779150656476-chatgpt-image-19-may-2026-02-20-52.png",
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1779150665769-chatgpt-image-19-may-2026-02-11-12.png",
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1779150684808-chatgpt-image-19-may-2026-02-05-02.png",
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1779150711637-chatgpt-image-19-may-2026-02-01-21.png",
+        "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1779151384274-bbf569f2-cee6-429f-be2e-21ce19d531f5.png"
       ],
-      "alt": "Hize StreetXO visual project with abstract graffiti energy"
+      "location": "Dubai, UAE",
+      "mainImage": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778772912371-chatgpt-image-14-may-2026-17-34-41.png",
+      "description": "A hospitality project translating Hize's abstract graffiti energy into a bold spatial identity for a high-intensity dining environment."
     },
     {
       "id": "vr-art-performance",
-      "title": "VR Art Performance",
-      "year": "2022",
-      "location": "International",
+      "alt": "Hize VR art performance creating digital graffiti in real time",
       "type": "Digital Performance",
-      "client": "Project on request",
-      "description": "Live digital graffiti performances where gesture, rhythm and immersive tools become visual expression.",
-      "mainImage": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/vr-art/1778771613986-vr-show.jpg",
+      "year": "2022",
+      "title": "VR Art Performance",
+      "client": "Private, cultural and brand activations",
       "gallery": [
         "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/vr-art/1778771613986-vr-show.jpg",
         "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/vr-art/1778771638047-d9c66e86-d34d-4bfa-a07e-a0891d056036.jpg",
         "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/vr-art/1778609462147-vr-asahi-beer-whotels.jpeg",
         "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/vr-art/1778627560248-vr-artist.jpeg"
       ],
-      "alt": "Hize VR art performance creating digital graffiti in real time"
+      "location": "International",
+      "mainImage": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/vr-art/1778771613986-vr-show.jpg",
+      "description": "Live digital graffiti performance where body movement, rhythm and immersive tools generate abstract visual structures in real time."
     },
     {
       "id": "brand-collaborations",
-      "title": "Brand Collaborations",
+      "alt": "Hize brand collaboration with contemporary visual artwork",
+      "type": "Brand Experience",
       "year": "Selected Archive",
-      "location": "International",
-      "type": "Brand Collaboration",
+      "title": "Brand Collaborations",
       "client": "Instagram, Bvlgari, Valentino",
-      "description": "Selected collaborations placing Hize's abstract urban language within fashion, culture and brand experience contexts.",
-      "mainImage": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778771966769-ca3d968e-c31c-437b-879b-7d0ce40c53e4.jpg",
       "gallery": [
         "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778771966769-ca3d968e-c31c-437b-879b-7d0ce40c53e4.jpg",
         "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778771974008-d9c66e86-d34d-4bfa-a07e-a0891d056036.jpg",
@@ -78,23 +80,25 @@
         "/assets/images/projects/golf8.png",
         "/assets/images/projects/golf7.png"
       ],
-      "alt": "Hize brand collaboration with contemporary visual artwork"
+      "location": "International",
+      "mainImage": "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778771966769-ca3d968e-c31c-437b-879b-7d0ce40c53e4.jpg",
+      "description": "A selected archive of collaborations with fashion, culture and lifestyle brands, bringing Hize's abstract urban language into experiential contexts."
     },
     {
       "id": "large-scale-murals",
-      "title": "Large-Scale Murals",
+      "alt": "Spanish urban artist Hize painting large scale mural",
+      "type": "Mural Archive",
       "year": "Ongoing",
-      "location": "Spain / International",
-      "type": "Mural Projects",
+      "title": "Large-Scale Murals",
       "client": "Private and public commissions",
-      "description": "Large-scale wall works for private, hospitality, cultural and public spaces.",
-      "mainImage": "/assets/images/murals/mural-torreblanca.jpg",
       "gallery": [
         "/assets/images/murals/webnew-mural.jpg",
         "/assets/images/murals/img-2752-mural.jpeg",
         "/assets/images/murals/futursat.jpg"
       ],
-      "alt": "Spanish urban artist Hize painting large scale mural"
+      "location": "Spain / International",
+      "mainImage": "/assets/images/murals/mural-torreblanca.jpg",
+      "description": "A curated selection of site-specific wall works for private, hospitality, cultural and public spaces."
     }
   ]
 }
