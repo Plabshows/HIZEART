@@ -7,6 +7,9 @@
   --surface-variant: #e2e2e2;
   --primary: #000000;
   --secondary: #bb0013;
+  --available: #1f7a4d;
+  --available-soft: rgba(31, 122, 77, 0.1);
+  --sold-soft: rgba(187, 0, 19, 0.08);
   --on-primary: #ffffff;
   --on-surface: #1a1c1c;
   --on-surface-variant: #4c4546;
@@ -606,12 +609,33 @@ dt,
   transform: scale(1.02);
 }
 
+.work-card[data-availability*="available"] .work-card__image,
+.work-card[data-availability*="sold"] .work-card__image {
+  outline: 1px solid var(--availability-accent, var(--outline-variant));
+  outline-offset: -1px;
+}
+
+.work-card[data-availability*="available"] {
+  --availability-accent: var(--available);
+  --availability-soft: var(--available-soft);
+}
+
+.work-card[data-availability*="sold"] {
+  --availability-accent: var(--secondary);
+  --availability-soft: var(--sold-soft);
+}
+
 .work-card__body,
 .project-card__body,
 .mural-card__body,
 .info-card {
   padding: 1rem 0 0;
   border-top: 1px solid var(--outline-variant);
+}
+
+.work-card[data-availability*="available"] .work-card__body,
+.work-card[data-availability*="sold"] .work-card__body {
+  border-top-color: var(--availability-accent);
 }
 
 .info-card {
@@ -762,6 +786,13 @@ dt,
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.work-card[data-availability*="available"] .status-pill,
+.work-card[data-availability*="sold"] .status-pill {
+  color: var(--availability-accent);
+  background: var(--availability-soft);
+  border-color: var(--availability-accent);
 }
 
 .compact-specs,
