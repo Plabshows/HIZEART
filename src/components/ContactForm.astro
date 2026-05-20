@@ -9,21 +9,19 @@ const enquiryTypes = [
   "General enquiry"
 ];
 
-const formspreeEndpointPlaceholder = "https://formspree.io/f/REPLACE_WITH_FORMSPREE_FORM_ID";
+const formspreeEndpoint = "https://formspree.io/f/mzdwezqn";
 ---
 
-<!-- Formspree fallback: replace the data-formspree-placeholder value and set it as action if Netlify Forms is not used. -->
 <form
   class="contact-form"
   name="hize-contact"
+  action={formspreeEndpoint}
   method="POST"
-  data-netlify="true"
-  data-formspree-placeholder={formspreeEndpointPlaceholder}
-  netlify-honeypot="bot-field"
+  data-form-provider="formspree"
 >
-  <input type="hidden" name="form-name" value="hize-contact" />
+  <input type="hidden" name="_subject" value="New enquiry from HIZE ART website" />
   <p class="hidden-field">
-    <label>Do not fill this out <input name="bot-field" /></label>
+    <label>Do not fill this out <input name="_gotcha" tabindex="-1" autocomplete="off" /></label>
   </p>
   <label>
     <span>Name</span>
@@ -46,7 +44,7 @@ const formspreeEndpointPlaceholder = "https://formspree.io/f/REPLACE_WITH_FORMSP
   </label>
   <button class="button button--primary" type="submit">Send Enquiry</button>
   <p class="form-fallback">
-    This form is Netlify-ready. Direct email fallback:
+    Secure form powered by Formspree. Direct email fallback:
     <a href="mailto:info@hizeart.com">info@hizeart.com</a>
   </p>
 </form>

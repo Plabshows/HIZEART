@@ -36,9 +36,15 @@ async function withPage(viewport, callback) {
   }
 }
 
+async function gotoRoute(page, route) {
+  const response = await page.goto(`${baseUrl}${route}`, { waitUntil: "domcontentloaded", timeout: 45000 });
+  await page.waitForNetworkIdle({ idleTime: 700, timeout: 10000 }).catch(() => {});
+  return response;
+}
+
 for (const route of pages) {
   await withPage({ width: 1440, height: 980, deviceScaleFactor: 1 }, async (page) => {
-    const response = await page.goto(`${baseUrl}${route}`, { waitUntil: "networkidle0" });
+    const response = await gotoRoute(page, route);
     if (!response?.ok()) errors.push(`Bad status on ${route}: ${response?.status()}`);
     const h1 = await page.$eval("h1", (node) => node.textContent?.trim());
     if (!h1) errors.push(`Missing h1 on ${route}`);
@@ -57,12 +63,12 @@ for (const route of pages) {
 }
 
 await withPage({ width: 1440, height: 980, deviceScaleFactor: 1 }, async (page) => {
-  await page.goto(`${baseUrl}/`, { waitUntil: "networkidle0" });
+  await gotoRoute(page, "/");
   await page.screenshot({ path: path.join(screenshotDir, "home-desktop.png"), fullPage: false });
 });
 
 await withPage({ width: 390, height: 844, isMobile: true, deviceScaleFactor: 2 }, async (page) => {
-  await page.goto(`${baseUrl}/`, { waitUntil: "networkidle0" });
+  await gotoRoute(page, "/");
   await page.screenshot({ path: path.join(screenshotDir, "home-mobile.png"), fullPage: false });
   await page.click("[data-menu-toggle]");
   const menuState = await page.$eval("[data-menu-toggle]", (button) => button.getAttribute("aria-expanded"));
@@ -72,7 +78,7 @@ await withPage({ width: 390, height: 844, isMobile: true, deviceScaleFactor: 2 }
 });
 
 await withPage({ width: 390, height: 844, isMobile: true, deviceScaleFactor: 2 }, async (page) => {
-  await page.goto(`${baseUrl}/works/?filter=canvas`, { waitUntil: "networkidle0" });
+  await gotoRoute(page, "/works/?filter=canvas");
   const active = await page.$eval('[data-filter-button="canvas"]', (button) => button.getAttribute("aria-pressed"));
   if (active !== "true") errors.push("Initial works filter did not activate from query string.");
   await page.click('[data-filter-button="available"]');
@@ -83,13 +89,19 @@ await withPage({ width: 390, height: 844, isMobile: true, deviceScaleFactor: 2 }
 });
 
 await withPage({ width: 390, height: 844, isMobile: true, deviceScaleFactor: 2 }, async (page) => {
-  await page.goto(`${baseUrl}/contact/`, { waitUntil: "networkidle0" });
+  await gotoRoute(page, "/contact/");
   await page.type('input[name="name"]', "Test User");
   await page.type('input[name="email"]', "test@example.com");
   await page.select('select[name="type"]', "Mural commission");
   await page.type('textarea[name="message"]', "Testing the contact form.");
-  const formReady = await page.$eval(".contact-form", (form) => form.getAttribute("data-netlify") === "true");
-  if (!formReady) errors.push("Contact form is not Netlify-ready.");
+  const formReady = await page.$eval(
+    ".contact-form",
+    (form) =>
+      form.getAttribute("method")?.toLowerCase() === "post" &&
+      form.getAttribute("action") === "https://formspree.io/f/mzdwezqn" &&
+      form.getAttribute("data-form-provider") === "formspree"
+  );
+  if (!formReady) errors.push("Contact form is not connected to Formspree.");
 });
 
 await browser.close();
