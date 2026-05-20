@@ -15,11 +15,22 @@ const staticRoutes = [
   "/privacy-policy/"
 ];
 
+const localizedStaticRoutes = staticRoutes.flatMap((route) => [route, route === "/" ? "/es/" : `/es${route}`]);
+
 const routes = [
-  ...staticRoutes,
-  ...workDetailItems.map((work) => `/works/${work.slug || slugifySegment(work.id || work.title || "work")}/`),
-  ...projects.map((project) => `/projects/${project.slug || slugifySegment(project.id || project.title || "project")}/`),
-  ...murals.map((mural) => `/murals/${mural.slug || slugifySegment(mural.id || mural.title || "mural")}/`)
+  ...localizedStaticRoutes,
+  ...workDetailItems.flatMap((work) => {
+    const path = `/works/${work.slug || slugifySegment(work.id || work.title || "work")}/`;
+    return [path, `/es${path}`];
+  }),
+  ...projects.flatMap((project) => {
+    const path = `/projects/${project.slug || slugifySegment(project.id || project.title || "project")}/`;
+    return [path, `/es${path}`];
+  }),
+  ...murals.flatMap((mural) => {
+    const path = `/murals/${mural.slug || slugifySegment(mural.id || mural.title || "mural")}/`;
+    return [path, `/es${path}`];
+  })
 ];
 
 export function buildSitemap() {

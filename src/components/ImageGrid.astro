@@ -1,5 +1,6 @@
 ---
 import ResponsiveImage from "./ResponsiveImage.astro";
+import { getUiText, type Locale } from "../lib/i18n";
 
 interface ImageItem {
   src: string;
@@ -8,11 +9,13 @@ interface ImageItem {
 
 interface Props {
   images: ImageItem[];
+  locale?: Locale;
 }
 
-const { images } = Astro.props;
+const { images, locale = "en" } = Astro.props;
 const visibleImages = images.filter((image) => image.src);
 const placeholderImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+const ui = getUiText(locale);
 ---
 
 <div class="image-grid-shell" data-image-grid-shell>
@@ -25,7 +28,7 @@ const placeholderImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAA
         data-image-trigger
         data-image-src={image.src}
         data-image-alt={image.alt}
-        aria-label={`Open full-size image: ${image.alt}`}
+        aria-label={`${ui.common.openFullSizeImage}: ${image.alt}`}
       >
         <ResponsiveImage src={image.src} alt={image.alt} />
       </button>
@@ -33,12 +36,12 @@ const placeholderImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAA
   ))}
 </div>
 
-<dialog class="image-lightbox" data-image-lightbox aria-label="Expanded gallery image">
+<dialog class="image-lightbox" data-image-lightbox aria-label={ui.common.expandedGalleryImage}>
   <div class="image-lightbox__panel">
-    <button type="button" class="image-lightbox__close" data-image-lightbox-close aria-label="Close enlarged image">
-      Close
+    <button type="button" class="image-lightbox__close" data-image-lightbox-close aria-label={ui.common.close}>
+      {ui.common.close}
     </button>
-    <img data-image-lightbox-image data-placeholder-src={placeholderImage} src={placeholderImage} alt="Expanded gallery image" />
+    <img data-image-lightbox-image data-placeholder-src={placeholderImage} src={placeholderImage} alt={ui.common.expandedGalleryImage} />
   </div>
 </dialog>
 </div>

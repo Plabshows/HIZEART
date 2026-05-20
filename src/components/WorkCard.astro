@@ -1,6 +1,13 @@
 ---
 import ResponsiveImage from "./ResponsiveImage.astro";
 import { slugifySegment } from "../lib/content";
+import {
+  getUiText,
+  localizeAvailabilityLabel,
+  localizeCategoryLabel,
+  localizePath,
+  type Locale
+} from "../lib/i18n";
 
 interface Props {
   work: {
@@ -18,43 +25,48 @@ interface Props {
   };
   showDetails?: boolean;
   ctaLabel?: string;
+  locale?: Locale;
 }
 
-const { work, showDetails = false, ctaLabel = "Enquire" } = Astro.props;
+const { work, showDetails = false, ctaLabel = "Enquire", locale = "en" } = Astro.props;
+const ui = getUiText(locale);
 const category = work.category.toLowerCase().replace(/\s+/g, "-");
 const availability = work.availability.toLowerCase();
 const workSlug = work.slug || slugifySegment(work.id || work.title || "work");
-const detailHref = work.href || `/works/${workSlug}/`;
+const detailHref = localizePath(work.href || `/works/${workSlug}/`, locale);
 const ctaHref =
   ctaLabel === "View Work"
+    || ctaLabel === "Ver obra"
     ? detailHref
-    : `/contact/?work=${encodeURIComponent(work.slug || work.id || workSlug)}`;
+    : localizePath(`/contact/?work=${encodeURIComponent(work.slug || work.id || workSlug)}`, locale);
+const displayCategory = localizeCategoryLabel(work.category, locale);
+const displayAvailability = localizeAvailabilityLabel(work.availability, locale);
 ---
 
 <article class="work-card" data-filter-item data-category={category} data-availability={availability} data-content-id={work.id} data-content-slug={workSlug}>
-  <a class="work-card__image" href={detailHref} aria-label={`View ${work.title}`}>
+  <a class="work-card__image" href={detailHref} aria-label={`${ui.common.viewWork} ${work.title}`}>
     <ResponsiveImage src={work.image} alt={work.alt} />
   </a>
   <div class="work-card__body">
     <div class="meta-line">
-      <span>{work.category}</span>
+      <span>{displayCategory}</span>
       <span>{work.year}</span>
     </div>
     <h3><a href={detailHref}>{work.title}</a></h3>
     {showDetails && (
       <dl class="compact-specs">
         <div>
-          <dt>Technique</dt>
+          <dt>{ui.common.technique}</dt>
           <dd>{work.technique}</dd>
         </div>
         <div>
-          <dt>Size</dt>
+          <dt>{ui.common.size}</dt>
           <dd>{work.size}</dd>
         </div>
       </dl>
     )}
     <div class="card-actions">
-      <span class="status-pill">{work.availability}</span>
+      <span class="status-pill">{displayAvailability}</span>
       <a class="text-link" href={ctaHref}>{ctaLabel}</a>
     </div>
   </div>

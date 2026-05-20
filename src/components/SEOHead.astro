@@ -1,4 +1,6 @@
 ---
+import { absoluteUrl, localizePath, stripLocaleFromPath, type Locale } from "../lib/i18n";
+
 interface Props {
   title: string;
   description: string;
@@ -6,6 +8,7 @@ interface Props {
   path?: string;
   type?: string;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
+  locale?: Locale;
 }
 
 const {
@@ -14,19 +17,28 @@ const {
   image = "/assets/images/featured/hero-visitacastellon.jpg",
   path = Astro.url.pathname,
   type = "website",
-  structuredData
+  structuredData,
+  locale = "en"
 } = Astro.props;
 
 const site = "https://hizeart.vercel.app";
 const canonical = new URL(path, site).toString();
-const imageUrl = new URL(image, site).toString();
+const imageUrl = absoluteUrl(image);
+const basePath = stripLocaleFromPath(path);
+const englishUrl = absoluteUrl(localizePath(basePath, "en"));
+const spanishUrl = absoluteUrl(localizePath(basePath, "es"));
+const ogLocale = locale === "es" ? "es_ES" : "en_US";
 const jsonLd = structuredData ? JSON.stringify(structuredData) : "";
+const showAlternateLocales = !basePath.endsWith(".html") && !basePath.startsWith("/404");
 ---
 
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
-<meta property="og:locale" content="en_US" />
+{showAlternateLocales && <link rel="alternate" hreflang="en" href={englishUrl} />}
+{showAlternateLocales && <link rel="alternate" hreflang="es" href={spanishUrl} />}
+{showAlternateLocales && <link rel="alternate" hreflang="x-default" href={englishUrl} />}
+<meta property="og:locale" content={ogLocale} />
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content="HIZE ART" />
 <meta property="og:title" content={title} />

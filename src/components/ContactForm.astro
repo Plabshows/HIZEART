@@ -1,13 +1,13 @@
 ---
-const enquiryTypes = [
-  "Available artwork",
-  "Mural commission",
-  "Brand collaboration",
-  "Exhibition",
-  "VR Art project",
-  "Press / Gallery",
-  "General enquiry"
-];
+import { getUiText, type Locale } from "../lib/i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const ui = getUiText(locale);
+const enquiryTypes = ui.enquiryTypes;
 
 const formspreeEndpoint = "https://formspree.io/f/mzdwezqn";
 ---
@@ -24,27 +24,27 @@ const formspreeEndpoint = "https://formspree.io/f/mzdwezqn";
     <label>Do not fill this out <input name="_gotcha" tabindex="-1" autocomplete="off" /></label>
   </p>
   <label>
-    <span>Name</span>
+    <span>{ui.contactForm.name}</span>
     <input type="text" name="name" autocomplete="name" required />
   </label>
   <label>
-    <span>Email</span>
+    <span>{ui.contactForm.email}</span>
     <input type="email" name="email" autocomplete="email" required />
   </label>
   <label>
-    <span>Type of enquiry</span>
+    <span>{ui.contactForm.enquiryType}</span>
     <select name="type" required>
-      <option value="">Select an option</option>
+      <option value="">{ui.contactForm.selectOption}</option>
       {enquiryTypes.map((type) => <option value={type}>{type}</option>)}
     </select>
   </label>
   <label>
-    <span>Message</span>
+    <span>{ui.contactForm.message}</span>
     <textarea name="message" rows="7" required></textarea>
   </label>
-  <button class="button button--primary" type="submit">Send Enquiry</button>
+  <button class="button button--primary" type="submit">{ui.contactForm.send}</button>
   <p class="form-fallback">
-    Secure form powered by Formspree. Direct email fallback:
+    {ui.contactForm.fallback}
     <a href="mailto:info@hizeart.com">info@hizeart.com</a>
   </p>
 </form>

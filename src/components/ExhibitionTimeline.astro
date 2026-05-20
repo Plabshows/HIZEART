@@ -1,4 +1,6 @@
 ---
+import { localizeProjectTypeLabel, type Locale } from "../lib/i18n";
+
 interface Entry {
   year: string;
   title: string;
@@ -9,9 +11,10 @@ interface Entry {
 
 interface Props {
   entries: Entry[];
+  locale?: Locale;
 }
 
-const { entries } = Astro.props;
+const { entries, locale = "en" } = Astro.props;
 ---
 
 <div class="timeline">
@@ -19,7 +22,7 @@ const { entries } = Astro.props;
     <article class="timeline-item">
       <time>{entry.year}</time>
       <div>
-        <p class="meta-line"><span>{entry.type}</span><span>{entry.location}</span></p>
+        <p class="meta-line"><span>{localizeProjectTypeLabel(entry.type, locale)}</span><span>{entry.location}</span></p>
         <h3>{entry.title}</h3>
         {entry.description && <p>{entry.description}</p>}
       </div>

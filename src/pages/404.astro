@@ -1,19 +1,23 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getUiText, localizePath, resolveLocale } from "../lib/i18n";
+
+const locale = resolveLocale(Astro.url.pathname);
+const text = getUiText(locale);
 ---
 
 <BaseLayout
-  title="Page Not Found | HIZE ART"
-  description="This page has moved or no longer exists."
+  title={locale === "es" ? "Página no encontrada | HIZE ART" : "Page Not Found | HIZE ART"}
+  description={text.page404.title}
   image="/assets/images/canvas/wildsss.jpg"
 >
   <section class="page-shell page-intro">
-    <p class="eyebrow">404</p>
-    <h1>This page has moved or no longer exists.</h1>
+    <p class="eyebrow">{text.page404.eyebrow}</p>
+    <h1>{text.page404.title}</h1>
     <div class="button-row">
-      <a class="button button--primary" href="/">Back to Home</a>
-      <a class="button button--secondary" href="/works/">View Works</a>
-      <a class="button button--secondary" href="/contact/">Contact</a>
+      <a class="button button--primary" href={localizePath("/", locale)}>{text.page404.backHome}</a>
+      <a class="button button--secondary" href={localizePath("/works/", locale)}>{text.page404.viewWorks}</a>
+      <a class="button button--secondary" href={localizePath("/contact/", locale)}>{text.page404.contact}</a>
     </div>
   </section>
 </BaseLayout>

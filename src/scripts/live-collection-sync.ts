@@ -1,3 +1,13 @@
+import {
+  getUiText,
+  localizeAvailabilityLabel,
+  localizeCategoryLabel,
+  localizePath,
+  localizeProjectTypeLabel,
+  resolveLocale,
+  type Locale
+} from "../lib/i18n";
+
 const SUPABASE_URL = "https://omhjbjvjzkxjmqqionbs.supabase.co";
 const SUPABASE_KEY = "sb_publishable_nbqGkvXvIrKDKE0Mk3cIgg_RZA1exc9";
 
@@ -142,26 +152,31 @@ function applyFilters(items: Array<Record<string, any>>, options: SyncOptions): 
 }
 
 function renderItem(item: Record<string, any>, options: SyncOptions, container: HTMLElement): HTMLElement {
+  const locale = resolveClientLocale();
   switch (options.itemType) {
     case "project":
       if (container.dataset.liveLayout === "project-index" || container.classList.contains("projects-index-grid")) {
-        return renderProjectIndexCard(item);
+        return renderProjectIndexCard(item, locale);
       }
-      return renderProjectCard(item);
+      return renderProjectCard(item, locale);
     case "mural":
-      return renderMuralCard(item);
+      return renderMuralCard(item, locale);
     case "work":
     default:
-      return renderWorkCard(item, options);
+      return renderWorkCard(item, options, locale);
   }
 }
 
-function renderWorkCard(item: Record<string, any>, options: SyncOptions): HTMLElement {
+function renderWorkCard(item: Record<string, any>, options: SyncOptions, locale: Locale): HTMLElement {
+  const ui = getUiText(locale);
   const title = String(item.title || "Untitled work");
   const slug = slugifySegment(item.slug || item.id || title, "work");
-  const detailHref = String(item.href || item.detailHref || `/works/${slug}/`);
+  const detailHref = localizePath(String(item.href || item.detailHref || `/works/${slug}/`), locale);
   const ctaLabel = options.ctaLabel || "Enquire";
-  const ctaHref = ctaLabel === "View Work" ? detailHref : `/contact/?work=${encodeURIComponent(item.slug || item.id || slug)}`;
+  const ctaHref =
+    ctaLabel === "View Work" || ctaLabel === "Ver obra"
+      ? detailHref
+      : localizePath(`/contact/?work=${encodeURIComponent(item.slug || item.id || slug)}`, locale);
 
   const article = document.createElement("article");
   article.className = "work-card";
@@ -173,7 +188,7 @@ function renderWorkCard(item: Record<string, any>, options: SyncOptions): HTMLEl
   const imageLink = document.createElement("a");
   imageLink.className = "work-card__image";
   imageLink.href = detailHref;
-  imageLink.setAttribute("aria-label", `View ${title}`);
+  imageLink.setAttribute("aria-label", `${ui.common.viewWork} ${title}`);
   imageLink.appendChild(buildPicture(String(item.image || ""), String(item.alt || title), "(min-width: 900px) 50vw, 100vw"));
 
   const body = document.createElement("div");
@@ -181,7 +196,7 @@ function renderWorkCard(item: Record<string, any>, options: SyncOptions): HTMLEl
 
   const metaLine = document.createElement("div");
   metaLine.className = "meta-line";
-  metaLine.append(createSpan(String(item.category || "")), createSpan(String(item.year || "")));
+  metaLine.append(createSpan(localizeCategoryLabel(String(item.category || ""), locale)), createSpan(String(item.year || "")));
 
   const heading = document.createElement("h3");
   const headingLink = document.createElement("a");
@@ -195,8 +210,8 @@ function renderWorkCard(item: Record<string, any>, options: SyncOptions): HTMLEl
     const specs = document.createElement("dl");
     specs.className = "compact-specs";
     specs.append(
-      createSpec("Technique", String(item.technique || "")),
-      createSpec("Size", String(item.size || ""))
+      createSpec(ui.common.technique, String(item.technique || "")),
+      createSpec(ui.common.size, String(item.size || ""))
     );
     body.appendChild(specs);
   }
@@ -205,7 +220,7 @@ function renderWorkCard(item: Record<string, any>, options: SyncOptions): HTMLEl
   actions.className = "card-actions";
   const status = document.createElement("span");
   status.className = "status-pill";
-  status.textContent = String(item.availability || "");
+  status.textContent = localizeAvailabilityLabel(String(item.availability || ""), locale);
   const cta = document.createElement("a");
   cta.className = "text-link";
   cta.href = ctaHref;
@@ -248,9 +263,11 @@ function identityValues(item: Record<string, any>): string[] {
   return [item.id, item.slug, item.title].filter(Boolean).map((value) => slugifySegment(String(value), "item"));
 }
 
-function renderProjectCard(item: Record<string, any>): HTMLElement {
+function renderProjectCard(item: Record<string, any>, locale: Locale): HTMLElement {
+  const ui = getUiText(locale);
   const title = String(item.title || "Untitled project");
   const slug = slugifySegment(item.slug || item.id || title, "project");
+  const detailHref = localizePath(`/projects/${slug}/`, locale);
 
   const article = document.createElement("article");
   article.className = "project-card";
@@ -258,8 +275,8 @@ function renderProjectCard(item: Record<string, any>): HTMLElement {
 
   const imageLink = document.createElement("a");
   imageLink.className = "project-card__image";
-  imageLink.href = `/projects/${slug}/`;
-  imageLink.setAttribute("aria-label", `View ${title}`);
+  imageLink.href = detailHref;
+  imageLink.setAttribute("aria-label", `${ui.common.viewProject} ${title}`);
   imageLink.appendChild(buildPicture(String(item.mainImage || ""), String(item.alt || title), "(min-width: 900px) 50vw, 100vw"));
 
   const body = document.createElement("div");
@@ -267,11 +284,11 @@ function renderProjectCard(item: Record<string, any>): HTMLElement {
 
   const metaLine = document.createElement("div");
   metaLine.className = "meta-line";
-  metaLine.append(createSpan(String(item.type || "")), createSpan(String(item.year || "")));
+  metaLine.append(createSpan(localizeProjectTypeLabel(String(item.type || ""), locale)), createSpan(String(item.year || "")));
 
   const heading = document.createElement("h3");
   const headingLink = document.createElement("a");
-  headingLink.href = `/projects/${slug}/`;
+  headingLink.href = detailHref;
   headingLink.textContent = title;
   heading.appendChild(headingLink);
 
@@ -284,8 +301,8 @@ function renderProjectCard(item: Record<string, any>): HTMLElement {
   location.textContent = String(item.location || "");
   const cta = document.createElement("a");
   cta.className = "text-link";
-  cta.href = `/projects/${slug}/`;
-  cta.textContent = "View Project";
+  cta.href = detailHref;
+  cta.textContent = ui.common.viewProject;
   actions.append(location, cta);
 
   body.append(metaLine, heading, description, actions);
@@ -293,9 +310,11 @@ function renderProjectCard(item: Record<string, any>): HTMLElement {
   return article;
 }
 
-function renderProjectIndexCard(item: Record<string, any>): HTMLElement {
+function renderProjectIndexCard(item: Record<string, any>, locale: Locale): HTMLElement {
+  const ui = getUiText(locale);
   const title = String(item.title || "Untitled project");
   const slug = slugifySegment(item.slug || item.id || title, "project");
+  const detailHref = localizePath(`/projects/${slug}/`, locale);
   const article = document.createElement("article");
   article.className = "project-index-card";
   article.dataset.contentId = String(item.id || slug);
@@ -303,8 +322,8 @@ function renderProjectIndexCard(item: Record<string, any>): HTMLElement {
 
   const imageLink = document.createElement("a");
   imageLink.className = "project-index-card__media";
-  imageLink.href = `/projects/${slug}/`;
-  imageLink.setAttribute("aria-label", `View ${title}`);
+  imageLink.href = detailHref;
+  imageLink.setAttribute("aria-label", `${ui.common.viewProject} ${title}`);
   imageLink.appendChild(buildPicture(String(item.mainImage || ""), String(item.alt || title), "(min-width: 900px) 50vw, 100vw"));
 
   const body = document.createElement("div");
@@ -312,11 +331,11 @@ function renderProjectIndexCard(item: Record<string, any>): HTMLElement {
 
   const metaLine = document.createElement("div");
   metaLine.className = "meta-line";
-  metaLine.append(createSpan(String(item.type || "")), createSpan(String(item.year || "")));
+  metaLine.append(createSpan(localizeProjectTypeLabel(String(item.type || ""), locale)), createSpan(String(item.year || "")));
 
   const heading = document.createElement("h3");
   const headingLink = document.createElement("a");
-  headingLink.href = `/projects/${slug}/`;
+  headingLink.href = detailHref;
   headingLink.textContent = title;
   heading.appendChild(headingLink);
 
@@ -330,18 +349,20 @@ function renderProjectIndexCard(item: Record<string, any>): HTMLElement {
 
   const cta = document.createElement("a");
   cta.className = "text-link";
-  cta.href = `/projects/${slug}/`;
-  cta.textContent = "View Project";
+  cta.href = detailHref;
+  cta.textContent = ui.common.viewProject;
 
   body.append(metaLine, heading, description, facts, cta);
   article.append(imageLink, body);
   return article;
 }
 
-function renderMuralCard(item: Record<string, any>): HTMLElement {
+function renderMuralCard(item: Record<string, any>, locale: Locale): HTMLElement {
+  const ui = getUiText(locale);
   const title = String(item.title || "Untitled mural");
   const slug = slugifySegment(item.slug || item.id || title, "mural");
   const isFeatured = item.id === "puerto-visual-intervention";
+  const detailHref = localizePath(`/murals/${slug}/`, locale);
 
   const article = document.createElement("article");
   article.className = `editorial-card${isFeatured ? " editorial-card--featured" : ""}`;
@@ -350,8 +371,8 @@ function renderMuralCard(item: Record<string, any>): HTMLElement {
 
   const mediaLink = document.createElement("a");
   mediaLink.className = "editorial-card__media";
-  mediaLink.href = `/murals/${slug}/`;
-  mediaLink.setAttribute("aria-label", `View ${title}`);
+  mediaLink.href = detailHref;
+  mediaLink.setAttribute("aria-label", `${ui.common.viewDetails} ${title}`);
   mediaLink.appendChild(buildPicture(String(item.image || ""), String(item.alt || title), "(min-width: 900px) 50vw, 100vw"));
 
   const actions = document.createElement("div");
@@ -361,7 +382,7 @@ function renderMuralCard(item: Record<string, any>): HTMLElement {
   const text = document.createElement("div");
   const heading = document.createElement("h3");
   const headingLink = document.createElement("a");
-  headingLink.href = `/murals/${slug}/`;
+  headingLink.href = detailHref;
   headingLink.textContent = title;
   heading.appendChild(headingLink);
 
@@ -382,8 +403,8 @@ function renderMuralCard(item: Record<string, any>): HTMLElement {
 
   const cta = document.createElement("a");
   cta.className = "text-link";
-  cta.href = `/murals/${slug}/`;
-  cta.textContent = "View Details";
+  cta.href = detailHref;
+  cta.textContent = ui.common.viewDetails;
 
   actions.append(text, cta);
   article.append(mediaLink, actions);
@@ -448,4 +469,9 @@ function slugifySegment(value: string, fallback = "item"): string {
     .replace(/^-+|-+$/g, "");
 
   return slug || fallback;
+}
+
+function resolveClientLocale(): Locale {
+  if (typeof document === "undefined") return "en";
+  return resolveLocale(window.location.pathname);
 }

@@ -1,10 +1,10 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import ResponsiveImage from "../../components/ResponsiveImage.astro";
-import ImageGrid from "../../components/ImageGrid.astro";
-import CTASection from "../../components/CTASection.astro";
-import { projects, slugifySegment } from "../../lib/content";
-import { getUiText, localizePath, localizeProjectTypeLabel, resolveLocale } from "../../lib/i18n";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ResponsiveImage from "../../../components/ResponsiveImage.astro";
+import ImageGrid from "../../../components/ImageGrid.astro";
+import CTASection from "../../../components/CTASection.astro";
+import { projects, slugifySegment } from "../../../lib/content";
+import { getUiText, localizePath, localizeProjectTypeLabel, resolveLocale } from "../../../lib/i18n";
 
 export function getStaticPaths() {
   return projects.map((project) => ({
@@ -108,12 +108,8 @@ const structuredData = {
 
   <CTASection
     locale={locale}
-    title={locale === "es" ? "Inicia un encargo o colaboración." : "Start a commission or collaboration."}
-    text={
-      locale === "es"
-        ? "Comparte el contexto, la ubicación, el calendario y los objetivos para un mural, obra, activación de marca o experiencia visual inmersiva."
-        : "Share the context, location, timeline and goals for a mural, artwork, brand activation or immersive visual experience."
-    }
+    title="Inicia un encargo o colaboración."
+    text="Comparte el contexto, la ubicación, el calendario y los objetivos para un mural, obra, activación de marca o experiencia visual inmersiva."
     buttons={[{ href: "/contact/", label: ui.common.contactArtist }]}
   />
 </BaseLayout>

@@ -1,18 +1,18 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import ResponsiveImage from "../components/ResponsiveImage.astro";
-import ImageGrid from "../components/ImageGrid.astro";
-import CTASection from "../components/CTASection.astro";
-import { pages } from "../lib/content";
-import { absoluteUrl, getLocalizedPageContent, resolveLocale } from "../lib/i18n";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ResponsiveImage from "../../components/ResponsiveImage.astro";
+import ImageGrid from "../../components/ImageGrid.astro";
+import CTASection from "../../components/CTASection.astro";
+import { pages } from "../../lib/content";
+import { absoluteUrl, getLocalizedPageContent, resolveLocale } from "../../lib/i18n";
 
 const locale = resolveLocale(Astro.url.pathname);
 const page = getLocalizedPageContent("vrArt", pages.vrArt, locale);
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
-  name: locale === "es" ? "VR Art de Hize" : "VR Art by Hize",
-  url: absoluteUrl(locale === "es" ? "/es/vr-art/" : "/vr-art/")
+  name: "VR Art de Hize",
+  url: absoluteUrl("/es/vr-art/")
 };
 ---
 

@@ -1,6 +1,6 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { getUiText, resolveLocale } from "../lib/i18n";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getUiText, resolveLocale } from "../../lib/i18n";
 
 const locale = resolveLocale(Astro.url.pathname);
 const text = getUiText(locale);

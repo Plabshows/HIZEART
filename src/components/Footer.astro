@@ -1,36 +1,42 @@
 ---
+import { getUiText, localizePath, resolveLocale, type Locale } from "../lib/i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale: localeProp } = Astro.props;
+const locale = localeProp || resolveLocale(Astro.url.pathname);
+const text = getUiText(locale);
 const year = new Date().getFullYear();
 const footerNav = [
-  { href: "/works/", label: "Works" },
-  { href: "/murals/", label: "Murals" },
-  { href: "/projects/", label: "Projects" },
-  { href: "/about/", label: "About" },
-  { href: "/contact/", label: "Contact" },
-  { href: "/privacy-policy/", label: "Privacy" }
+  { href: "/works/", label: text.nav.works },
+  { href: "/murals/", label: text.nav.murals },
+  { href: "/projects/", label: text.nav.projects },
+  { href: "/about/", label: text.nav.about },
+  { href: "/contact/", label: text.nav.contact },
+  { href: "/privacy-policy/", label: text.nav.privacy }
 ];
 ---
 
 <footer class="site-footer">
   <div class="footer-main">
     <div>
-      <a class="brand footer-brand" href="/" aria-label="HIZE ART home">
+      <a class="brand footer-brand" href={localizePath("/", locale)} aria-label={locale === "es" ? "Inicio de HIZE ART" : "HIZE ART home"}>
         <span>HIZE</span>
         <small>ART</small>
       </a>
-      <p>
-        Spanish contemporary urban artist transforming graffiti into abstract paintings,
-        murals and immersive visual experiences.
-      </p>
+      <p>{text.footer.description}</p>
     </div>
     <nav aria-label="Footer navigation">
-      {footerNav.map((item) => <a href={item.href}>{item.label}</a>)}
+      {footerNav.map((item) => <a href={localizePath(item.href, locale)}>{item.label}</a>)}
     </nav>
     <div class="footer-contact">
       <a href="mailto:info@hizeart.com">info@hizeart.com</a>
-      <a href="https://www.instagram.com/hizeart" target="_blank" rel="noreferrer">Instagram</a>
-      <a href="mailto:info@hizeart.com">Email</a>
-      <a href="https://wa.me/34630787144" target="_blank" rel="noreferrer">WhatsApp</a>
-      <a href="/privacy-policy/">Terms</a>
+      <a href="https://www.instagram.com/hizeart" target="_blank" rel="noreferrer">{text.footer.instagram}</a>
+      <a href="mailto:info@hizeart.com">{text.footer.email}</a>
+      <a href="https://wa.me/34630787144" target="_blank" rel="noreferrer">{text.footer.whatsapp}</a>
+      <a href={localizePath("/privacy-policy/", locale)}>{text.footer.terms}</a>
     </div>
   </div>
   <div class="footer-bottom">

@@ -1,28 +1,28 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import WorkCard from "../components/WorkCard.astro";
-import FilterBar from "../components/FilterBar.astro";
-import CollectionLiveSync from "../components/CollectionLiveSync.astro";
-import { worksCatalog, pages } from "../lib/content";
-import { absoluteUrl, getLocalizedPageContent, getUiText, resolveLocale } from "../lib/i18n";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WorkCard from "../../components/WorkCard.astro";
+import FilterBar from "../../components/FilterBar.astro";
+import CollectionLiveSync from "../../components/CollectionLiveSync.astro";
+import { worksCatalog, pages } from "../../lib/content";
+import { absoluteUrl, getLocalizedPageContent, getUiText, resolveLocale } from "../../lib/i18n";
 
 const locale = resolveLocale(Astro.url.pathname);
 const page = getLocalizedPageContent("works", pages.works, locale);
 const ui = getUiText(locale);
 const filters = [
-  { label: locale === "es" ? "Canvas" : "Canvas", value: "canvas" },
-  { label: locale === "es" ? "Murales" : "Murals", value: "murals" },
+  { label: "Canvas", value: "canvas" },
+  { label: "Murales", value: "murals" },
   { label: "VR Art", value: "vr-art" },
   { label: "Graffiti", value: "graffiti" },
-  { label: locale === "es" ? "Disponible" : "Available", value: "available" },
-  { label: locale === "es" ? "Vendido" : "Sold", value: "sold" }
+  { label: "Disponible", value: "available" },
+  { label: "Vendido", value: "sold" }
 ];
 
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  name: locale === "es" ? "Pinturas de graffiti abstracto de Hize" : "Abstract Graffiti Paintings by Hize",
-  url: absoluteUrl(locale === "es" ? "/es/works/" : "/works/")
+  name: "Pinturas de graffiti abstracto de Hize",
+  url: absoluteUrl("/es/works/")
 };
 ---
 

@@ -1,6 +1,7 @@
 ---
 import WorkCard from "./WorkCard.astro";
 import { slugifySegment } from "../lib/content";
+import { localizePath, type Locale } from "../lib/i18n";
 
 interface Work {
   id: string;
@@ -22,6 +23,7 @@ interface Props {
   linkHref?: string;
   categoryFilter?: string;
   limit?: number;
+  locale?: Locale;
 }
 
 const {
@@ -31,7 +33,8 @@ const {
   linkLabel = "View all works",
   linkHref = "/works/",
   categoryFilter = "",
-  limit = 8
+  limit = 8,
+  locale = "en"
 } = Astro.props;
 const categorySlug = categoryFilter ? slugifySegment(categoryFilter, "work") : "";
 const displayWorks = (categorySlug
@@ -43,7 +46,7 @@ const displayWorks = (categorySlug
 <div class="section-heading">
   <p class="eyebrow">{eyebrow}</p>
   <h2>{title}</h2>
-  <a class="text-link" href={linkHref}>{linkLabel}</a>
+  <a class="text-link" href={localizePath(linkHref, locale)}>{linkLabel}</a>
 </div>
 <div
   class="work-grid"
@@ -51,7 +54,7 @@ const displayWorks = (categorySlug
   data-live-item-type="work"
   data-live-limit={limit}
   data-live-category-only={categorySlug || undefined}
-  data-live-cta-label="View Work"
+  data-live-cta-label={locale === "es" ? "Ver obra" : "View Work"}
 >
-  {displayWorks.map((work) => <WorkCard work={work} ctaLabel="View Work" />)}
+  {displayWorks.map((work) => <WorkCard work={work} ctaLabel={locale === "es" ? "Ver obra" : "View Work"} locale={locale} />)}
 </div>

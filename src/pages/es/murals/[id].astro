@@ -1,10 +1,10 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import ResponsiveImage from "../../components/ResponsiveImage.astro";
-import ImageGrid from "../../components/ImageGrid.astro";
-import CTASection from "../../components/CTASection.astro";
-import { murals, slugifySegment } from "../../lib/content";
-import { getUiText, localizePath, resolveLocale } from "../../lib/i18n";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ResponsiveImage from "../../../components/ResponsiveImage.astro";
+import ImageGrid from "../../../components/ImageGrid.astro";
+import CTASection from "../../../components/CTASection.astro";
+import { murals, slugifySegment } from "../../../lib/content";
+import { getUiText, localizePath, resolveLocale } from "../../../lib/i18n";
 
 export function getStaticPaths() {
   return murals.map((mural) => ({
@@ -72,12 +72,8 @@ const structuredData = {
 
   <CTASection
     locale={locale}
-    title={locale === "es" ? "Encarga una obra mural específica para el espacio." : "Commission a site-specific wall work."}
-    text={
-      locale === "es"
-        ? "Para colecciones privadas, espacios hospitality, proyectos culturales, marcas y muros públicos."
-        : "For private collections, hospitality spaces, cultural projects, brands and public walls."
-    }
+    title="Encarga una obra mural específica para el espacio."
+    text="Para colecciones privadas, espacios hospitality, proyectos culturales, marcas y muros públicos."
     buttons={[{ href: "/contact/?type=mural-commission", label: ui.common.commissionMural }]}
   />
 </BaseLayout>

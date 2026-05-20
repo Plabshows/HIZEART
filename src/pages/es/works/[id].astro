@@ -1,8 +1,8 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import ArtworkDetail from "../../components/ArtworkDetail.astro";
-import { workDetailItems, slugifySegment } from "../../lib/content";
-import { getUiText, resolveLocale } from "../../lib/i18n";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ArtworkDetail from "../../../components/ArtworkDetail.astro";
+import { workDetailItems, slugifySegment } from "../../../lib/content";
+import { getUiText, resolveLocale } from "../../../lib/i18n";
 
 export function getStaticPaths() {
   return workDetailItems.map((work) => ({

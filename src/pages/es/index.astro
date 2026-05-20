@@ -1,17 +1,17 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Hero from "../components/Hero.astro";
-import ResponsiveImage from "../components/ResponsiveImage.astro";
-import FeaturedWorks from "../components/FeaturedWorks.astro";
-import ProjectCard from "../components/ProjectCard.astro";
-import CTASection from "../components/CTASection.astro";
-import CollectionLiveSync from "../components/CollectionLiveSync.astro";
-import { works, projects, collaborations, pages } from "../lib/content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../components/Hero.astro";
+import ResponsiveImage from "../../components/ResponsiveImage.astro";
+import FeaturedWorks from "../../components/FeaturedWorks.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import CTASection from "../../components/CTASection.astro";
+import CollectionLiveSync from "../../components/CollectionLiveSync.astro";
+import { works, projects, collaborations, pages } from "../../lib/content";
 import {
   absoluteUrl,
   getLocalizedPageContent,
   resolveLocale
-} from "../lib/i18n";
+} from "../../lib/i18n";
 
 const locale = resolveLocale(Astro.url.pathname);
 const page = getLocalizedPageContent("home", pages.home, locale);

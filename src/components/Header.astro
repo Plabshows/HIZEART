@@ -1,18 +1,36 @@
 ---
+import {
+  getUiText,
+  localeLabel,
+  localizePath,
+  locales,
+  resolveLocale,
+  stripLocaleFromPath,
+  type Locale
+} from "../lib/i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale: localeProp } = Astro.props;
+const locale = localeProp || resolveLocale(Astro.url.pathname);
+const text = getUiText(locale);
+const currentPath = stripLocaleFromPath(Astro.url.pathname).startsWith("/404") ? "/" : `${Astro.url.pathname}${Astro.url.search}`;
 const navItems = [
-  { href: "/works/", label: "Works" },
-  { href: "/murals/", label: "Murals" },
-  { href: "/projects/", label: "Projects" },
-  { href: "/about/", label: "About" },
-  { href: "/contact/", label: "Contact" }
+  { href: "/works/", label: text.nav.works },
+  { href: "/murals/", label: text.nav.murals },
+  { href: "/projects/", label: text.nav.projects },
+  { href: "/about/", label: text.nav.about },
+  { href: "/contact/", label: text.nav.contact }
 ];
 
 const pathname = Astro.url.pathname;
-const isActive = (href: string) => pathname === href || pathname.startsWith(href);
+const isActive = (href: string) => stripLocaleFromPath(pathname) === href || stripLocaleFromPath(pathname).startsWith(href);
 ---
 
 <header class="site-header" data-site-header>
-  <a class="brand" href="/" aria-label="HIZE ART home">
+  <a class="brand" href={localizePath("/", locale)} aria-label={locale === "es" ? "Inicio de HIZE ART" : "HIZE ART home"}>
     <span>HIZE</span>
     <small>ART</small>
   </a>
@@ -23,13 +41,20 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(href
     <span class="sr-only">Open navigation</span>
   </button>
 
-  <nav id="site-navigation" class="site-nav" aria-label="Main navigation" data-site-nav>
+  <nav id="site-navigation" class="site-nav" aria-label={locale === "es" ? "Navegación principal" : "Main navigation"} data-site-nav>
     {navItems.map((item) => (
-      <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
+      <a href={localizePath(item.href, locale)} aria-current={isActive(item.href) ? "page" : undefined}>
         {item.label}
       </a>
     ))}
-    <a class="nav-cta" href="/contact/">Enquire</a>
+    <div class="locale-switch" aria-label={text.language.switchLabel}>
+      {locales.map((value) => (
+        <a href={localizePath(stripLocaleFromPath(currentPath), value)} aria-current={locale === value ? "page" : undefined}>
+          {localeLabel(value)}
+        </a>
+      ))}
+    </div>
+    <a class="nav-cta" href={localizePath("/contact/", locale)}>{text.nav.enquire}</a>
   </nav>
 </header>
 

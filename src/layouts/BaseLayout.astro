@@ -2,6 +2,7 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SEOHead from "../components/SEOHead.astro";
+import { resolveLocale, type Locale } from "../lib/i18n";
 import "../styles/global.css";
 
 interface Props {
@@ -12,13 +13,24 @@ interface Props {
   type?: string;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
   bodyClass?: string;
+  locale?: Locale;
 }
 
-const { title, description, image, path, type, structuredData, bodyClass = "" } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  path,
+  type,
+  structuredData,
+  bodyClass = "",
+  locale: localeProp
+} = Astro.props;
+const locale = localeProp || resolveLocale(Astro.url.pathname);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,13 +42,21 @@ const { title, description, image, path, type, structuredData, bodyClass = "" } 
       rel="stylesheet"
     />
     <link rel="icon" type="image/png" href="/assets/icons/hize-favicon.png" />
-    <SEOHead title={title} description={description} image={image} path={path} type={type} structuredData={structuredData} />
+    <SEOHead
+      title={title}
+      description={description}
+      image={image}
+      path={path}
+      type={type}
+      structuredData={structuredData}
+      locale={locale}
+    />
   </head>
-  <body class={bodyClass}>
-    <Header />
+  <body class={bodyClass} data-locale={locale}>
+    <Header locale={locale} />
     <main id="content">
       <slot />
     </main>
-    <Footer />
+    <Footer locale={locale} />
   </body>
 </html>

@@ -138,6 +138,23 @@ button {
   gap: clamp(1rem, 2vw, 2rem);
 }
 
+.locale-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 1px solid var(--outline-variant);
+}
+
+.locale-switch a {
+  color: var(--on-surface-variant);
+}
+
+.locale-switch a[aria-current="page"] {
+  color: var(--primary);
+  border-bottom: 1px solid var(--primary);
+}
+
 .site-nav a {
   padding: 0.25rem 0;
   color: var(--on-surface-variant);
@@ -609,12 +626,6 @@ dt,
   transform: scale(1.02);
 }
 
-.work-card[data-availability*="available"] .work-card__image,
-.work-card[data-availability*="sold"] .work-card__image {
-  outline: 1px solid var(--availability-accent, var(--outline-variant));
-  outline-offset: -1px;
-}
-
 .work-card[data-availability*="available"] {
   --availability-accent: var(--available);
   --availability-soft: var(--available-soft);
@@ -631,11 +642,6 @@ dt,
 .info-card {
   padding: 1rem 0 0;
   border-top: 1px solid var(--outline-variant);
-}
-
-.work-card[data-availability*="available"] .work-card__body,
-.work-card[data-availability*="sold"] .work-card__body {
-  border-top-color: var(--availability-accent);
 }
 
 .info-card {
@@ -1416,7 +1422,8 @@ dd {
   }
 
   .site-nav a,
-  .site-nav .nav-cta {
+  .site-nav .nav-cta,
+  .locale-switch a {
     padding: 1.1rem 0;
     font-size: 1.45rem;
     font-weight: 500;
@@ -1431,6 +1438,15 @@ dd {
     text-align: center;
     color: var(--on-primary);
     background: var(--primary);
+  }
+
+  .locale-switch {
+    gap: 1rem;
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--outline-variant);
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
   }
 
   .split-section,

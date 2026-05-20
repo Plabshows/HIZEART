@@ -1,6 +1,14 @@
 ---
 import ResponsiveImage from "./ResponsiveImage.astro";
 import ImageGrid from "./ImageGrid.astro";
+import {
+  getUiText,
+  localizeAvailabilityLabel,
+  localizeCategoryLabel,
+  localizePath,
+  localizeProjectTypeLabel,
+  type Locale
+} from "../lib/i18n";
 
 interface Props {
   item: {
@@ -20,11 +28,18 @@ interface Props {
   };
   backHref: string;
   backLabel: string;
+  locale?: Locale;
 }
 
-const { item, backHref, backLabel } = Astro.props;
+const { item, backHref, backLabel, locale = "en" } = Astro.props;
 const image = item.image || item.mainImage || "";
 const gallery = item.gallery || [];
+const ui = getUiText(locale);
+const displayEyebrow = item.category
+  ? localizeCategoryLabel(item.category, locale)
+  : item.type
+    ? localizeProjectTypeLabel(item.type, locale)
+    : ui.common.projectLabel;
 ---
 
 <article class="detail-layout">
@@ -32,20 +47,20 @@ const gallery = item.gallery || [];
     <ResponsiveImage src={image} alt={item.alt} loading="eager" sizes="(min-width: 900px) 58vw, 100vw" />
   </div>
   <div class="detail-content">
-    <a class="text-link" href={backHref}>{backLabel}</a>
-    <p class="eyebrow">{item.category || item.type || "Project"}</p>
+    <a class="text-link" href={localizePath(backHref, locale)}>{backLabel}</a>
+    <p class="eyebrow">{displayEyebrow}</p>
     <h1>{item.title}</h1>
     <p class="lead">{item.description}</p>
     <dl class="spec-list">
-      <div><dt>Year</dt><dd>{item.year}</dd></div>
-      {item.technique && <div><dt>Technique</dt><dd>{item.technique}</dd></div>}
-      {item.size && <div><dt>Size</dt><dd>{item.size}</dd></div>}
-      {item.availability && <div><dt>Status</dt><dd>{item.availability}</dd></div>}
-      {item.price && <div><dt>Price</dt><dd>{item.price}</dd></div>}
+      <div><dt>{ui.common.year}</dt><dd>{item.year}</dd></div>
+      {item.technique && <div><dt>{ui.common.technique}</dt><dd>{item.technique}</dd></div>}
+      {item.size && <div><dt>{ui.common.size}</dt><dd>{item.size}</dd></div>}
+      {item.availability && <div><dt>{ui.common.status}</dt><dd>{localizeAvailabilityLabel(item.availability, locale)}</dd></div>}
+      {item.price && <div><dt>{ui.common.price}</dt><dd>{localizeAvailabilityLabel(item.price, locale)}</dd></div>}
     </dl>
     <div class="button-row">
-      <a class="button button--primary" href="/contact/">Enquire</a>
-      <a class="button button--secondary" href="/available-works/">Request Catalogue</a>
+      <a class="button button--primary" href={localizePath("/contact/", locale)}>{ui.common.enquire}</a>
+      <a class="button button--secondary" href={localizePath("/available-works/", locale)}>{ui.common.requestCatalogue}</a>
     </div>
   </div>
 </article>
@@ -53,9 +68,9 @@ const gallery = item.gallery || [];
 {gallery.length > 0 && (
   <section class="section-shell detail-gallery">
     <div class="section-heading">
-      <p class="eyebrow">Gallery</p>
-      <h2>Additional views</h2>
+      <p class="eyebrow">{ui.common.gallery}</p>
+      <h2>{ui.common.additionalViews}</h2>
     </div>
-    <ImageGrid images={gallery.map((src) => ({ src, alt: item.alt }))} />
+    <ImageGrid images={gallery.map((src) => ({ src, alt: item.alt }))} locale={locale} />
   </section>
 )}

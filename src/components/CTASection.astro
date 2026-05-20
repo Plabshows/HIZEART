@@ -1,4 +1,6 @@
 ---
+import { getUiText, localizePath, type Locale } from "../lib/i18n";
+
 interface Button {
   href: string;
   label: string;
@@ -9,20 +11,23 @@ interface Props {
   title: string;
   text: string;
   buttons: Button[];
+  locale?: Locale;
+  eyebrow?: string;
 }
 
-const { title, text, buttons } = Astro.props;
+const { title, text, buttons, locale = "en", eyebrow } = Astro.props;
+const ui = getUiText(locale);
 ---
 
 <section class="cta-section">
   <div>
-    <p class="eyebrow">Enquiries</p>
+    <p class="eyebrow">{eyebrow || ui.common.enquiries}</p>
     <h2>{title}</h2>
     <p>{text}</p>
   </div>
   <div class="button-row">
     {buttons.map((button) => (
-      <a class={`button button--${button.variant || "primary"}`} href={button.href}>
+      <a class={`button button--${button.variant || "primary"}`} href={localizePath(button.href, locale)}>
         {button.label}
       </a>
     ))}

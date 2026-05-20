@@ -1,4 +1,6 @@
 ---
+import { getUiText, type Locale } from "../lib/i18n";
+
 interface Filter {
   label: string;
   value: string;
@@ -7,13 +9,15 @@ interface Filter {
 interface Props {
   filters: Filter[];
   defaultFilter?: string;
+  locale?: Locale;
 }
 
-const { filters, defaultFilter = "all" } = Astro.props;
+const { filters, defaultFilter = "all", locale = "en" } = Astro.props;
 const hasDefaultFilter = filters.some((filter) => filter.value === defaultFilter);
+const ui = getUiText(locale);
 ---
 
-<div class="filter-bar" role="toolbar" aria-label="Work filters" data-filter-bar data-default-filter={defaultFilter}>
+<div class="filter-bar" role="toolbar" aria-label={ui.common.workFilters} data-filter-bar data-default-filter={defaultFilter}>
   {filters.map((filter) => (
     <button
       type="button"
