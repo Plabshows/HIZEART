@@ -1,5 +1,5 @@
 ---
-import { localizeProjectTypeLabel, type Locale } from "../lib/i18n";
+import { getLocalizedExhibitionContent, localizeProjectTypeLabel, type Locale } from "../lib/i18n";
 
 interface Entry {
   year: string;
@@ -18,14 +18,17 @@ const { entries, locale = "en" } = Astro.props;
 ---
 
 <div class="timeline">
-  {entries.map((entry) => (
+  {entries.map((entry) => {
+    const localizedEntry = getLocalizedExhibitionContent(entry, locale);
+    return (
     <article class="timeline-item">
-      <time>{entry.year}</time>
+      <time>{localizedEntry.year}</time>
       <div>
-        <p class="meta-line"><span>{localizeProjectTypeLabel(entry.type, locale)}</span><span>{entry.location}</span></p>
-        <h3>{entry.title}</h3>
-        {entry.description && <p>{entry.description}</p>}
+        <p class="meta-line"><span>{localizeProjectTypeLabel(localizedEntry.type, locale)}</span><span>{localizedEntry.location}</span></p>
+        <h3>{localizedEntry.title}</h3>
+        {localizedEntry.description && <p>{localizedEntry.description}</p>}
       </div>
     </article>
-  ))}
+    );
+  })}
 </div>

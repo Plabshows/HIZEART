@@ -5,6 +5,7 @@ import CollectionLiveSync from "../../components/CollectionLiveSync.astro";
 import { projects, pages, slugifySegment } from "../../lib/content";
 import {
   absoluteUrl,
+  getLocalizedProjectContent,
   getLocalizedPageContent,
   getUiText,
   localizePath,
@@ -16,7 +17,7 @@ const locale = resolveLocale(Astro.url.pathname);
 const page = getLocalizedPageContent("projects", pages.projects, locale);
 const ui = getUiText(locale);
 const projectCards = projects.map((project) => ({
-  project,
+  project: getLocalizedProjectContent(project, locale),
   slug: project.slug || slugifySegment(project.id || project.title || "project")
 }));
 const structuredData = {

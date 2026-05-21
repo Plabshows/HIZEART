@@ -3,6 +3,7 @@ import ResponsiveImage from "./ResponsiveImage.astro";
 import { slugifySegment } from "../lib/content";
 import {
   getUiText,
+  getLocalizedWorkContent,
   localizeAvailabilityLabel,
   localizeCategoryLabel,
   localizePath,
@@ -29,39 +30,40 @@ interface Props {
 }
 
 const { work, showDetails = false, ctaLabel = "Enquire", locale = "en" } = Astro.props;
+const localizedWork = getLocalizedWorkContent(work, locale);
 const ui = getUiText(locale);
-const category = work.category.toLowerCase().replace(/\s+/g, "-");
-const availability = work.availability.toLowerCase();
-const workSlug = work.slug || slugifySegment(work.id || work.title || "work");
-const detailHref = localizePath(work.href || `/works/${workSlug}/`, locale);
+const category = localizedWork.category.toLowerCase().replace(/\s+/g, "-");
+const availability = localizedWork.availability.toLowerCase();
+const workSlug = localizedWork.slug || slugifySegment(localizedWork.id || localizedWork.title || "work");
+const detailHref = localizePath(localizedWork.href || `/works/${workSlug}/`, locale);
 const ctaHref =
   ctaLabel === "View Work"
     || ctaLabel === "Ver obra"
     ? detailHref
-    : localizePath(`/contact/?work=${encodeURIComponent(work.slug || work.id || workSlug)}`, locale);
-const displayCategory = localizeCategoryLabel(work.category, locale);
-const displayAvailability = localizeAvailabilityLabel(work.availability, locale);
+    : localizePath(`/contact/?work=${encodeURIComponent(localizedWork.slug || localizedWork.id || workSlug)}`, locale);
+const displayCategory = localizeCategoryLabel(localizedWork.category, locale);
+const displayAvailability = localizeAvailabilityLabel(localizedWork.availability, locale);
 ---
 
-<article class="work-card" data-filter-item data-category={category} data-availability={availability} data-content-id={work.id} data-content-slug={workSlug}>
-  <a class="work-card__image" href={detailHref} aria-label={`${ui.common.viewWork} ${work.title}`}>
-    <ResponsiveImage src={work.image} alt={work.alt} />
+<article class="work-card" data-filter-item data-category={category} data-availability={availability} data-content-id={localizedWork.id} data-content-slug={workSlug}>
+  <a class="work-card__image" href={detailHref} aria-label={`${ui.common.viewWork} ${localizedWork.title}`}>
+    <ResponsiveImage src={localizedWork.image} alt={localizedWork.alt} />
   </a>
   <div class="work-card__body">
     <div class="meta-line">
       <span>{displayCategory}</span>
-      <span>{work.year}</span>
+      <span>{localizedWork.year}</span>
     </div>
-    <h3><a href={detailHref}>{work.title}</a></h3>
+    <h3><a href={detailHref}>{localizedWork.title}</a></h3>
     {showDetails && (
       <dl class="compact-specs">
         <div>
           <dt>{ui.common.technique}</dt>
-          <dd>{work.technique}</dd>
+          <dd>{localizedWork.technique}</dd>
         </div>
         <div>
           <dt>{ui.common.size}</dt>
-          <dd>{work.size}</dd>
+          <dd>{localizedWork.size}</dd>
         </div>
       </dl>
     )}

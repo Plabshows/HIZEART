@@ -2,7 +2,7 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import ArtworkDetail from "../../../components/ArtworkDetail.astro";
 import { workDetailItems, slugifySegment } from "../../../lib/content";
-import { getUiText, resolveLocale } from "../../../lib/i18n";
+import { getLocalizedWorkContent, getUiText, resolveLocale } from "../../../lib/i18n";
 
 export function getStaticPaths() {
   return workDetailItems.map((work) => ({
@@ -14,22 +14,23 @@ export function getStaticPaths() {
 const { work } = Astro.props;
 const locale = resolveLocale(Astro.url.pathname);
 const ui = getUiText(locale);
-const workImage = new URL(work.image, "https://hizeart.vercel.app").toString();
+const localizedWork = getLocalizedWorkContent(work, locale);
+const workImage = new URL(localizedWork.image, "https://hizeart.vercel.app").toString();
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "VisualArtwork",
-  name: work.title,
+  name: localizedWork.title,
   creator: "Manuel Forner Hize",
-  artMedium: work.technique,
+  artMedium: localizedWork.technique,
   image: workImage,
-  description: work.description
+  description: localizedWork.description
 };
 ---
 
 <BaseLayout
-  title={`${work.title} | ${locale === "es" ? "Obra de Hize" : "Hize Artwork"}`}
-  description={work.description}
-  image={work.image}
+  title={`${localizedWork.title} | ${locale === "es" ? "Obra de Hize" : "Hize Artwork"}`}
+  description={localizedWork.description}
+  image={localizedWork.image}
   type="article"
   structuredData={structuredData}
 >

@@ -537,6 +537,188 @@ const projectTypeLabels: Record<Locale, Record<string, string>> = {
   }
 };
 
+type LocalizedEntityMap = Record<Locale, Record<string, Record<string, Record<string, unknown>>>>;
+
+const exactValueLabels: Record<Locale, Record<string, string>> = {
+  en: {},
+  es: {
+    "size-on-request": "Medidas a consultar",
+    "site-specific": "Específica para el espacio",
+    "live-experience": "Experiencia en vivo",
+    "project-on-request": "Proyecto a consultar",
+    "price-on-request": "Precio a consultar",
+    "not-for-sale": "No disponible para la venta",
+    "private-commission": "Encargo privado",
+    "private-and-public-commissions": "Encargos privados y públicos",
+    "project-on-request-client": "Proyecto a consultar",
+    "client-tbc": "Cliente por confirmar",
+    "selected-archive": "Archivo seleccionado",
+    ongoing: "En curso",
+    archive: "Archivo",
+    spain: "España",
+    international: "Internacional",
+    "spain-international": "España / Internacional",
+    "spain-and-international": "España e internacional",
+    "torreblanca-spain": "Torreblanca, España",
+    "osaka-japan": "Osaka, Japón",
+    "dubai-uae": "Dubái, EAU",
+    "spray-paint-and-acrylic-on-wall": "Spray paint y acrílico sobre muro",
+    "spray-paint-and-acrylic-on-a-van": "Spray paint y acrílico sobre furgoneta",
+    "acrylic-and-spray-paint-on-wall": "Acrílico y spray sobre muro",
+    "mixed-media-on-canvas": "Técnica mixta sobre lienzo",
+    "immersive-vr-performance": "Performance inmersiva en VR",
+    "live-digital-graffiti-performance": "Performance de graffiti digital en vivo",
+    "copy-of-sharjah-uae": "Sharjah UAE",
+    "hize-abstract-graffiti-artwork-on-canvas": "Obra abstracta de graffiti de Hize sobre lienzo",
+    "hize-colorful-abstract-graffiti-artwork-on-canvas": "Obra abstracta de graffiti colorista de Hize sobre lienzo",
+    "hize-abstract-painting-inspired-by-graffiti-letter-structures": "Pintura abstracta de Hize inspirada en estructuras de letras de graffiti",
+    "hize-abstract-graffiti-canvas-with-pastel-color-movement": "Lienzo abstracto de graffiti de Hize con movimiento y color pastel",
+    "hize-abstract-graffiti-canvas-with-black-background-and-colorful-shapes": "Lienzo abstracto de graffiti de Hize con fondo negro y formas de color",
+    "hize-abstract-graffiti-canvas-with-colorful-letter-fragments": "Lienzo abstracto de graffiti de Hize con fragmentos de letra en color",
+    "hize-graffiti-piece-in-sharjah-with-dynamic-letter-forms": "Pieza de graffiti de Hize con formas tipográficas dinámicas",
+    "hize-vr-art-performance-creating-digital-graffiti-in-real-time": "Performance de VR Art de Hize creando graffiti digital en tiempo real",
+    "hize-streetxo-visual-project-with-abstract-graffiti-energy": "Proyecto visual de Hize para StreetXO con energía de graffiti abstracto",
+    "hize-brand-collaboration-with-contemporary-visual-artwork": "Colaboración de marca de Hize con lenguaje visual contemporáneo",
+    "hize-art-project-at-expo-2020-dubai": "Proyecto artístico de Hize en Expo 2020 Dubái",
+    "hize-graffiti-artwork-presented-in-osaka-japan": "Obra de graffiti de Hize presentada en Osaka, Japón",
+    "hize-abstract-graffiti-mural-in-a-contemporary-space": "Mural abstracto de graffiti de Hize en un espacio contemporáneo",
+    "hize-mural-with-abstract-graffiti-shapes-in-a-contemporary-space": "Mural de Hize con formas abstractas de graffiti en un espacio contemporáneo",
+    "hize-mural-in-spain-combining-graffiti-and-abstract-shapes": "Mural de Hize en España que combina graffiti y formas abstractas",
+    "hize-abstract-mural-with-colorful-graffiti-shapes-in-an-interior-space": "Mural abstracto de Hize con formas de graffiti coloristas en un espacio interior"
+  }
+};
+
+const entityOverrides: LocalizedEntityMap = {
+  en: {
+    works: {},
+    projects: {},
+    murals: {},
+    exhibitions: {}
+  },
+  es: {
+    works: {
+      "canvas-composition-01": {
+        description:
+          "Una obra de estudio que traduce el ritmo del graffiti, el color y la construcción de la letra en una composición abstracta contemporánea."
+      },
+      "wild-structures": {
+        description:
+          "Una composición abstracta basada en las estructuras ocultas entre las letras del graffiti, el movimiento y el ritmo urbano."
+      },
+      conexion: {
+        description:
+          "Una composición construida a partir de conexiones entre fragmentos de letra, movimiento y estructura urbana abstracta."
+      },
+      "conexion-3": {
+        description:
+          "Una obra sobre lienzo que explora equilibrio, gesto cinético y memoria visual de la escritura graffiti."
+      },
+      "expo-bohemia-negro": {
+        description:
+          "Una pieza panorámica de estudio con referencias al graffiti, contraste y ritmo abstracto."
+      },
+      "get-high": {
+        description:
+          "Una obra sobre lienzo que conecta la energía del graffiti tradicional con campos abstractos de color superpuestos."
+      },
+      ibiza: {
+        description:
+          "Una pieza de archivo de graffiti que muestra el origen estructural del lenguaje abstracto de estudio de Hize."
+      },
+      "sharjah-writing-2": {
+        description:
+          "Una pieza de archivo de graffiti que muestra el origen estructural del lenguaje abstracto de estudio de Hize."
+      },
+      "digital-graffiti-session": {
+        description:
+          "Una extensión digital en vivo del graffiti donde movimiento, gesto y tecnología se convierten en expresión visual."
+      }
+    },
+    projects: {
+      "streetxo-project": {
+        description:
+          "Para el proyecto StreetXO Dubai del reconocido chef Dabiz Muñoz, HIZE aportó a la atmósfera artística y a la identidad visual del espacio a través de una serie de obras e intervenciones inspiradas en la cultura urbana.\n\nMezclando graffiti, abstracción y estética street de energía cruda, el proyecto fue concebido para acompañar la intensidad explosiva y la personalidad rebelde de StreetXO: un concepto donde comida, música, diseño y arte colisionan en una experiencia totalmente inmersiva.\n\nLa intervención artística ayudó a transformar el entorno más allá del marco habitual de un restaurante, añadiendo capas de textura, movimiento y narrativa visual ligadas a la cultura urbana contemporánea.\n\nUna colaboración en la que el lenguaje del graffiti evolucionó hasta convertirse en parte de la experiencia sensorial que define la identidad audaz y disruptiva de StreetXO Dubai."
+      },
+      "brand-collaborations": {
+        description:
+          "Durante el lanzamiento exclusivo de la colección de Pharrell Williams en la flagship store de Louis Vuitton en Dubai Mall, HIZE fue invitado a crear una experiencia de personalización en vivo inspirada en el graffiti y la cultura urbana.\n\nRegalos de lujo y piezas seleccionadas de la colección fueron transformados en tiempo real mediante tags pintados a mano, lettering personalizado e intervenciones artísticas, uniendo la energía cruda del street art con el universo de la alta moda.\n\nLa colaboración llevó una presencia urbana auténtica al espacio de retail de lujo, generando piezas únicas e irrepetibles y una experiencia inmersiva para los invitados a la presentación.\n\nUn proyecto en el que el graffiti evolucionó más allá de la calle para entrar en el territorio de la moda, la artesanía y las experiencias de lujo."
+      },
+      "vr-art-performance": {
+        description:
+          "Performances de graffiti digital en vivo donde el gesto, el ritmo y las herramientas inmersivas generan estructuras visuales abstractas en tiempo real."
+      },
+      "expo-2020-dubai": {
+        description:
+          "Un proyecto cultural que presentó el lenguaje de graffiti abstracto de Hize a través del movimiento, el color y una presencia visual de gran escala en un contexto internacional."
+      },
+      "osaka-contemporary-art-museum": {
+        description:
+          "Un contexto expositivo en Japón que conecta la escritura graffiti, la composición abstracta y el lenguaje internacional del arte urbano contemporáneo."
+      },
+      "large-scale-murals": {
+        description:
+          "Una selección curada de obras murales específicas para el espacio, desarrolladas para contextos privados, hospitality, culturales y públicos."
+      }
+    },
+    murals: {
+      "new-mural": {
+        description:
+          "Durante el verano de 2024, Hize desarrolló una serie de experimentos murales urbanos abstractos junto a uno de sus artistas favoritos, Grems.\n\nCreadas a través de intervenciones espontáneas en el espacio público, estas piezas exploran la intersección entre graffiti, abstracción, movimiento y textura cruda, alejándose del lettering tradicional para entrar en un lenguaje visual más intuitivo y experimental.\n\nEl proceso estuvo guiado por la improvisación, las capas, el ritmo y la energía, transformando los muros en laboratorios abiertos de expresión donde el color, el gesto y la composición se convierten en el foco principal.\n\nEstas intervenciones reflejan la evolución continua de Hize desde sus raíces en el graffiti clásico hacia un enfoque más contemporáneo y abstracto, manteniendo intacta la espontaneidad y la esencia urbana de la cultura de calle."
+      },
+      "new-mural-2": {
+        description:
+          "Esta pieza transforma una furgoneta clásica en una composición viajera de color, ritmo y forma.\nConstruida a partir de capas, contrastes marcados y un movimiento visual fluido, la obra explora el equilibrio entre estructura y espontaneidad.\n\nEl vehículo se convierte en un lienzo móvil: un objeto reinterpretado como experiencia visual contemporánea que dialoga con su entorno desde todos los ángulos."
+      },
+      "puerto-visual-intervention": {
+        description:
+          "Creada para el festival Zedreart en Valencia, esta intervención de gran formato explora la relación entre arquitectura, movimiento y color a través de un lenguaje visual abstracto y vibrante.\n\nLa pieza transforma una estructura urbana industrial en un hito escultórico dinámico, utilizando gradientes superpuestos, formas geométricas afiladas y transiciones fluidas para generar una sensación constante de movimiento y energía desde cualquier ángulo.\n\nInspirado por la cultura del graffiti, la abstracción contemporánea y la experimentación espacial, el mural fue concebido para interactuar directamente con el entorno, cambiando visualmente según la luz, la perspectiva y la distancia.\n\nEste proyecto refleja el interés continuo de Hize por fusionar el arte urbano con el espacio arquitectónico, creando composiciones inmersivas que difuminan la frontera entre muralismo, instalación y arte público contemporáneo."
+      },
+      "torreblanca-mural": {
+        description:
+          "Un mural abstracto de gran escala desarrollado a partir de la identidad del espacio, combinando color, movimiento y ritmo estructural."
+      },
+      "abstract-interior-mural": {
+        description:
+          "Un mural interior site-specific que utiliza formas abstractas de graffiti para generar movimiento y atmósfera a lo largo del muro."
+      },
+      port: {
+        description:
+          "Creado para un entorno portuario, este mural fue concebido como una fusión entre abstracción geométrica y formas figurativas.\nLa composición deja ver sutilmente la silueta de un pez recorriendo el muro, fundiéndose con capas de color, movimiento orgánico y contrastes intensos característicos de mi lenguaje visual.\n\nLa pieza transforma la arquitectura en un paisaje costero vibrante: lúdico, inmersivo y profundamente conectado con su entorno."
+      }
+    },
+    exhibitions: {
+      "osaka-contemporary-art-museum": {
+        description:
+          "Contexto expositivo internacional para el lenguaje visual abstracto urbano de Hize."
+      },
+      "expo-2020-dubai": {
+        description:
+          "Un proyecto cultural que conecta graffiti, movimiento y abstracción contemporánea."
+      },
+      instagram: {
+        description:
+          "Una colaboración de marca que lleva el lenguaje visual de Hize, nacido del graffiti, hacia la cultura visual contemporánea pensada para entornos sociales."
+      },
+      bvlgari: {
+        description:
+          "Un contexto de marca premium para el lenguaje urbano abstracto de Hize, articulado a través de color, gesto y cultura contemporánea."
+      },
+      valentino: {
+        description:
+          "Una colaboración visual ligada a la moda que conecta la práctica de graffiti digital de Hize con movimiento, performance e imagen de lujo."
+      },
+      "international-mural-projects": {
+        description:
+          "Murales de gran formato por encargo para espacios privados, públicos y hospitality."
+      },
+      "vr-art-performances": {
+        description:
+          "Experiencias de graffiti digital en vivo para eventos, marcas y proyectos culturales."
+      }
+    }
+  }
+};
+
 export function resolveLocale(pathname: string): Locale {
   return pathname === "/es" || pathname.startsWith("/es/") ? "es" : "en";
 }
@@ -599,6 +781,22 @@ export function localizeProjectTypeLabel(value: string, locale: Locale): string 
   return projectTypeLabels[locale][key] || value;
 }
 
+export function getLocalizedWorkContent<T extends Record<string, any>>(item: T, locale: Locale): T {
+  return localizeEntityContent("works", item, locale) as T;
+}
+
+export function getLocalizedProjectContent<T extends Record<string, any>>(item: T, locale: Locale): T {
+  return localizeEntityContent("projects", item, locale) as T;
+}
+
+export function getLocalizedMuralContent<T extends Record<string, any>>(item: T, locale: Locale): T {
+  return localizeEntityContent("murals", item, locale) as T;
+}
+
+export function getLocalizedExhibitionContent<T extends Record<string, any>>(item: T, locale: Locale): T {
+  return localizeEntityContent("exhibitions", item, locale) as T;
+}
+
 function deepMerge(base: unknown, override: unknown): unknown {
   if (override === undefined) return base;
   if (Array.isArray(override)) return override;
@@ -658,4 +856,119 @@ function slugifyToken(value: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+function localizeEntityContent(
+  kind: "works" | "projects" | "murals" | "exhibitions",
+  item: Record<string, any>,
+  locale: Locale
+): Record<string, any> {
+  const key = entityKey(item);
+  const overrides = entityOverrides[locale]?.[kind]?.[key] || {};
+  const localized = deepMerge(item, overrides) as Record<string, any>;
+
+  if (typeof localized.description === "string") {
+    localized.description = localizeDescription(kind, localized, locale);
+  }
+
+  for (const field of ["location", "client", "technique", "size", "price", "alt", "year"]) {
+    if (typeof localized[field] === "string") {
+      localized[field] = localizeExactValue(localized[field], locale);
+    }
+  }
+
+  if (localized.video && typeof localized.video === "object") {
+    localized.video = {
+      ...localized.video,
+      title: typeof localized.video.title === "string" ? localizeExactValue(localized.video.title, locale) : localized.video.title,
+      text: typeof localized.video.text === "string" ? localizeExactValue(localized.video.text, locale) : localized.video.text
+    };
+  }
+
+  return localized;
+}
+
+function localizeDescription(
+  kind: "works" | "projects" | "murals" | "exhibitions",
+  item: Record<string, any>,
+  locale: Locale
+): string {
+  const description = String(item.description || "").trim();
+  if (kind === "works" && isPlaceholderDescription(description)) {
+    return buildWorkFallbackDescription(item, locale);
+  }
+
+  return localizeExactValue(description, locale);
+}
+
+function buildWorkFallbackDescription(item: Record<string, any>, locale: Locale): string {
+  const title = String(item.title || "").toLowerCase();
+
+  if (title.includes("style is wild")) {
+    return locale === "es"
+      ? "Una obra de la serie Style is Wild, donde Hize expande su lenguaje de graffiti abstracto a través de gesto en capas, tensión cromática y ritmo estructural."
+      : "Part of the Style is Wild series, this work extends Hize's abstract graffiti language through layered gesture, chromatic tension and structural rhythm.";
+  }
+
+  if (title.includes("wild encounters")) {
+    return locale === "es"
+      ? "Una obra de la serie Wild Encounters, donde contraste, movimiento y memoria fragmentada de la letra construyen una composición abstracta de energía abierta."
+      : "Part of the Wild Encounters series, this work explores contrast, movement and fragmented letter memory through an open abstract composition.";
+  }
+
+  if (title === "hize" || title === "hize 2") {
+    return locale === "es"
+      ? "Un estudio directo del propio nombre de Hize como estructura visual, transformando memoria tipográfica, gesto y energía urbana en un campo abstracto."
+      : "A direct study of Hize's own name as visual structure, turning letter memory, gesture and urban energy into an abstract field.";
+  }
+
+  if (title.includes("conexion")) {
+    return locale === "es"
+      ? "Una continuación de la serie Conexion, donde fragmentos enlazados, transiciones cromáticas y pausas rítmicas generan una composición abstracta contemporánea."
+      : "A continuation of the Conexion series, where linked fragments, chromatic transitions and rhythmic spacing build a contemporary abstract composition.";
+  }
+
+  if (title.includes("black series")) {
+    return locale === "es"
+      ? "Parte de la Black Series, esta obra lleva la estructura del graffiti hacia una abstracción más densa y nocturna mediante fondo oscuro, contraste afilado y acentos cromáticos."
+      : "Part of the Black Series, this work pushes graffiti structure toward a denser, nocturnal abstraction through dark ground, sharp contrast and chromatic accents.";
+  }
+
+  return locale === "es"
+    ? "Obra original de Hize desarrollada desde la estructura del graffiti, el gesto y el ritmo visual para construir una composición abstracta contemporánea."
+    : "An original work by Hize, developed from graffiti structure, gesture and visual rhythm to form a contemporary abstract composition.";
+}
+
+function isPlaceholderDescription(value: string): boolean {
+  const normalized = value.trim().toLowerCase();
+  return (
+    normalized.length === 0 ||
+    normalized === "add the collector-facing artwork description here." ||
+    normalized === "add the collector-facing artwork description here"
+  );
+}
+
+function entityKey(item: Record<string, any>): string {
+  return slugifyToken(String(item.id || item.slug || item.title || ""));
+}
+
+function localizeExactValue(value: string, locale: Locale): string {
+  if (locale === "en") return value;
+
+  const trimmed = String(value || "").trim();
+  if (!trimmed) return trimmed;
+
+  const direct = exactValueLabels[locale][slugifyToken(trimmed)];
+  if (direct) return direct;
+
+  return trimmed
+    .replace(/\bSpain and international\b/g, "España e internacional")
+    .replace(/\bSpain \/ International\b/g, "España / Internacional")
+    .replace(/\bTorreblanca, Spain\b/g, "Torreblanca, España")
+    .replace(/\bDubai, UAE\b/g, "Dubái, EAU")
+    .replace(/\bOsaka, Japan\b/g, "Osaka, Japón")
+    .replace(/\bSpain\b/g, "España")
+    .replace(/\bInternational\b/g, "Internacional")
+    .replace(/\bSelected Archive\b/g, "Archivo seleccionado")
+    .replace(/\bOngoing\b/g, "En curso");
 }

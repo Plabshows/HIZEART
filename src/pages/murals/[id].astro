@@ -4,7 +4,7 @@ import ResponsiveImage from "../../components/ResponsiveImage.astro";
 import ImageGrid from "../../components/ImageGrid.astro";
 import CTASection from "../../components/CTASection.astro";
 import { murals, slugifySegment } from "../../lib/content";
-import { getUiText, localizePath, resolveLocale } from "../../lib/i18n";
+import { getLocalizedMuralContent, getUiText, localizePath, resolveLocale } from "../../lib/i18n";
 
 export function getStaticPaths() {
   return murals.map((mural) => ({
@@ -16,41 +16,44 @@ export function getStaticPaths() {
 const { mural } = Astro.props;
 const locale = resolveLocale(Astro.url.pathname);
 const ui = getUiText(locale);
-const gallery = mural.gallery.map((src) => ({ src, alt: mural.alt }));
-const muralImage = new URL(mural.image, "https://hizeart.vercel.app").toString();
+const localizedMural = getLocalizedMuralContent(mural, locale);
+const gallery = localizedMural.gallery.map((src) => ({ src, alt: localizedMural.alt }));
+const muralImage = new URL(localizedMural.image, "https://hizeart.vercel.app").toString();
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
-  name: mural.title,
+  name: localizedMural.title,
   creator: "Manuel Forner Hize",
-  artMedium: mural.technique,
-  locationCreated: mural.location,
+  artMedium: localizedMural.technique,
+  locationCreated: localizedMural.location,
   image: muralImage,
-  description: mural.description
+  description: localizedMural.description
 };
 ---
 
 <BaseLayout
-  title={`${mural.title} | ${locale === "es" ? "Mural de Hize" : "Hize Mural"}`}
-  description={mural.description}
-  image={mural.image}
+  title={`${localizedMural.title} | ${locale === "es" ? "Mural de Hize" : "Hize Mural"}`}
+  description={localizedMural.description}
+  image={localizedMural.image}
   type="article"
   structuredData={structuredData}
 >
   <article class="detail-layout">
     <div class="detail-media">
-      <ResponsiveImage src={mural.image} alt={mural.alt} loading="eager" sizes="(min-width: 900px) 58vw, 100vw" />
+      <ResponsiveImage src={localizedMural.image} alt={localizedMural.alt} loading="eager" sizes="(min-width: 900px) 58vw, 100vw" />
     </div>
     <div class="detail-content">
       <a class="text-link" href={localizePath("/murals/", locale)}>{ui.common.backToMurals}</a>
       <p class="eyebrow">{ui.common.muralLabel}</p>
-      <h1>{mural.title}</h1>
-      <p class="lead">{mural.description}</p>
+      <h1>{localizedMural.title}</h1>
+      <p class="lead">{localizedMural.description}</p>
       <dl class="spec-list">
-        <div><dt>{ui.common.year}</dt><dd>{mural.year}</dd></div>
-        <div><dt>{ui.common.location}</dt><dd>{mural.location}</dd></div>
-        <div><dt>{ui.common.technique}</dt><dd>{mural.technique}</dd></div>
-        <div><dt>{ui.common.client}</dt><dd>{mural.client}</dd></div>
+        <div><dt>{ui.common.year}</dt><dd>{localizedMural.year}</dd></div>
+        <div><dt>{ui.common.location}</dt><dd>{localizedMural.location}</dd></div>
+        <div><dt>{ui.common.technique}</dt><dd>{localizedMural.technique}</dd></div>
+        {localizedMural.client && localizedMural.client !== "Client TBC" && localizedMural.client !== "Cliente por confirmar" && (
+          <div><dt>{ui.common.client}</dt><dd>{localizedMural.client}</dd></div>
+        )}
       </dl>
       <div class="button-row">
         <a class="button button--primary" href={localizePath("/contact/?type=mural-commission", locale)}>{ui.common.commissionMural}</a>
@@ -63,7 +66,7 @@ const structuredData = {
       <div class="section-heading">
         <div>
           <p class="eyebrow">{ui.common.muralVisuals}</p>
-          <h2>{mural.title}</h2>
+          <h2>{localizedMural.title}</h2>
         </div>
       </div>
       <ImageGrid images={gallery} locale={locale} />
