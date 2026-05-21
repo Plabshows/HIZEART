@@ -512,6 +512,11 @@ dt,
   margin: 0 auto;
 }
 
+.project-hero h1 {
+  max-width: 12ch;
+  margin-bottom: 1.35rem;
+}
+
 .project-hero__rule {
   width: 96px;
   height: 1px;
@@ -729,6 +734,23 @@ dt,
 .project-index-card__body p {
   max-width: 680px;
   color: var(--on-surface-variant);
+}
+
+.project-index-card__description {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  text-wrap: pretty;
+}
+
+.project-index-card__body h3 {
+  font-size: clamp(1.45rem, 2vw, 2rem);
+  line-height: 1.02;
+}
+
+.project-index-card__cta {
+  margin-top: 0.15rem;
 }
 
 .project-index-card__facts {
@@ -1481,6 +1503,24 @@ dd {
     grid-template-columns: 1fr;
   }
 
+  .project-hero {
+    min-height: 560px;
+    padding-bottom: clamp(2.5rem, 6vw, 3.5rem);
+  }
+
+  .project-hero__content {
+    width: 100%;
+  }
+
+  .project-hero h1 {
+    max-width: 11ch;
+  }
+
+  .project-hero__intro {
+    max-width: 42rem;
+    font-size: 1.125rem;
+  }
+
   .editorial-card,
   .editorial-card:nth-child(n),
   .project-index-card,
@@ -1540,6 +1580,29 @@ dd {
     font-size: 2.5rem;
   }
 
+  .project-hero {
+    min-height: clamp(520px, 82svh, 680px);
+    margin-bottom: clamp(4rem, 12vw, 5rem);
+    padding: 0 var(--margin) 2rem;
+  }
+
+  .project-hero h1 {
+    max-width: 10ch;
+    margin-bottom: 1rem;
+    font-size: clamp(2.45rem, 11vw, 3.35rem);
+  }
+
+  .project-hero__intro {
+    max-width: none;
+    font-size: 1.03rem;
+    line-height: 1.55;
+  }
+
+  .project-hero__rule {
+    width: 64px;
+    margin-top: 1.15rem;
+  }
+
   .work-grid,
   .project-grid,
   .mural-grid,
@@ -1559,7 +1622,44 @@ dd {
 
   .project-index-card__media,
   .project-index-card:nth-child(n) .project-index-card__media {
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 4 / 3;
+  }
+
+  .projects-index-grid {
+    gap: 2rem;
+  }
+
+  .project-index-card {
+    gap: 0.9rem;
+  }
+
+  .project-index-card__body {
+    gap: 0.8rem;
+    padding-top: 0.9rem;
+  }
+
+  .project-index-card__body h3 {
+    font-size: clamp(1.65rem, 8vw, 2.15rem);
+    max-width: 11ch;
+  }
+
+  .project-index-card__description {
+    -webkit-line-clamp: 4;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .project-index-card__facts {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .project-index-card__facts span {
+    display: block;
+  }
+
+  .project-index-card__facts span:not(:last-child)::after {
+    content: none;
   }
 
   .image-lightbox {

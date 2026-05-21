@@ -298,6 +298,7 @@ function renderProjectCard(item: Record<string, any>, locale: Locale): HTMLEleme
   heading.appendChild(headingLink);
 
   const description = document.createElement("p");
+  description.className = "project-index-card__description";
   description.textContent = String(localizedItem.description || "");
 
   const actions = document.createElement("div");
@@ -305,7 +306,7 @@ function renderProjectCard(item: Record<string, any>, locale: Locale): HTMLEleme
   const location = document.createElement("span");
   location.textContent = String(localizedItem.location || "");
   const cta = document.createElement("a");
-  cta.className = "text-link";
+  cta.className = "text-link project-index-card__cta";
   cta.href = detailHref;
   cta.textContent = ui.common.viewProject;
   actions.append(location, cta);
@@ -346,6 +347,7 @@ function renderProjectIndexCard(item: Record<string, any>, locale: Locale): HTML
   heading.appendChild(headingLink);
 
   const description = document.createElement("p");
+  description.className = "project-index-card__description";
   description.textContent = String(localizedItem.description || "");
 
   const facts = document.createElement("div");
@@ -354,7 +356,7 @@ function renderProjectIndexCard(item: Record<string, any>, locale: Locale): HTML
   if (localizedItem.client) facts.appendChild(createSpan(String(localizedItem.client)));
 
   const cta = document.createElement("a");
-  cta.className = "text-link";
+  cta.className = "text-link project-index-card__cta";
   cta.href = detailHref;
   cta.textContent = ui.common.viewProject;
 
