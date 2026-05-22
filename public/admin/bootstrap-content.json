@@ -111,7 +111,7 @@
         "contactButtonHref": "/contact/",
         "contactButtonLabel": "Contact Studio",
         "exhibitionsEyebrow": "Selected Exhibitions",
-        "collaborationsTitle": "Instagram\nBvlgari\nValentino",
+        "collaborationsTitle": "Louis Vuitton LV Lovers By Pharrell Williams\nBvlgari\nValentino",
         "portfolioButtonHref": "/contact/?type=portfolio",
         "exhibitionsLinkLabel": "Full timeline",
         "portfolioButtonLabel": "Download Portfolio",
@@ -539,7 +539,7 @@
         "type": "Brand Experience",
         "year": "Selected Archive",
         "title": "Brand Collaborations",
-        "client": "Instagram, Bvlgari, Valentino",
+        "client": "Louis Vuitton LV Lovers By Pharrell Williams, Bvlgari, Valentino",
         "gallery": [
           "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778771966769-ca3d968e-c31c-437b-879b-7d0ce40c53e4.jpg",
           "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778771974008-d9c66e86-d34d-4bfa-a07e-a0891d056036.jpg",
@@ -653,10 +653,10 @@
       },
       {
         "year": "Archive",
-        "title": "Instagram",
+        "title": "Louis Vuitton LV Lovers By Pharrell Williams",
         "type": "Brand Collaboration",
         "location": "International",
-        "description": "A brand collaboration extending Hize's graffiti-based visual language into social-first contemporary visual culture."
+        "description": "A luxury brand activation where Hize brought live customisation, hand-painted interventions and graffiti energy into the LV Lovers world by Pharrell Williams."
       },
       {
         "year": "Archive",
