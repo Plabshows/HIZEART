@@ -111,7 +111,7 @@
         "contactButtonHref": "/contact/",
         "contactButtonLabel": "Contact Studio",
         "exhibitionsEyebrow": "Selected Exhibitions",
-        "collaborationsTitle": "Louis Vuitton LV Lovers By Pharrell Williams\nBvlgari\nValentino",
+        "collaborationsTitle": "Instagram\nBvlgari\nValentino",
         "portfolioButtonHref": "/contact/?type=portfolio",
         "exhibitionsLinkLabel": "Full timeline",
         "portfolioButtonLabel": "Download Portfolio",
@@ -251,11 +251,11 @@
         "seoDescription": "Explore selected projects, hospitality commissions, murals, brand collaborations and immersive visual experiences by Spanish urban artist Hize.",
         "intro": "A curated archive of international projects, hospitality commissions, murals, brand collaborations and immersive visual experiences by Hize."
       },
-    "exhibitions": {
-      "intro": "A timeline of selected cultural contexts, brand collaborations and mural projects.",
-      "title": "International projects, exhibitions and collaborations.",
-      "eyebrow": "Exhibitions & Collaborations",
-      "seoImage": "/assets/images/graffiti/osaka-web.jpg",
+      "exhibitions": {
+        "intro": "A timeline of selected cultural contexts, brand collaborations, mural projects and VR Art performances.",
+        "title": "International projects, exhibitions and collaborations.",
+        "eyebrow": "Exhibitions & Collaborations",
+        "seoImage": "/assets/images/graffiti/osaka-web.jpg",
         "seoTitle": "Exhibitions by Hize | International Projects & Collaborations",
         "seoDescription": "Explore selected exhibitions, international projects, murals and collaborations by Spanish contemporary urban artist Hize."
       },
@@ -539,7 +539,7 @@
         "type": "Brand Experience",
         "year": "Selected Archive",
         "title": "Brand Collaborations",
-        "client": "Louis Vuitton LV Lovers By Pharrell Williams, Bvlgari, Valentino",
+        "client": "Instagram, Bvlgari, Valentino",
         "gallery": [
           "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778771966769-ca3d968e-c31c-437b-879b-7d0ce40c53e4.jpg",
           "https://omhjbjvjzkxjmqqionbs.supabase.co/storage/v1/object/public/hize-images/projects/1778771974008-d9c66e86-d34d-4bfa-a07e-a0891d056036.jpg",
@@ -638,13 +638,6 @@
   "data/exhibitions.json": {
     "exhibitions": [
       {
-        "year": "2024",
-        "title": "Louis Vuitton LV Lovers By Pharrell Williams",
-        "type": "Brand Collaboration",
-        "location": "International",
-        "description": "A luxury brand activation where Hize brought live customisation, hand-painted interventions and graffiti energy into the LV Lovers world by Pharrell Williams."
-      },
-      {
         "year": "2020",
         "title": "Expo 2020 Dubai",
         "type": "International Project",
@@ -652,21 +645,28 @@
         "description": "A cultural project connecting graffiti, movement and contemporary abstraction."
       },
       {
-        "year": "2019",
-        "title": "Bvlgari",
-        "type": "Brand Collaboration",
-        "location": "International",
-        "description": "A premium brand context for Hize's abstract urban language, shaped around colour, gesture and contemporary culture."
-      },
-      {
-        "year": "2017",
+        "year": "2023",
         "title": "Osaka Contemporary Art Museum",
         "type": "Exhibition",
         "location": "Osaka, Japan",
         "description": "International exhibition context for Hize's urban abstract visual language."
       },
       {
-        "year": "2021",
+        "year": "Archive",
+        "title": "Instagram",
+        "type": "Brand Collaboration",
+        "location": "International",
+        "description": "A brand collaboration extending Hize's graffiti-based visual language into social-first contemporary visual culture."
+      },
+      {
+        "year": "Archive",
+        "title": "Bvlgari",
+        "type": "Brand Collaboration",
+        "location": "International",
+        "description": "A premium brand context for Hize's abstract urban language, shaped around colour, gesture and contemporary culture."
+      },
+      {
+        "year": "Archive",
         "title": "Valentino",
         "type": "Brand Collaboration",
         "location": "International",
@@ -678,13 +678,20 @@
         "type": "Murals",
         "location": "Spain and international",
         "description": "Large-scale commissioned murals for private, public and hospitality spaces."
+      },
+      {
+        "year": "Ongoing",
+        "title": "VR Art performances",
+        "type": "Digital Performance",
+        "location": "International",
+        "description": "Live digital graffiti experiences for events, brands and cultural projects."
       }
     ]
   },
   "data/collaborations.json": {
     "collaborations": [
       {
-        "name": "Louis Vuitton LV Lovers By Pharrell Williams",
+        "name": "Instagram",
         "type": "Brand Collaboration"
       },
       {
@@ -700,7 +707,7 @@
         "type": "International Project"
       },
       {
-        "name": "Osaka Contemporary Art Museum 2017",
+        "name": "Osaka Contemporary Art Museum",
         "type": "Exhibition"
       }
     ]
