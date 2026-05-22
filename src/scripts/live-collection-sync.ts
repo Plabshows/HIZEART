@@ -14,8 +14,8 @@ import {
 const SUPABASE_URL = "https://omhjbjvjzkxjmqqionbs.supabase.co";
 const SUPABASE_KEY = "sb_publishable_nbqGkvXvIrKDKE0Mk3cIgg_RZA1exc9";
 
-type CollectionKey = "works" | "projects" | "murals";
-type ItemType = "work" | "project" | "mural";
+type CollectionKey = "works" | "projects" | "murals" | "collaborations";
+type ItemType = "work" | "project" | "mural" | "collaboration";
 
 interface SyncOptions {
   collectionKey: CollectionKey;
@@ -164,6 +164,8 @@ function renderItem(item: Record<string, any>, options: SyncOptions, container: 
       return renderProjectCard(item, locale);
     case "mural":
       return renderMuralCard(item, locale);
+    case "collaboration":
+      return renderCollaborationItem(item, locale);
     case "work":
     default:
       return renderWorkCard(item, options, locale);
@@ -421,6 +423,20 @@ function renderMuralCard(item: Record<string, any>, locale: Locale): HTMLElement
 
   actions.append(text, cta);
   article.append(mediaLink, actions);
+  return article;
+}
+
+function renderCollaborationItem(item: Record<string, any>, locale: Locale): HTMLElement {
+  const article = document.createElement("article");
+  article.className = "about-collaboration-item";
+
+  const title = document.createElement("h3");
+  title.textContent = String(item.name || "Collaboration");
+
+  const type = document.createElement("p");
+  type.textContent = localizeProjectTypeLabel(String(item.type || ""), locale);
+
+  article.append(title, type);
   return article;
 }
 

@@ -2,8 +2,9 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ResponsiveImage from "../../components/ResponsiveImage.astro";
 import CTASection from "../../components/CTASection.astro";
-import { exhibitions, pages } from "../../lib/content";
-import { absoluteUrl, getLocalizedPageContent, localizePath, resolveLocale } from "../../lib/i18n";
+import CollectionLiveSync from "../../components/CollectionLiveSync.astro";
+import { exhibitions, pages, collaborations } from "../../lib/content";
+import { absoluteUrl, getLocalizedPageContent, localizePath, localizeProjectTypeLabel, resolveLocale } from "../../lib/i18n";
 
 const locale = resolveLocale(Astro.url.pathname);
 const page = getLocalizedPageContent("about", pages.about, locale);
@@ -64,7 +65,14 @@ const structuredData = {
     <div class="page-shell split-section">
       <div>
         <p class="eyebrow">{page.collaborationsEyebrow}</p>
-        <h2 set:html={page.collaborationsTitle.replace(/\n/g, "<br />")} />
+        <div class="about-collaboration-list" data-live-collection="collaborations" data-live-item-type="collaboration" data-live-layout="about-collaboration-list">
+          {collaborations.map((item) => (
+            <article class="about-collaboration-item">
+              <h3>{item.name}</h3>
+              <p>{localizeProjectTypeLabel(item.type, locale)}</p>
+            </article>
+          ))}
+        </div>
       </div>
       <div>
         <p class="lead">{page.portfolioText}</p>
@@ -75,6 +83,8 @@ const structuredData = {
       </div>
     </div>
   </section>
+
+  <CollectionLiveSync />
 
   <CTASection
     locale={locale}
