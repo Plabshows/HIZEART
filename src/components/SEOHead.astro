@@ -1,5 +1,6 @@
 ---
 import { absoluteUrl, localizePath, stripLocaleFromPath, type Locale } from "../lib/i18n";
+import { SITE_URL } from "../lib/site";
 
 interface Props {
   title: string;
@@ -21,8 +22,7 @@ const {
   locale = "en"
 } = Astro.props;
 
-const site = "https://hizeart.vercel.app";
-const canonical = new URL(path, site).toString();
+const canonical = new URL(path, SITE_URL).toString();
 const imageUrl = absoluteUrl(image);
 const basePath = stripLocaleFromPath(path);
 const englishUrl = absoluteUrl(localizePath(basePath, "en"));

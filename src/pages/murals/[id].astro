@@ -4,7 +4,7 @@ import ResponsiveImage from "../../components/ResponsiveImage.astro";
 import ImageGrid from "../../components/ImageGrid.astro";
 import CTASection from "../../components/CTASection.astro";
 import { murals, slugifySegment } from "../../lib/content";
-import { getLocalizedMuralContent, getUiText, localizePath, resolveLocale } from "../../lib/i18n";
+import { absoluteUrl, getLocalizedMuralContent, getUiText, localizePath, resolveLocale } from "../../lib/i18n";
 
 export function getStaticPaths() {
   return murals.map((mural) => ({
@@ -18,7 +18,7 @@ const locale = resolveLocale(Astro.url.pathname);
 const ui = getUiText(locale);
 const localizedMural = getLocalizedMuralContent(mural, locale);
 const gallery = localizedMural.gallery.map((src) => ({ src, alt: localizedMural.alt }));
-const muralImage = new URL(localizedMural.image, "https://hizeart.vercel.app").toString();
+const muralImage = absoluteUrl(localizedMural.image);
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CreativeWork",

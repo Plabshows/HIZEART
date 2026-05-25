@@ -4,7 +4,7 @@ import ResponsiveImage from "../../../components/ResponsiveImage.astro";
 import ImageGrid from "../../../components/ImageGrid.astro";
 import CTASection from "../../../components/CTASection.astro";
 import { projects, slugifySegment } from "../../../lib/content";
-import { getLocalizedProjectContent, getUiText, localizePath, localizeProjectTypeLabel, resolveLocale } from "../../../lib/i18n";
+import { absoluteUrl, getLocalizedProjectContent, getUiText, localizePath, localizeProjectTypeLabel, resolveLocale } from "../../../lib/i18n";
 
 export function getStaticPaths() {
   return projects.map((project) => ({
@@ -18,7 +18,7 @@ const locale = resolveLocale(Astro.url.pathname);
 const ui = getUiText(locale);
 const localizedProject = getLocalizedProjectContent(project, locale);
 const gallery = localizedProject.gallery.map((src) => ({ src, alt: localizedProject.alt }));
-const projectImage = new URL(localizedProject.mainImage, "https://hizeart.vercel.app").toString();
+const projectImage = absoluteUrl(localizedProject.mainImage);
 const projectVideo = localizedProject.video?.youtubeId
   ? {
       title: localizedProject.video.title || `${localizedProject.title} Film`,

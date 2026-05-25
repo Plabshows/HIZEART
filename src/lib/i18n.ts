@@ -1,3 +1,5 @@
+import { toAbsoluteSiteUrl } from "./site";
+
 export type Locale = "en" | "es";
 
 type PageOverrides = Record<string, Record<string, unknown>>;
@@ -754,7 +756,7 @@ export function localizePath(path: string, locale: Locale): string {
 }
 
 export function absoluteUrl(path: string): string {
-  return new URL(path, "https://hizeart.vercel.app").toString();
+  return toAbsoluteSiteUrl(path);
 }
 
 export function getLocalizedPageContent<T extends Record<string, any>>(

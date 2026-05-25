@@ -1,6 +1,5 @@
 import { workDetailItems, projects, murals, slugifySegment } from "./content";
-
-const site = "https://hizeart.vercel.app";
+import { SITE_URL } from "./site";
 
 const staticRoutes = [
   "/",
@@ -39,7 +38,7 @@ export function buildSitemap() {
 ${routes
   .map(
     (route) => `  <url>
-    <loc>${new URL(route, site).toString()}</loc>
+    <loc>${new URL(route, SITE_URL).toString()}</loc>
   </url>`
   )
   .join("\n")}

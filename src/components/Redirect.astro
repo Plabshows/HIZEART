@@ -1,13 +1,15 @@
 ---
+import { DEFAULT_OG_IMAGE_PATH, toAbsoluteSiteUrl } from "../lib/site";
+
 interface Props {
   to: string;
 }
 
 const { to } = Astro.props;
-const target = new URL(to, "https://hizeart.vercel.app").toString();
+const target = toAbsoluteSiteUrl(to);
 const title = "Redirecting | HIZE ART";
 const description = "This page has moved. You are being redirected to the current HIZE ART page.";
-const image = "https://hizeart.vercel.app/assets/images/featured/hero-visitacastellon.jpg";
+const image = toAbsoluteSiteUrl(DEFAULT_OG_IMAGE_PATH);
 ---
 
 <!doctype html>
