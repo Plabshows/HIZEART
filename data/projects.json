@@ -50,6 +50,25 @@
       "description": "A hospitality project translating Hize's abstract graffiti energy into a bold spatial identity for a high-intensity dining environment."
     },
     {
+      "id": "auction-for-action-style-is-wild-1",
+      "alt": "Style Is Wild 1 by Hize for Auction for Action",
+      "type": "Charity Auction",
+      "year": "2024",
+      "title": "Auction for Action | Style Is Wild 1",
+      "client": "Auction for Action / xValencia",
+      "gallery": [
+        "/assets/images/projects/auction-for-action/auction-for-action-style-is-wild-1-01.jpg",
+        "/assets/images/projects/auction-for-action/auction-for-action-style-is-wild-1-02.jpg",
+        "/assets/images/projects/auction-for-action/auction-for-action-style-is-wild-1-03.jpg",
+        "/assets/images/projects/auction-for-action/auction-for-action-style-is-wild-1-04.jpg",
+        "/assets/images/projects/auction-for-action/auction-for-action-style-is-wild-1-05.jpg",
+        "/assets/images/projects/auction-for-action/auction-for-action-style-is-wild-1-06.jpg"
+      ],
+      "location": "Valencia, Spain",
+      "mainImage": "/assets/images/projects/auction-for-action/auction-for-action-style-is-wild-1-04.jpg",
+      "description": "Auction for Action was a charity auction created in response to the devastating DANA storm in Valencia. For the initiative, Hize contributed Style Is Wild 1, a unique 100 x 80 cm wall piece in acrylic and spray enamel. The project connected contemporary art with direct social impact, with 100% of proceeds directed to DANA victims through xValencia, an initiative by the Coloring the World Foundation supporting recovery across children, schools, local businesses and the future of Valencia."
+    },
+    {
       "id": "vr-art-performance",
       "alt": "Hize VR art performance creating digital graffiti in real time",
       "type": "Digital Performance",

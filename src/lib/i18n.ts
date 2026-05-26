@@ -27,7 +27,7 @@ const uiText = {
     },
     footer: {
       description:
-        "Spanish contemporary urban artist transforming graffiti into abstract paintings, murals and immersive visual experiences.",
+        "Abstract painter and performing arts director. Works from the hidden structures of graffiti — what remains when the letter disappears.",
       instagram: "Instagram",
       email: "Email",
       whatsapp: "WhatsApp",
@@ -531,6 +531,7 @@ const projectTypeLabels: Record<Locale, Record<string, string>> = {
     exhibition: "Exposición",
     murals: "Murales",
     collaboration: "Colaboración",
+    "charity-auction": "Subasta benéfica",
     "brand-collaboration": "Colaboración de marca",
     "international-project": "Proyecto internacional",
     "hospitality-project": "Proyecto hospitality",
@@ -637,6 +638,12 @@ const entityOverrides: LocalizedEntityMap = {
       }
     },
     projects: {
+      "auction-for-action-style-is-wild-1": {
+        alt: "Style Is Wild 1 de Hize para Auction for Action",
+        location: "Valencia, España",
+        description:
+          "Auction for Action fue una subasta benéfica creada en respuesta a la devastadora DANA en Valencia. Para esta iniciativa, Hize aportó Style Is Wild 1, una pieza única de 100 x 80 cm realizada en acrílico y spray enamel. El proyecto conectó arte contemporáneo e impacto social directo, destinando el 100% de los fondos a las víctimas de la DANA a través de xValencia, una iniciativa de la Coloring the World Foundation centrada en la recuperación de niños, escuelas, pequeños negocios y el futuro de Valencia."
+      },
       "streetxo-project": {
         description:
           "Para el proyecto StreetXO Dubai del reconocido chef Dabiz Muñoz, HIZE aportó a la atmósfera artística y a la identidad visual del espacio a través de una serie de obras e intervenciones inspiradas en la cultura urbana.\n\nMezclando graffiti, abstracción y estética street de energía cruda, el proyecto fue concebido para acompañar la intensidad explosiva y la personalidad rebelde de StreetXO: un concepto donde comida, música, diseño y arte colisionan en una experiencia totalmente inmersiva.\n\nLa intervención artística ayudó a transformar el entorno más allá del marco habitual de un restaurante, añadiendo capas de textura, movimiento y narrativa visual ligadas a la cultura urbana contemporánea.\n\nUna colaboración en la que el lenguaje del graffiti evolucionó hasta convertirse en parte de la experiencia sensorial que define la identidad audaz y disruptiva de StreetXO Dubai."
