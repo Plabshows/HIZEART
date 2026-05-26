@@ -426,15 +426,6 @@ function renderMuralCard(item: Record<string, any>, locale: Locale): HTMLElement
 
 function buildPicture(src: string, alt: string, sizes: string): HTMLElement {
   const picture = document.createElement("picture");
-  const webp = candidateWebp(src);
-  if (webp) {
-    const source = document.createElement("source");
-    source.type = "image/webp";
-    source.srcset = webp;
-    source.sizes = sizes;
-    picture.appendChild(source);
-  }
-
   const img = document.createElement("img");
   img.src = src;
   img.alt = alt;
@@ -443,12 +434,6 @@ function buildPicture(src: string, alt: string, sizes: string): HTMLElement {
   img.sizes = sizes;
   picture.appendChild(img);
   return picture;
-}
-
-function candidateWebp(src: string): string | null {
-  if (!src || !src.startsWith("/")) return null;
-  if (!/\.(jpe?g|png)$/i.test(src)) return null;
-  return src.replace(/\.(jpe?g|png)$/i, ".webp");
 }
 
 function parseOptionalInteger(value: string | undefined): number | undefined {
